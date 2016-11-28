@@ -1,0 +1,23 @@
+<Container ux:Class="Game.Panel" Padding="20" Subtree="inner">
+	<Viewbox ux:Binding="Children" StretchDirection="DownOnly">
+		<StackPanel ux:Name="theStack">
+			<Rectangle Layer="Background" CornerRadius="30" Margin="0,140,0,0" ux:Name="theBack">
+				<ImageFill File="../Assets/title_back.png" StretchMode="PointPrecise"/>
+				<Stroke Width="7" Color="#000" Alignment="Outside"/>
+			</Rectangle>
+			
+			<Image File="../Assets/title.png" Alignment="TopLeft" Margin="20,0,0,0" Height="200" ux:Name="theIcon"/>
+				
+			<Panel ux:Name="inner" Margin="20,-12,20,30" Padding="15,25,15,15">
+				<Rectangle Color="#FFF" CornerRadius="15" Layer="Background"/>
+			</Panel>
+		</StackPanel>
+	</Viewbox>
+	
+	<WhileWindowLandscape>
+		<Change inner.Margin="-20,20,30,20"/>
+		<Change theIcon.Margin="0,-30"/>
+		<Change theStack.Orientation="Horizontal"/>
+		<Change theBack.Margin="68,0,0,0"/>
+	</WhileWindowLandscape>
+</Container>

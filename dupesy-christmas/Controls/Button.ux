@@ -1,0 +1,6 @@
+<Panel ux:Class="Game.Button" Padding="20,10">
+	<string ux:Property="Label"/>
+	<Rectangle Layer="Background" Color="#CBF" CornerRadius="10"/>
+	<Text Value="{Property this.Label}" TextColor="#132" FontSize="20" TextAlignment="Center"/>
+</Panel>
+	

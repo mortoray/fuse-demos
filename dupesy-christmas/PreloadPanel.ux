@@ -1,0 +1,11 @@
+<!-- cause images to load immedaitely, to avoid jerking level loading -->
+<Panel ux:Class="Game.PreloadPanel" Alignment="BottomLeft" Opacity="0" Width="20" Height="20">
+	<JavaScript>
+		exports.gameTiles = require("GameTiles.js").getPublic()
+	</JavaScript>
+	<Each Items="{gameTiles.tileTypes}">
+		<Deferred>
+			<Image File="{image}"/>
+		</Deferred>
+	</Each>
+</Panel>

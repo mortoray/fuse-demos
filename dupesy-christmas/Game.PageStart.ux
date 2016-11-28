@@ -1,0 +1,22 @@
+<Game.Page ux:Class="Game.PageStart">
+	<JavaScript>
+		exports.gameRouting = require("GameRouting.js")
+		exports.gameConfig = require("GameConfig.js")
+	</JavaScript>
+	<Game.Panel Alignment="Center">
+		<StackPanel MaxWidth="400" ItemSpacing="6">
+			<Game.BigLabel Value="Dupesy Christmas"/>
+			<Game.Help>Find the duplicates!</Game.Help>
+			
+			<Game.Menu Margin="0,5,0,10">
+				<Game.Button Label="Start" Clicked="{gameRouting.startGame}"/>
+				<Game.Button Label="Help" Clicked="{gameRouting.help}" />
+			</Game.Menu>
+			
+			<StackPanel Alignment="Center" ItemSpacing="6">
+				<Game.SimpleSelect Value="{gameConfig.mode}" Options="{gameConfig.modeOptions}"/>
+				<Game.SimpleSelect Value="{gameConfig.difficulty}" Options="{gameConfig.difficultyOptions}"/>
+			</StackPanel>
+		</StackPanel>
+	</Game.Panel>
+</Game.Page>

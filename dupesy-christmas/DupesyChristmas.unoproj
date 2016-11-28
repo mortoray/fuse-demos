@@ -1,0 +1,24 @@
+{
+	"Copyright": "Copyright ©2016 edA-qa mort-ora-y",
+	"Desiption": "A glorious image matching game with a delightful Christmas theme.",
+	"Icon": "Assets/icon_128.png",
+	"Title": "Dupesy Christmas",
+	"Version": "1.0.0",
+	"Published": "EverSystems",
+
+	"iOS": {
+		"BundleIdentifier": "eu.eversystems.dupesychristmas",
+	},
+  "InternalsVisibleTo": [],
+  "Packages": [
+	"Fuse",
+	"FuseJS",
+	"Fuse.Designer",
+  ],
+  "Projects": [],
+  "Includes": [
+    "*",
+    "Assets/*.png:Bundle",
+    "*.js:Bundle",
+  ]
+}

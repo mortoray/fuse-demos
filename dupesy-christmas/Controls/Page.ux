@@ -1,0 +1,14 @@
+<Page ux:Class="Game.Page">
+	<Transition To="game">
+		<Move Y="1" RelativeTo="ParentSize" Duration="0.5" Easing="QuadraticIn"/>
+	</Transition>
+	<Transition From="game">
+		<Move Y="-1" RelativeTo="ParentSize" Duration="0.5" Easing="QuadraticIn"/>
+	</Transition>
+	<Transition Direction="ToActive">
+		<Move X="1" RelativeTo="ParentSize" Duration="0.5" Easing="QuadraticIn"/>
+	</Transition>
+	<Transition Direction="ToInactive">
+		<Move X="-1" RelativeTo="ParentSize" Duration="0.5" Easing="QuadraticIn"/>
+	</Transition>
+</Page>

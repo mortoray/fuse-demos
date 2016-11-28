@@ -1,0 +1,26 @@
+<Game.Page ux:Class="Game.PageGameOver">
+	<JavaScript>
+		exports.gameStats = require("GameStats.js").getPublic()
+		exports.gameRouting = require("GameRouting.js")
+		exports.gameState = require("GameState.js").getPublic()
+	</JavaScript>
+	<Game.Panel Alignment="Center">
+		<StackPanel ItemSpacing="8">
+			<Game.BigLabel Alignment="Center" Value="Game Over"/>
+			<Grid Columns="auto,auto" CellSpacing="3" Alignment="Center">
+				<Game.Label Value="Score" Alignment="Right"/>
+				<Game.Label Value="{gameState.score}"/>
+				
+				<Game.Label Value="Errors" Alignment="Right"/>
+				<Game.Label Value="{gameState.failCount}"/>
+			</Grid>
+			
+			<Panel Height="15"/>
+			
+			<Game.Menu>
+				<Game.Button Label="Try Again" Clicked="{gameRouting.restart}"/>
+				<Game.Button Label="Main Menu" Clicked="{gameRouting.returnMain}"/>
+			</Game.Menu>
+		</StackPanel>
+	</Game.Panel>
+</Game.Page>

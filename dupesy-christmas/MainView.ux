@@ -1,0 +1,34 @@
+<ClientPanel ux:Class="Game.MainView">
+	<Image Layer="Background" StretchMode="UniformToFill" File="Assets/title_background.jpg"
+		ux:Name="titleBack"/>
+	
+	<WhileTrue ux:Name="loadingDisplay">
+		<Image File="Assets/load_icon.png" Alignment="BottomRight" Width="50" Margin="15"
+			ux:Name="theLoadIcon"/>
+		<Spin Target="theLoadIcon" Frequency="0.5"/>
+	</WhileTrue>
+	<!-- TODO: The image is not disappearing when loading is false!
+	<WhileTrue Value="{loading}">
+		<Change loadingDisplay.Value="true"/>
+	</WhileTrue>
+	-->
+	
+	<Navigator DefaultPath="start" ClipToBounds="false">
+		<Game.PageStart ux:Name="start"/>
+		<Game.PageHelp ux:Name="help"/>
+		<Game.PageGameOver ux:Name="gameOver"/>
+		
+		<Game.PageGame ux:Name="game">
+			<ActivatingAnimation>
+				<Change titleBack.Opacity="0.2"/>
+			</ActivatingAnimation>
+		</Game.PageGame>
+	</Navigator>
+
+	<Game.PreloadPanel>
+		<WhileBusy>
+			<Change loadingDisplay.Value="true"/>
+		</WhileBusy>
+	</Game.PreloadPanel>
+
+</ClientPanel>

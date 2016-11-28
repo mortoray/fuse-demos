@@ -1,0 +1,22 @@
+<Game.Page ux:Class="Game.PageHelp">
+	<JavaScript>
+		exports.gameRouting = require("GameRouting.js")
+	</JavaScript>
+	<Game.FullPanel>
+		<Game.Label ux:Class="Game.Help" FontSize="21" Margin="8"/>
+		<StackPanel ItemSpacing="10">
+			<Game.Help>Oh no! The elves had a bit of a party and totally messed up the gifts. Each delivery now has a duplicate mixed in it! Help Santa sort it out.</Game.Help>
+			
+			<Game.Help>Each screen has a set of presents. Find the two that are the same and tap on one them. Santa has to leave soon though, so you don't have much time.</Game.Help>
+			
+			<Game.Help>In "Rush Mode" when the timer reaches zero you lose a life. Lose them all and it's game over. Each correct answer restores the timer (well, almost).</Game.Help>
+			
+			<Game.Menu>
+				<Game.Button Label="Start" Clicked="{gameRouting.startGame}"/>
+				<Game.Button Label="Back" Clicked="{gameRouting.returnMain}" />
+			</Game.Menu>
+			
+			<Game.Label Value="©2016 edA-qa mort-ora-y"/>
+		</StackPanel>
+	</Game.FullPanel>
+</Game.Page>

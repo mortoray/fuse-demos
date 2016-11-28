@@ -1,0 +1,28 @@
+<Container ux:Class="Game.FullPanel" Margin="20,10,20,20" Subtree="inner"
+	Width="100%" Height="100%" MaxWidth="500" Alignment="Center">
+	<DockPanel ux:Name="theStack" ux:Binding="Children">
+		<Rectangle Layer="Background" CornerRadius="30" Margin="0,40,0,0" ux:Name="theBack">
+			<ImageFill File="../Assets/title_back.png" StretchMode="PointPrecise"/>
+			<Stroke Width="7" Color="#000" Alignment="Outside"/>
+		</Rectangle>
+			
+		<Image Dock="Top" File="../Assets/title.png" Alignment="TopLeft" Margin="20,0,0,0" Height="100" ux:Name="theIcon"/>
+				
+		<Panel Margin="15,-12,15,15" Padding="10,20,10,10" ux:Name="theContent">
+			<Image File="../Assets/arrow_up.png" Alignment="TopRight" Width="22" Opacity="0" ux:Name="theUpArrow" Layer="Overlay" Margin="-5"/>
+			<Image File="../Assets/arrow_down.png" Alignment="BottomRight" Width="22" Opacity="0" ux:Name="theDownArrow" Layer="Overlay" Margin="-5"/>
+			
+			<Rectangle Color="#FFF" CornerRadius="15" Layer="Background"/>
+			<ScrollView>
+				<Panel ux:Name="inner"/>
+				
+				<WhileScrollable ScrollDirections="Up">
+					<Change theUpArrow.Opacity="1" Duration="0.3"/>
+				</WhileScrollable>
+				<WhileScrollable ScrollDirections="Down">
+					<Change theDownArrow.Opacity="1" Duration="0.3"/>
+				</WhileScrollable>
+			</ScrollView>
+		</Panel>
+	</DockPanel>
+</Container>

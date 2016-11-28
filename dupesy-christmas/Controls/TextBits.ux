@@ -1,0 +1,6 @@
+<Panel ux:Class="Game.TextBits">
+	<Text ux:Class="Game.BigLabel" TextWrapping="Wrap" TextAlignment="Center" FontSize="30"
+		TextColor="#252"/>
+	<Text ux:Class="Game.Label" TextWrapping="Wrap" TextAlignment="Center" FontSize="20"
+		TextColor="#245"/>
+</Panel>

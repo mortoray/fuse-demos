@@ -1,0 +1,10 @@
+<App>
+	<Router ux:Name="router"/>
+	
+	<UserEvent ux:Name="eventTimePenalty"/>
+	<UserEvent ux:Name="eventLostLife"/>
+	<UserEvent ux:Name="eventGoodSelect"/>
+	<JavaScript File="main.js"/>
+
+	<Game.MainView/>
+</App>

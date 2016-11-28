@@ -1,0 +1,6 @@
+<StackPanel Orientation="Horizontal" ux:Class="Game.Menu" ItemSpacing="10" Alignment="Center">
+	<WhileWindowPortrait>
+<!-- 			<Change this.Orientation="Vertical"/> -->
+		<Change this.ItemSpacing="8"/>
+	</WhileWindowPortrait>
+</StackPanel>

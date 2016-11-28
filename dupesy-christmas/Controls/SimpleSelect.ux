@@ -1,0 +1,73 @@
+<DockPanel ux:Class="Game.SimpleSelect">
+	<string ux:Property="Value"/>
+	<object ux:Property="Options"/>
+	
+	<Selection Value="{Property this.Value}" MinCount="1" MaxCount="1"/>
+
+	<JavaScript>
+		var _this = this
+		var value = this.Value
+		
+		var options = this.Options.inner()
+		exports.dummy1 = options //TODO: why? to get subscription?
+		
+		exports.index = value.map( function(cur) {
+			return selected(cur)
+		})
+		exports.hasPrev = exports.index.map( function(i) {
+			return i > 0
+		})
+		exports.hasNext = exports.index.map( function(i) {
+			return i < (options.length-1)
+		})
+		
+		function selected(cur) {
+			for (var i=0; i < options.length; ++i ) {
+				if (cur == options.getAt(i).value) {
+					return i
+				}
+			}
+			
+			return 0
+		}
+		
+		function select( ndx ) {
+			ndx = Math.max(0, Math.min( options.length-1, ndx ) )
+			value.value = options.getAt(ndx).value
+		}
+		
+		exports.left = function() {
+			select( selected(value.value) - 1 )
+		}
+		
+		exports.right = function() {
+			select( selected(value.value) + 1 )
+		}
+	</JavaScript>
+	
+	<Image Dock="Left" File="../Assets/arrow_left.png" Height="36" Clicked="{left}" ux:Name="btnLeft">
+		<Desaturate Amount="0" ux:Name="theGray1"/>
+		<WhileFalse Value="{hasPrev}">
+			<Change btnLeft.Opacity="0.3"/>
+			<Change theGray1.Amount="0.8"/>
+		</WhileFalse>
+	</Image>
+	
+	<Image Dock="Right" File="../Assets/arrow_right.png" Height="36" Clicked="{right}" ux:Name="btnRight">
+		<Desaturate Amount="0" ux:Name="theGray2"/>
+		<WhileFalse Value="{hasNext}">
+			<Change btnRight.Opacity="0.3"/>
+			<Change theGray2.Amount="0.8"/>
+		</WhileFalse>
+	</Image>
+
+	<Each Items="{Property Options}">
+		<Panel Visibility="Hidden" ux:Name="outer">
+			<WhileSelected>
+				<Change outer.Visibility="Visible"/>
+			</WhileSelected>
+			<Selectable Value="{value}"/>
+			<Text Value="{label}" Alignment="Center" FontSize="24" Margin="4,0"/>
+		</Panel>
+	</Each>
+</DockPanel>

@@ -1,0 +1,121 @@
+<Game.Page ux:Class="Game.PageGame">
+	<DockPanel>
+		<JavaScript>
+			var gameState = require("GameState.js")
+			exports.gameState = gameState.getPublic()
+			var gameTiles = require("GameTiles.js" )
+			exports.gameTiles = gameTiles.getPublic()
+
+			exports.selectedCorrect = gameState.selectedCorrect
+			exports.selectedIncorrect = gameState.selectedIncorrect
+			
+			exports.onPlaced = function(args) {
+				gameTiles.setSize( [args.width, args.height] )
+			}
+		</JavaScript>
+		
+		<Panel Padding="5" Dock="Top">
+			<StackPanel Alignment="TopRight" Orientation="Horizontal">
+				<Text FontSize="25" Color="#132" Alignment="Center" Value="{gameState.score}"/>
+				<Panel Width="5"/>
+				<Image File="Assets/icon_check.png" Height="30" Alignment="Center"
+					ExplicitTransformOrigin="95%,5%">
+					<OnUserEvent EventName="eventGoodSelect">
+						<Scale Factor="1.5" Duration="0.3" Easing="QuadraticOut"/>
+					</OnUserEvent>
+				</Image>
+			</StackPanel>
+			
+			<WhileFalse Value="{gameState.rushMode}">
+				<StackPanel Alignment="TopLeft" Orientation="Horizontal">
+					<Image File="Assets/icon_cross.png" Height="30" Alignment="Center"/>
+					<Panel Width="5"/>
+					<Text FontSize="25" Color="#132" Alignment="Center" Value="{gameState.failCount}"/>
+				</StackPanel>
+			</WhileFalse>
+			
+			<WhileTrue Value="{gameState.rushMode}">	
+				<StackPanel Alignment="TopLeft" Orientation="Horizontal">
+					<Image File="Assets/icon_heart.png" Height="30" Alignment="Center"
+						ExplicitTransformOrigin="5%,5%" ux:Name="theHeartIcon">
+						<OnUserEvent EventName="eventLostLife">
+							<Scale Factor="4" Duration="0.1" DurationBack="0.3" Easing="QuadraticOut"/>
+						</OnUserEvent>
+					</Image>
+					<Panel Width="5"/>
+					<Text FontSize="25" Color="#132" Alignment="Center" Value="{gameState.lives}"/>
+				</StackPanel>
+			</WhileTrue>
+			
+			<Panel Width="50%" Height="30" Alignment="HorizontalCenter" MaxWidth="300">
+				<Rectangle Margin="4" CornerRadius="1" Color="#F24" Width="0%" ux:Name="timeBar"
+					SnapToPixels="false">
+					<RangeAnimation Minimum="0" Maximum="{gameState.maxTime}"
+						Value="{gameState.timeLeft}">
+						<Change timeBar.Width="100%"/>
+					</RangeAnimation>
+					<RangeAnimation Minimum="10" Maximum="20" Value="{gameState.timeLeft}">
+						<Change timeBar.Color="#8FA"/>
+					</RangeAnimation>
+					
+					<OnUserEvent EventName="eventTimePenalty">
+						<Change timeBarPulse.Color="#F00"/>
+						<Scale Target="timeBarPulse" Vector="1.2,2.5,1" Duration="0.25" DurationBack="0"
+							Easing="QuadraticOut"/>
+						<Change timeBarPulse.Opacity="0" Duration="0.25" DurationBack="0"/>
+					</OnUserEvent>
+				</Rectangle>
+				<Rectangle CornerRadius="5" Color="#F000" Layer="Background" ux:Name="timeBarPulse"/>
+				<Rectangle CornerRadius="5" Color="#5878" Layer="Background" ux:Name="timeBarBack"/>
+			</Panel>
+		</Panel>
+		
+		<Panel Placed="{onPlaced}">
+			<Each Items="{gameTiles.items}">
+				<Deferred>
+					<Panel X="{layout.x}" Y="{layout.y}" ux:Name="theTarget"
+						Width="{layout.size}" Height="{layout.size}" Anchor="50%,50%">
+						
+						<Image File="{image}" HitTestMode="None">
+							<Rotation ux:Name="theRotation"/>
+							<Attractor Target="theRotation.Degrees" Value="{layout.rotation}"
+								Unit="Degrees" Easing="SinusoidalInOut"/>
+							<WhileVisible>
+								<Spin Frequency="{layout.spinFreq}"/>
+							</WhileVisible>
+						</Image>
+						<Panel HitTestMode="LocalBounds">
+							<WhileTrue Value="{layout.isTarget}">
+								<Clicked Handler="{selectedCorrect}"/>
+							</WhileTrue>
+							<WhileFalse Value="{layout.isTarget}">
+								<Clicked Handler="{selectedIncorrect}">
+									<Skew Target="theTarget" 
+										DegreesX="15" Duration="0.5" Easing="SinusoidalInOut"/>
+									<Scale Target="theTarget" Factor="0.6" Duration="0.5"/>
+								</Clicked>
+							</WhileFalse>
+						</Panel>
+	<!--								<WhileTrue Value="{layout.isTarget}">
+							<Circle Color="#0F08"/>
+						</WhileTrue>-->
+						
+						<LayoutAnimation>
+							<Move Vector="1" RelativeTo="PositionChange" Duration="0.5" Easing="SinusoidalInOut"/>
+							<Scale Vector="1" RelativeTo="SizeChange" Duration="0.5" Easing="Linear"/>
+						</LayoutAnimation>
+						<RemovingAnimation>
+							<Scale Factor="0" Duration="0.5" Easing="QuadraticIn"/>
+							<Change theTarget.ZOffset="-1" Duration="0.5"/>
+						</RemovingAnimation>
+						<AddingAnimation>
+							<Change theTarget.Opacity="0" Duration="0.5"/>
+							<Scale Factor="1.3" Duration="0.5" Easing="QuadraticIn"/>
+							<Change theTarget.ZOffset="1" Duration="0.5"/>
+						</AddingAnimation>
+					</Panel>
+				</Deferred>
+			</Each>
+		</Panel>
+	</DockPanel>
+</Game.Page>
