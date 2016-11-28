@@ -8,11 +8,17 @@
 		<StackPanel ItemSpacing="8">
 			<Game.BigLabel Alignment="Center" Value="Game Over"/>
 			<Grid Columns="auto,auto" CellSpacing="3" Alignment="Center">
-				<Game.Label Value="Score" Alignment="Right"/>
+				<Game.Label Value="Score . . .&#160;" Alignment="Right"/>
 				<Game.Label Value="{gameState.score}"/>
 				
-				<Game.Label Value="Errors" Alignment="Right"/>
-				<Game.Label Value="{gameState.failCount}"/>
+				<Game.Label Value="Best . . .&#160;" Alignment="Right" ux:Name="bestLabel"/>
+				<Game.Label Value="{gameState.statsResult.bestScore}" ux:Name="bestScore"/>
+				
+				<WhileTrue Value="{gameState.statsResult.lastBest}">
+					<Change bestLabel.Color="#084"/>
+					<Change bestLabel.Value="New Best . . .&#160;"/>
+					<Change bestScore.Color="#084"/>
+				</WhileTrue>
 			</Grid>
 			
 			<Panel Height="15"/>

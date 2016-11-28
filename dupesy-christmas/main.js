@@ -1,5 +1,6 @@
 var Observable = require("FuseJS/Observable")
 var FileSystem = require("FuseJS/FileSystem")
+var Environment = require('FuseJS/Environment')
 
 var gameState = require("GameState.js")
 var gameStats = require("GameStats.js")
@@ -35,7 +36,14 @@ gameState.onGoodSelect = function() {
 }
 
 //https://github.com/fusetools/fuselibs/issues/3383
-var savePath = FileSystem.dataDirectory + "/state"
+var saveDir = FileSystem.dataDirectory
+if (Environment.ios) {
+	saveDir = FileSystem.iosPaths.documents
+} else if (Environment.android) {
+	saveDir = FileSystem.androidPaths.files
+}
+var savePath = saveDir + "/state"
+
 
 function saveData() {
 	console.log( "Saving: " + savePath )

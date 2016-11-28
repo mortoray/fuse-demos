@@ -1,6 +1,16 @@
 <Game.Page ux:Class="Game.PageHelp">
+	<Fuse.Reactive.FuseJS.InterApp ux:AutoBind="false"/>
 	<JavaScript>
+		var InterApp = require("FuseJS/InterApp")
+		
 		exports.gameRouting = require("GameRouting.js")
+		
+		exports.goMortoray = function() {
+			InterApp.launchUri("https://mortoray.com/DupseyChristmas/")
+		}
+		exports.goPixabay = function() {
+			InterApp.launchUri("https://pixabay.com/")
+		}
 	</JavaScript>
 	<Game.FullPanel>
 		<Game.Label ux:Class="Game.Help" FontSize="21" Margin="8"/>
@@ -11,12 +21,17 @@
 			
 			<Game.Help>In "Rush Mode" when the timer reaches zero you lose a life. Lose them all and it's game over. Each correct answer restores the timer (well, almost).</Game.Help>
 			
+			<Game.Help Clicked="{goMortoray}" TextColor="#488">Visit Dupsey Christmas on mortoray.com</Game.Help>
+			
 			<Game.Menu>
 				<Game.Button Label="Start" Clicked="{gameRouting.startGame}"/>
 				<Game.Button Label="Back" Clicked="{gameRouting.returnMain}" />
 			</Game.Menu>
 			
+			<Panel Height="10"/>
+			
 			<Game.Label Value="©2016 edA-qa mort-ora-y"/>
+			<Game.Label Value="Artwork from pixabay" Clicked="{goPixabay}"/>
 		</StackPanel>
 	</Game.FullPanel>
 </Game.Page>

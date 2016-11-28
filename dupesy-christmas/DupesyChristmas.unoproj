@@ -4,16 +4,25 @@
 	"Icon": "Assets/icon_128.png",
 	"Title": "Dupesy Christmas",
 	"Version": "1.0.0",
-	"Published": "EverSystems",
+	"Publisher": "EverSystems",
 
 	"iOS": {
 		"BundleIdentifier": "eu.eversystems.dupesychristmas",
+	},
+	"Android":{
+		"Key": {
+			"Alias": "application",
+			"AliasPassword": "Android",
+			"Store": "release.keystore",
+			"StorePassword": "Android",
+		},
 	},
   "InternalsVisibleTo": [],
   "Packages": [
 	"Fuse",
 	"FuseJS",
 	"Fuse.Designer",
+	"Fuse.Launcher",
   ],
   "Projects": [],
   "Includes": [
