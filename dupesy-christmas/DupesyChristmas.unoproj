@@ -16,6 +16,9 @@
 			"Store": "release.keystore",
 			"StorePassword": "Android",
 		},
+		"VersionCode": 1,
+		"VersionName": "$(Version)",
+		"Package": "eu.eversystems.dupesychristmas",
 	},
   "InternalsVisibleTo": [],
   "Packages": [
