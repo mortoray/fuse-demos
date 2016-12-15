@@ -1,0 +1,42 @@
+<Page ux:Class="PageImageInfo" MaxWidth="300">
+	<Router ux:Dependency="router"/>
+	<JavaScript File="PageImageInfo.js"/>
+
+	<Text ux:Class="LabelText" Color="#222" FontSize="20"/>
+	
+	<Rectangle CornerRadius="10" Color="#FFF" Padding="10">
+		<StackPanel ItemSpacing="10">
+			<Image Height="48" Opacity="0.4" Url="{data.previewURL}" StretchMode="UniformToFill"/>
+			
+			<LabelText Value="{data.size}" TextAlignment="Center"/>
+			<LabelText Value="{data.tags}" TextWrapping="Wrap" TextAlignment="Center"/>
+			
+			<StackPanel Orientation="Horizontal" ItemSpacing="10" Alignment="Center">
+				<Panel Color="#AFA">
+					<Image Alignment="Left" File="Assets/icon_thumbsup.png" Height="32" Color="#222"/>
+					<Text Margin="40,0,0,0" Value="{data.likes}"/>
+				</Panel>
+				
+				<Panel Color="#AFA">
+					<Image Alignment="Left" File="Assets/icon_star.png" Height="32" Color="#222"/>
+					<Text Margin="40,0,0,0" Value="{data.favorites}"/>
+				</Panel>
+			</StackPanel>
+			
+			<DockPanel>
+				<Circle Dock="Left" Height="48" Width="48" Margin="0,0,10,0">
+					<ImageFill Url="{data.userImageURL}"/>
+				</Circle>
+				
+				<LabelText Color="#222" Value="{data.user}" Alignment="CenterLeft"/>
+			</DockPanel>
+		
+			<Panel Height="20"/>
+			
+			<Image Color="#222" File="Assets/icon_cancel.png" Alignment="BottomRight" Height="32"
+				Clicked="{goBack}"/>
+		</StackPanel>
+		
+	</Rectangle>
+	
+</Page>

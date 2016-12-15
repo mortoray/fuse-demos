@@ -1,0 +1,144 @@
+<Page ux:Class="PageSearch">
+	<Router ux:Dependency="router"/>
+	<JavaScript File="PageSearch.js"/>
+	<Rectangle CornerRadius="20" Color="#FFFA" ux:Class="OverlayButton" Padding="7" Margin="5"/>
+	
+	<Panel ux:Name="TheViewer" Visibility="Hidden" HitTestMode="LocalBoundsAndChildren">
+		<SolidColor Color="0,0,0,0" ux:Name="BlockColor"/>
+
+		<Panel Layer="Overlay">
+			<OverlayButton Alignment="TopRight" ux:Name="closeButton">
+				<Image File="Assets/icon_cancel.png" Color="#012" Height="32"/>
+				<Clicked>
+					<Set ViewerVisible.Value="false"/>
+				</Clicked>
+			</OverlayButton>
+			
+			<OverlayButton Alignment="BottomRight" Clicked="{goInfo}">
+				<Image File="Assets/icon_info.png" Height="32" Color="#012"/>
+			</OverlayButton>
+		</Panel>
+		
+		<!-- reset transform -->
+		<DoubleTapped>
+			<Set TheZoomer.Value="1"/>
+			<Set ThePanner.Value="0,0"/>
+			<Set TheRotater.Value="0"/>
+		</DoubleTapped>
+		
+		<!-- close when it gets small enough -->
+		<WhileFloat Value="{ReadProperty TheTransform.ZoomFactor}" LessThan="0.7">
+			<!-- the gestures will be active at this time, so we must explicitly cancel them -->
+			<CancelInteractions/>
+			<Set ViewerVisible.Value="false"/>
+		</WhileFloat>
+		
+		<WhileTrue ux:Name="ViewerVisible">
+			<Change BlockColor.Color="0,0.1,0.2,0.9" Duration="0.2" Easing="QuadraticInOut"/>
+			<Change TheViewer.Visibility="Visible"/>
+			<PulseForward Target="ZoomTo" When="Backward"/>
+			
+			<!-- reset transform so animation gets close to target size -->
+			<Set TheZoomer.Value="1" When="Backward"/>
+			<Set ThePanner.Value="0,0" When="Backward"/>
+			<Set TheRotater.Value="0" When="Backward"/>
+		</WhileTrue>
+		
+		<ZoomGesture Target="TheTransform" Minimum="1" Maximum="3" ux:Name="TheZoom"/>
+		<Attractor Target="TheTransform.ZoomFactor" ux:Name="TheZoomer" TimeMultiplier="2"
+			Type="Elastic" Unit="Normalized"/>
+			
+		<RotateGesture Target="TheTransform" ux:Name="TheRotate" StepDegrees="30"/>
+		<Attractor Target="TheTransform.Rotation" ux:Name="TheRotater" TimeMultiplier="0.5"
+			Type="Elastic" Unit="Degrees"/>
+		
+		<PanGesture Target="TheTransform" Constraint="TheViewerImage" ux:Name="ThePan"/>
+		<Attractor Target="TheTransform.Translation" ux:Name="ThePanner" 
+			Type="Elastic" Unit="Points"/>
+			
+		<!-- the user might start interacting while the attractors are still running, stop that -->
+		<WhileInteracting>
+			<Change Target="TheZoomer.IsEnabled" Value="false"/>
+			<Change Target="TheRotater.IsEnabled" Value="false"/>
+			<Change Target="ThePanner.IsEnabled" Value="false"/>
+		</WhileInteracting>
+		
+		<!-- A wrapping panel to ensure the InteractiveTransform and layout transforms don't
+			interfere with each other (it is not supported to have them both on the same node) -->
+		<Panel>
+			<Image ux:Name="TheViewerImage">
+				<InteractiveTransform ux:Name="TheTransform"/>
+				<WhileLoading>
+					<Change ThePreviewImage.Visibility="Visible"/>
+				</WhileLoading>
+			</Image>
+			<Image ux:Name="ThePreviewImage" Visibility="Hidden"/>
+			<Timeline ux:Name="ZoomTo">
+				<Move RelativeTo="PositionOffset" Vector="1" Duration="0.3" ux:Name="ZoomToPos"
+					Easing="QuadraticInOut"/>
+				<Resize RelativeTo="Size" Vector="1" Duration="0.3" ux:Name="ZoomToSize"
+					Easing="QuadraticInOut"/>
+			</Timeline>
+		</Panel>
+	</Panel>
+
+	<DockPanel>
+		<StackPanel Dock="Top" Orientation="Horizontal" Margin="10,5" ItemSpacing="8">
+			<Image File="Assets/pixabay_logo.png" Height="32"/>
+			<Text Value="Image Browser" Alignment="Bottom" Color="#DDD" FontSize="18"/>
+		</StackPanel>
+		<Grid Dock="Top" Columns="1*,auto" DefaultRow="auto" Margin="5" CellSpacing="5">
+			<Rectangle Color="#FFF" CornerRadius="8" Padding="10,5,10,5">
+				<TextInput Value="{term}" TextColor="#000" FontSize="20" Margin="0,0,32,0"
+					ActionStyle="Search" ActionTriggered="{search}"
+					Placeholder="Search term"/>
+				<Image Width="32" File="Assets/icon_search.png" Alignment="Right" Clicked="{search}"
+					Color="#222"/>
+			</Rectangle>
+			<Image Height="32" File="Assets/icon_config.png"/>
+		</Grid>
+		
+		<ScrollView AllowedScrollDirections="Horizontal" ux:Name="theScroll">
+			<Panel Margin="7">
+				<ColumnLayout ColumnSize="200" Orientation="Horizontal" Sizing="Fill"
+					ColumnSpacing="7" ItemSpacing="7" ux:Name="TheColumns"/>
+					
+				<Each Items="{items}">
+					<Panel>
+						<Image Url="{previewURL}" ux:Name="selfImage"/>
+						<Tapped Handler="{select}">
+							<!-- Do the images in UX to get an immediate switch, no JS thread delay -->
+							<Set Target="TheViewerImage.Url" Value="{webformatURL}"/>
+							<Set Target="ThePreviewImage.Url" Value="{previewURL}"/>
+							<Set ViewerVisible.Value="true"/>
+							
+							<Set TheTransform.ZoomFactor="1"/>
+							<Set TheTransform.Rotation="0"/>
+							<Set TheTransform.Translation="0"/>
+							
+							<Set ZoomToPos.RelativeNode="selfImage"/>
+							<Set ZoomToSize.RelativeNode="selfImage"/>
+							<PulseBackward Target="ZoomTo"/>
+						</Tapped>
+					</Panel>
+				</Each>
+				
+				<WhileTrue Value="{loading}">
+					<Panel LayoutRole="Placeholder" MinWidth="150">
+						<Rectangle CornerRadius="20" Color="#AAA8">
+							<Stroke Width="1" Color="#FFFA"/>
+						</Rectangle>
+						<Text Value="Loading..." Color="#000" FontSize="20"/>
+					</Panel>
+				</WhileTrue>
+			</Panel>
+			
+			<WhileWindowPortrait>
+				<Change theScroll.AllowedScrollDirections="Vertical"/>
+				<Change TheColumns.Orientation="Vertical"/>
+			</WhileWindowPortrait>
+			
+			<Scrolled To="End" Within="1" RelativeTo="ScrollViewSize" Handler="{onEnd}" ux:Name="scrolledToEnd"/>
+		</ScrollView>
+	</DockPanel>
+</Page>
