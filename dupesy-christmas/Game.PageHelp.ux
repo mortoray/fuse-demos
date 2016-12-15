@@ -6,7 +6,7 @@
 		exports.gameRouting = require("GameRouting.js")
 		
 		exports.goMortoray = function() {
-			InterApp.launchUri("https://mortoray.com/DupseyChristmas/")
+			InterApp.launchUri("https://mortoray.com/DupesyChristmas/")
 		}
 		exports.goPixabay = function() {
 			InterApp.launchUri("https://pixabay.com/")
