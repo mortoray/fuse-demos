@@ -1,0 +1,25 @@
+<App>
+	<JavaScript>
+		var Observable = require("FuseJS/Observable")
+		
+		exports.x = Observable(0.5)
+		exports.y = Observable(0.5)
+		
+		exports.move = function() {
+			exports.x.value = Math.random()
+			exports.y.value = Math.random()
+		}
+	</JavaScript>
+	<AttractorConfig Unit="Normalized" Type="Elastic" ux:Global="asNorm"/>
+
+	<ClientPanel>
+		<Panel Margin="50" Color="#888">
+			<Circle Width="50" Height="50"
+				X="attract({x},asNorm) * 100%" 
+				Y="attract({y},asNorm) * 100%"
+				Anchor="50%,50%"
+				Color="#AFA"/>
+		</Panel>
+		<Button Text="Move" Alignment="TopLeft" Clicked="{move}"/>
+	</ClientPanel>
+</App>

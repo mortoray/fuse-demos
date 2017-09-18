@@ -1,0 +1,38 @@
+<App>
+	<JavaScript>
+		var Observable = require("FuseJS/Observable")
+		
+		exports.temp = Observable(0.5)
+		
+		exports.move = function() {
+			exports.temp.value = Math.random()
+		}
+		exports.goFull = function() {
+			exports.temp.value = 1.0
+		}
+		exports.goZero = function() {
+			exports.temp.value = 0.0
+		}
+	</JavaScript>
+	<AttractorConfig Unit="Normalized" Type="Elastic" ux:Global="asNorm"/>
+	<AttractorConfig Unit="Normalized" Easing="SinusoidalInOut" Duration="2" ux:Global="colorConfig"/>
+
+	<ClientPanel>
+		<Panel Margin="50" Width="100" Alignment="Left">
+			<Button Text="Full" Alignment="Top" Anchor="50%,100%" Clicked="{goFull}"/>
+			<Panel Padding="5" Color="#777">
+				<Text Value="{= floor(attract({temp},asNorm)*100)}" Alignment="Center" Color="#000" FontSize="40"/>
+				<Panel X="100%" 
+						Y="(1-attract({temp},asNorm)) * 100%" 
+						Anchor="50%, 50%" Width="50" Height="50">
+					<Star Points="floor(attract({temp},asNorm) * 15 + 5)" Color="#FF4" StrokeColor="#000" StrokeWidth="2"/>
+				</Panel>
+				<Rectangle Alignment="Bottom" 
+						Height="attract({temp},asNorm) * 100%" 
+						Color="lerp(#8AF, #F44, attract({temp},colorConfig))"/>
+			</Panel>
+			<Button Text="Zero" Alignment="Bottom" Anchor="50%,0%" Clicked="{goZero}"/>
+		</Panel>
+		<Button Text="Move" Alignment="TopLeft" Clicked="{move}"/>
+	</ClientPanel>
+</App>

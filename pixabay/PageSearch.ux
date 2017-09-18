@@ -66,13 +66,13 @@
 		<!-- A wrapping panel to ensure the InteractiveTransform and layout transforms don't
 			interfere with each other (it is not supported to have them both on the same node) -->
 		<Panel>
-			<Image ux:Name="TheViewerImage">
+			<Image ux:Name="TheViewerImage" MemoryPolicy="UnloadUnused">
 				<InteractiveTransform ux:Name="TheTransform"/>
 				<WhileLoading>
 					<Change ThePreviewImage.Visibility="Visible"/>
 				</WhileLoading>
 			</Image>
-			<Image ux:Name="ThePreviewImage" Visibility="Hidden"/>
+			<Image ux:Name="ThePreviewImage" Visibility="Hidden" MemoryPolicy="UnloadUnused"/>
 			<Timeline ux:Name="ZoomTo">
 				<Move RelativeTo="PositionOffset" Vector="1" Duration="0.3" ux:Name="ZoomToPos"
 					Easing="QuadraticInOut"/>
@@ -90,8 +90,7 @@
 		<Grid Dock="Top" Columns="1*,auto" DefaultRow="auto" Margin="5" CellSpacing="5">
 			<Rectangle Color="#FFF" CornerRadius="8" Padding="10,5,10,5">
 				<TextInput Value="{term}" TextColor="#000" FontSize="20" Margin="0,0,32,0"
-					ActionStyle="Search" ActionTriggered="{search}"
-					Placeholder="Search term"/>
+					ActionStyle="Search" ActionTriggered="{search}"/>
 				<Image Width="32" File="Assets/icon_search.png" Alignment="Right" Clicked="{search}"
 					Color="#222"/>
 			</Rectangle>
@@ -105,7 +104,7 @@
 					
 				<Each Items="{items}">
 					<Panel>
-						<Image Url="{previewURL}" ux:Name="selfImage"/>
+						<Image Url="{previewURL}" ux:Name="selfImage" MemoryPolicy="UnloadUnused"/>
 						<Tapped Handler="{select}">
 							<!-- Do the images in UX to get an immediate switch, no JS thread delay -->
 							<Set Target="TheViewerImage.Url" Value="{webformatURL}"/>
