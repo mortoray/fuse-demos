@@ -1,0 +1,59 @@
+<App>
+	<DockPanel>
+		<Panel Dock="Top" Color="#000">
+			<Text Alignment="Center" TextColor="#FFF" Value="The Title" FontSize="24"/>
+		</Panel>
+		
+		<Rectangle StrokeWidth="2" StrokeColor="#0FF"/>
+		
+		<StackPanel Dock="Left" Color="#AFA8" Padding="5">
+			<Text Value="One" FontSize="32" ux:Name="oneText"/>
+			<Panel Height="5">
+				<Circle Color="#000"/>
+			</Panel>
+			<Text Value="Two" FontSize="32" ux:Name="twoText"/>
+		</StackPanel>
+		
+		<Panel Height="50" Dock="Bottom" Color="#AAA8" ux:Name="bottomPanel">
+			<Clicked>
+				<Change bottomPanel.Height="100" Duration="2"/>
+			</Clicked>
+		</Panel>
+		
+		<!--<Panel Color="#FFA" Alignment="TopRight" Padding="10" Margin="10" ux:Name="textPanel">
+			<Text Value="I have a size" FontSize="32" TextWrapping="Wrap"/>
+			<Clicked>
+				<Scale Factor="5" Duration="0.5"/>
+			</Clicked>
+		</Panel>-->
+		
+		<Grid ColumnCount="2" RowCount="2" BoxSizing="FillAspect" Aspect="1" Color="#0808" Margin="10">
+			<Panel Color="#400" Margin="5"/>
+			<Panel Color="#400" Margin="5"/>
+			<Panel Color="#400" Margin="5"/>
+			<Panel Color="#400" Margin="5"/>
+			
+			<!--<Circle Width="15" Height="15" Color="#F00" 
+					Alignment="BottomCenter" Anchor="50%,50%" Layer="Overlay"/>-->
+			
+			<Rectangle Color="#AFFA" Layer="Overlay" 
+				CornerRadius="5" Padding="10,5"
+				StrokeWidth="1" StrokeColor="#000"
+				
+				X="50%" Y="100%"
+				Anchor="50%,35%"
+				>
+				<Text Value="Bottom of Grid" TextColor="#000" FontSize="32"/>
+			</Rectangle>
+			
+		</Grid>
+		
+		<DockPanel Alignment="TopCenter" Padding="10,5" Margin="5">
+			<Rectangle Layer="Background" Color="#AAA" CornerRadius="50"/>
+			<Circle Width="20.5" Color="#000" Dock="Left" Margin="0,0,10,0" SnapToPixels="false">
+				<Circle Width="16.5" Color="#FFF" SnapToPixels="false"/>
+			</Circle>
+			<Text Value="Popup Notice" TextColor="#000"/>
+		</DockPanel>
+	</DockPanel>
+</App>
