@@ -1,0 +1,20 @@
+<App>
+	<ClientPanel>
+		<Grid ColumnCount="1" Margin="20">	
+			<StackPanel Alignment="VerticalCenter" ItemSpacing="10">
+				<Text Value="{= floor({Property nSlider.Value}) }" Alignment="Center"
+					HitTestMode="None"/>
+				<Slider ux:Name="nSlider" Range="50,0"/>
+				<Panel Height="10"/>
+				<MySlider Alignment="VerticalCenter" ux:Name="mySlider"
+					UserStep="20"/>
+				<MySlider Alignment="VerticalCenter" UserStep="5" Range="50,0"/>
+			</StackPanel>
+			
+			<StackPanel Orientation="Horizontal" Alignment="HorizontalCenter" ItemSpacing="20">
+				<MyVSlider UserStep="10"/>
+				<MyVSlider UserStep="5" Range="-50,-100"/>
+			</StackPanel>
+		</Grid>
+	</ClientPanel>
+</App>

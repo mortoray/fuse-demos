@@ -1,0 +1,23 @@
+<RangeControl ux:Class="MySlider" Margin="20,0"
+	HitTestMode="LocalBounds">
+	<AttractorConfig Unit="Normalized" Type="SmoothSnap" ux:Global="rangeSnap"/> 
+	
+	<Rectangle Width="40" Height="30" Color="#EEE" StrokeColor="#888" StrokeWidth="2"
+		Alignment="CenterLeft" Anchor="50%,50%" CornerRadius="5"
+		X="attract({Property this.RelativeValue}, rangeSnap) * 100%">
+		<Text Value="{Property this.Value}" Alignment="Center"/>
+	</Rectangle>
+	<LinearRangeBehavior/>
+	<Rectangle Height="2" Color="#AAA" Alignment="VerticalCenter"/>
+	
+	<Grid RowCount="1" ChildOrder="ColumnMajor" DefaultColumn="1*">
+		<Rectangle ux:Class="MySliderMarker"
+			Width="2" Color="#AAB" Anchor="50%,50%"/>
+			
+		<Each Count="abs({Property this.Maximum} - {Property this.Minimum}) / {Property this.UserStep}">
+			<MySliderMarker Alignment="Right"/>
+		</Each>
+		
+		<MySliderMarker Alignment="Left" Column="0" Row="0"/>
+	</Grid>
+</RangeControl>
