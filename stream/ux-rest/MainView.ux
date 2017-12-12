@@ -1,0 +1,86 @@
+<App>
+	<JavaScript>
+		var Observable = require("FuseJS/Observable")
+		exports.items = Observable( "Hello", "World" )
+		
+		var count = 0
+		exports.add = function() {
+			exports.items.add( "New Item: " + (count++) )
+		}
+		
+		exports.remove = function( args ) {
+			exports.items.remove( args.data )
+		}
+	</JavaScript>
+	<Rectangle ux:Class="MyButton" Color="#EEE" Padding="5,3" Margin="3"
+		StrokeColor="#000" StrokeWidth="1" CornerRadius="5">
+		<string ux:Property="Label"/>
+		<Text Value="{Property this.Label}"/>
+			
+		<Clicked>
+			<Scale Factor="2" Duration="0.3" Easing="CubicInOut"/>
+		</Clicked>
+	</Rectangle>
+	
+	<Viewport Perspective="100">
+		<StackPanel ux:Name="theStack" ItemSpacing="5">
+			<MyButton Label="Add" Alignment="Center" Clicked="{add}"/>
+			<Each Items="{items}">
+				<Rectangle Margin="5" Color="#DFD" Clicked="{remove}">
+					<Text Value="{}"/>
+					<AddingAnimation>
+						<Move X="1" RelativeTo="ParentSize" DurationBack="0.5"/>
+					</AddingAnimation>
+					<RemovingAnimation>
+						<Move X="-1" RelativeTo="ParentSize" Duration="0.5"/>
+					</RemovingAnimation>
+				</Rectangle>
+			</Each>
+			
+			<MyButton Label="Flip" Alignment="Center">
+				<Clicked>
+					<Rotate DegreesY="90" Duration="3" Target="theStack"/>
+				</Clicked>
+			</MyButton>
+			
+			<Rectangle Height="2" Color="#888"/>
+			<Grid ColumnCount="3" CellSpacing="5">
+				<Each Count="6">
+					<Panel Alignment="Center">
+						<Rectangle Layer="Background" Color="#8888"/>
+						<Circle Color="#088" Width="50" Height="50" ux:Name="theCircle">
+							<Clicked>
+								<Move Y="100" Duration="1.5" DurationBack="0.2"/>
+								<Rotate DegreesX="180" Duration="1.5" DurationBack="0.2"/>
+								<Scale Factor="2" Duration="1.5" DurationBack="0.2"
+									Easing="SinusoidalInOut"/>
+							</Clicked>
+						</Circle>
+					</Panel>
+				</Each>
+			</Grid>
+			<Rectangle Height="2" Color="#888"/>
+			
+			<Panel BoxSizing="FillAspect" Aspect="2" Color="#EEE">
+				
+				<Circle Alignment="Center" Width="20" Height="20" Color="#008"
+					ux:Name="centerCircle"/>
+					
+				<MyButton Label="Top-Left" Alignment="TopLeft" ux:Name="topLeft">
+					<Clicked>
+						<Move Target="centerCircle" 
+							RelativeNode="topLeft" Vector="1" 
+							RelativeTo="TransformOriginOffset"
+							Duration="1"/>
+					</Clicked>
+				</MyButton>
+				<MyButton Label="Top-Right" Alignment="TopRight" ux:Name="topRight">
+					<Clicked>
+						<Move Target="centerCircle" 
+							RelativeNode="topRight" Vector="1" RelativeTo="TransformOriginOffset" Duration="1"/>
+					</Clicked>
+				</MyButton>
+			</Panel>
+		</StackPanel>
+	</Viewport>
+</App>
