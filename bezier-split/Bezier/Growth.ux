@@ -1,0 +1,49 @@
+<Page ux:Class="Bezier.Growth" Title="Growing" Padding="10">
+
+	<Switch Alignment="Top" ux:Name="on"/>
+
+	<Panel Margin="0,10,0,0">
+		<PathFlower StrokeColor="#A25" StrokeWidth="5" PathStart="0" PathLength="0"
+			Height="25%" Anchor="50%,100%"
+			X="vectorX({headPos})" Y="vectorY({headPos}) + y(stem)" ux:Name="head"/>
+
+		<Timeline ux:Name="offset">
+			<Nothing Duration="1"/>
+		</Timeline>
+		
+		<Curve StrokeWidth="1" StrokeColor="#ffd073" ux:Name="stem" Alignment="Bottom" Height="50%"
+			PathStart="0" PathLength="0">
+			<CurvePoint At="0.46,1"/>
+			<CurvePoint At="0.39+0.095*{Property offset.Progress},0.75-0.01*{Property offset.Progress}"/>
+			<CurvePoint At="0.50+0.02*{Property offset.Progress},0.44"/>
+			<CurvePoint At="0.49,0.3-0.01*{Property offset.Progress}"/>
+		</Curve>
+		
+		<Let ux:Name="leafPos1" Expression="pathPointAtDistance(stem, 0.40)"/>
+		<Let ux:Name="leafPos2" Expression="pathPointAtDistance(stem, 0.71)"/>
+		<Let ux:Name="headPos" Expression="pathPointAtDistance(stem, 0.99)"/>
+		
+		<PathLeafLeft StrokeColor="#b1ff18" StrokeWidth="2.5" PathStart="0" PathLength="0" ux:Name="t1"
+			X="vectorX({leafPos1})" Y="vectorY({leafPos1}) + y(stem)" Width="33%"/>
+		<PathLeafRight StrokeColor="#b1ff18" StrokeWidth="2.5" PathStart="0" PathLength="0" ux:Name="t2"
+			X="vectorX({leafPos2})" Y="vectorY({leafPos2}) + y(stem)" Width="33%"/>
+			
+
+		<WhileTrue Source="on">
+			<Change stem.Height="100%" Duration="4"/>
+			<Change stem.PathLength="1" Duration="6"/>
+			<Change stem.StrokeWidth="3.5" Duration="3"/>
+			
+			<Change t1.PathLength="1" Duration="5" Delay="2.5"/>
+			<Change t2.PathLength="1" Duration="5" Delay="4.2"/>
+			<Change head.PathLength="1" Duration="5" Delay="5.5"/>
+			
+			<Cycle Target="offset.Progress" Low="0" High="1" Frequency="0.2"/>
+		</WhileTrue>
+		
+		<Path ux:Class="PathLeafLeft" Data="m 500,624 c -106.25,48.167 -193.685,72.25 -262.305,72.25 l 0,0 C 177.148,696.25 131.25,677.5 100,640 260,533.333 393.333,525.333 500,616 l 0,0 c -93.333,-6.667 -182.934,-1.333 -268.8,16 l 0,0 c 85.866,-13.333 175.467,-16 268.8,-8 l 0,0" Anchor="100%,50%"/>
+		<Path ux:Class="PathLeafRight" Data="m 0.609375,90.632812 c 116.666245,9.999998 228.667505,6.66625 336.000005,-10 C 229.27688,102.29906 117.27562,108.96656 0.609375,100.63281 133.94312,213.96656 300.60938,203.96656 500.60938,70.632812 461.54688,23.757812 404.17398,0.3203125 328.49023,0.3203125 c -85.775,0 -195.06835,30.1037495 -327.880855,90.3124995" Anchor="0%,50%"/>
+		
+		<Path ux:Class="PathFlower" Data="m 699.30552,964.18564 c 40.70184,-0.33011 74.48392,-38.22125 68.30105,-74.53077 -7.95227,-40.65405 -33.50463,-67.16931 -58.54002,-84.73802 -48.76458,-22.39419 -86.82785,-61.15811 -118.72463,-96.48653 m -1.82107,-0.91633 c 37.0541,102.20225 -35.14682,188.58013 60.2972,247.69296 18.63182,11.40666 34.76969,9.47154 50.43827,8.70812 M 690.58733,613.4095 c -53.81797,-129.1696 -97.27307,48.92946 -77.73389,94.35863 m -8.77385,-49.89015 c -87.40404,-160.10045 -23.72792,32.62647 -36.63908,111.48361 l 7.1e-4,0.004 c -11.28139,68.96436 -24.58033,96.49822 49.08673,161.279 M 685.08459,732.92607 C 695.5647,630.12585 624.4897,660.16532 607.1277,726.44797 M 760.79861,852.22195 C 826.64098,624.68883 660.89822,610.93804 689.43266,791.07471 M 838.14989,683.42924 c -5.2239,-91.10751 -31.828,-80.65815 -50.05575,-35.53113 m -128.66034,5.35174 c 22.69395,-38.20112 67.70842,-28.91897 70.14618,-18.3211 2.43837,10.6013 -19.8659,22.45624 -25.44145,18.7206 -5.57553,-3.73564 -8.48287,-9.98949 5.78756,-16.21299 -24.08376,1.26087 -23.65099,21.19705 -11.9042,25.18991 11.74906,3.99711 51.74069,-10.76385 44.97311,-34.6121 -6.7676,-23.84834 -78.86455,-18.48789 -83.5612,25.23568 z M 762.72323,935.2864 c 54.68823,-38.19694 91.03733,-105.6823 96.60523,-158.20965 5.56351,-52.52666 -22.01727,-154.11684 -64.9593,-30.10681 -6.73878,19.45773 -12.58421,36.30861 -17.62959,51.07884 m 1.37473,-63.36598 c 18.9124,-164.02575 1.60434,-185.78367 -76.49208,-125.22451"/>
+	</Panel>
+</Page>
