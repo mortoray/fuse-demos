@@ -1,0 +1,36 @@
+<Page ux:Class="Bezier.Loading" Title="Loading">
+
+	<DockPanel Padding="10">
+		<VectorLayer>
+			<PathCeltic StrokeWidth="15" StrokeColor="#F008" Width="40%" ux:Name="pathA"
+				PathStart="{Property bp.Progress}" PathLength="0.05"/>
+			<PathCeltic StrokeWidth="15" StrokeColor="#0F08" Width="40%" ux:Name="pathB"
+				PathStart="{Property bp.Progress} + 0.25" PathLength="0.05"/>
+			<PathCeltic StrokeWidth="15" StrokeColor="#00F8" Width="40%" ux:Name="pathC"
+				PathStart="{Property bp.Progress} + 0.50" PathLength="0.05"/>
+			<PathCeltic StrokeWidth="15" StrokeColor="#FFF8" Width="40%" ux:Name="pathD"
+				PathStart="{Property bp.Progress} + 0.75" PathLength="0.05"/>
+
+			<PathCeltic StrokeWidth="5" StrokeColor="#F004" Width="40%" ux:Name="pathAB"
+				PathStart="{Property bp.Progress}" PathLength="{length}"/>
+			<PathCeltic StrokeWidth="5" StrokeColor="#0F04" Width="40%" ux:Name="pathBB"
+				PathStart="{Property bp.Progress} + 0.25" PathLength="{length}"/>
+			<PathCeltic StrokeWidth="5" StrokeColor="#00F4" Width="40%" ux:Name="pathCB"
+				PathStart="{Property bp.Progress} + 0.50" PathLength="{length}"/>
+			<PathCeltic StrokeWidth="5" StrokeColor="#FFF4" Width="40%" ux:Name="pathDB"
+				PathStart="{Property bp.Progress} + 0.75" PathLength="{length}"/>
+		</VectorLayer>
+
+		<Let ux:Name="length" Expression="(sin({Property bpl.Progress}*3.14*2)/2 + 0.5) * 0.2"/>
+		<WhileActive>
+			<Timeline ux:Name="bp" PlayMode="Wrap">
+				<Nothing Duration="3"/>
+			</Timeline>
+			<Timeline ux:Name="bpl" PlayMode="Wrap">
+				<Nothing Duration="5"/>
+			</Timeline>
+		</WhileActive>
+	</DockPanel>
+	
+	<Path ux:Class="PathCeltic" Data="m 779.78848,205.5229 c -20.0016,-5.12264 -41.09039,-28.38344 -38.42537,-57.46182 2.66502,-29.07838 24.73695,-54.765979 52.87896,-55.34666 28.14201,-0.580681 55.86549,27.4249 60.28201,50.76387 4.41652,23.33897 3.50531,48.65473 -1.05755,71.91538 -4.56285,23.26065 -26.52064,45.32081 -55.69919,44.06582 -29.17855,-1.25499 -55.0874,-27.23179 -56.75676,-52.52648 -1.66936,-25.29469 25.37057,-55.95272 44.77085,-60.282 19.40028,-4.32928 42.96341,-1.95676 69.44772,-2.11518 26.48431,-0.15842 52.99766,34.01854 50.76381,60.9871 -2.23385,26.96856 -28.66251,52.55337 -59.22443,52.87895 -30.56193,0.32559 -50.93718,-35.26553 -52.87899,-54.64159 -1.94181,-19.37606 -6.68017,-40.57866 0,-67.33256 6.68017,-26.7539 33.48679,-44.686496 58.51942,-42.655684 25.03263,2.030812 53.51677,28.237264 53.23145,55.699204 -0.28532,27.46194 -27.93501,52.55855 -50.76379,56.40421 -22.82879,3.84566 -55.08654,4.77009 -75.08814,-0.35256 z"/>
+</Page>

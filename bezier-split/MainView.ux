@@ -21,9 +21,10 @@
 			</WhileCanGoForward>
 		</Panel>
 		<PageControl ux:Name="nav" Interaction="None">
+			<Bezier.Loading/>
+			<Bezier.Growth/>
 			<Bezier.Plot/>
 			<Bezier.Name/>
-			<Bezier.Growth/>
 			<TestPage/>
 		</PageControl>
 	</ClientPanel>
