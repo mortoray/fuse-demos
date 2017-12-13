@@ -1,0 +1,89 @@
+<Page ux:Class="Bezier.Plot" Title="Annotating Plots">
+	<!-- Using a pseudo-plot since premium isn't avaiable in my test branch setup -->
+	<DockPanel Padding="10">
+		<JavaScript>
+			var Observable = require("FuseJS/Observable")
+			
+			exports.data = Observable(
+				[0.0, 0.7],
+				[0.2, 0.9],
+				[0.4, 0.3],
+				[0.6, 0.5],
+				[0.8, 0.7],
+				[1.0, 0.6])
+				
+			exports.markers = Observable({
+				when: 0.3,
+				text: "Big Things Happened",
+			},{
+				when: 0.75,
+				text: "Kitten Effects",
+			})
+			
+			exports.backStart = Observable(0.1)
+			exports.backEnd = Observable(0.25)
+			
+			function back( start, end ) {
+				return function() {
+					exports.backStart.value = start
+					exports.backEnd.value = end
+				}
+			}
+			exports.back1 = back(0.1,0.25)
+			exports.back2 = back(0.35,0.6)
+			exports.back3 = back(0.81,0.95)
+		</JavaScript>
+		<StackPanel Dock="Top" Orientation="Horizontal" ItemSpacing="10" Alignment="Center">
+			<Button Text="1.5 Release" Clicked="{back1}"/>
+			<Button Text="Post-Release" Clicked="{back2}"/>
+			<Button Text="1.6 Warmup" Clicked="{back3}"/>
+		</StackPanel>
+		
+		<Panel ux:Name="pseudoPlot" BoxSizing="FillAspect">
+		
+			<Let ux:Name="backHead" Expression="pathPointAtDistance(backPath, {Property backPath.PathEnd})"/>
+			<Image File="../Assets/plot_arrow.png" Anchor="45%,50%"
+				X="vectorX({backHead})" Y="vectorY({backHead})" Height="30" Color="#2EF"
+				TransformOrigin="Anchor">
+				<Rotation EulerAngle="0,0,atanVector(pathDirectionAtDistance(backPath, {Property backPath.PathEnd}))"/>
+			</Image>
+				
+			<AttractorConfig Unit="Normalized" Easing="SinusoidalInOut" Duration="1.5" ux:Global="asNorm"/>
+			<Curve StrokeWidth="10" StrokeColor="#2EF" ux:Name="backPath"
+				PathStart="attract({backStart}, asNorm)" PathEnd="attract({backEnd}, asNorm)">
+				<Each Items="{data}">
+					<CurvePoint At="{}"/>
+				</Each>
+			</Curve>
+		
+
+			<Each Items="{data}">
+				<Circle X="vectorX({}) * 100%" Y="vectorY({}) * 100%" StrokeColor="#FFF" 
+					Color="#000" StrokeWidth="2" Anchor="50%,50%" Width="10" Height="10"/>
+			</Each>
+			
+			<Curve StrokeWidth="2" StrokeColor="#FFF" ux:Name="plotPath">
+				<Each Items="{data}">
+					<CurvePoint At="{}"/>
+				</Each>
+			</Curve>
+			
+			
+			<Each Items="{markers}">
+				<Panel>
+					<Let ux:Name="point" Expression="pathPointAtDistance(plotPath, {when})"/>
+					<Let ux:Name="relPoint" Expression="{point} / (width(pseudoPlot), height(pseudoPlot))"/>
+					<Curve StrokeColor="#088">
+						<CurvePoint At="{relPoint}"/>
+						<CurvePoint X="vectorX({relPoint})" Y="1"/>
+					</Curve>
+					<Rectangle X="vectorX({point})" Y="100%" Anchor="50%,0%"
+						StrokeColor="#088" Color="#ADD8" Padding="10,5">
+						<Text Value="{text}" TextWrapping="Wrap" TextColor="#FFF" FontSize="22"
+							MaxWidth="100" TextAlignment="Center"/>
+					</Rectangle>
+				</Panel>
+			</Each>
+		</Panel>
+	</DockPanel>
+</Page>
