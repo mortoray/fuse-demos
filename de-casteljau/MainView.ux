@@ -1,0 +1,60 @@
+<App>
+	<JavaScript File="main.js"/>
+	<ClientPanel>
+		<Grid Dock="Top" ColumnCount="2" CellSpacing="5" Alignment="Center">
+			<Text Value="Split"/>
+			<Switch ux:Name="split"/>
+			
+			<Text Value="Reduction"/>
+			<Switch ux:Name="reduction"/>
+		</Grid>
+		
+		<Panel BoxSizing="FillAspect" Margin="20">
+			<Instance ux:Class="PointsPlot">
+				<object ux:Property="points"/>
+				<float4 ux:Property="color"/>
+				
+				<Each Items="{Property this.points}">
+					<Circle X="{}[0] * 100%" Y="{}[1] * 100%" StrokeColor="{Property this.color}"  
+						StrokeWidth="3" Width="12" Height="12" Anchor="50%,50%"/>
+				</Each>
+				<Curve Style="Straight" StrokeColor="{Property this.color}" StrokeWidth="2">
+					<Each Items="{Property this.points}">
+						<CurvePoint At="{}"/>
+					</Each>
+				</Curve>
+			</Instance>
+			
+			<Circle X="{points1[0]}[0] * 100%" Y="{points1[0][1]} * 100%" 
+				StrokeColor="#080" StrokeWidth="3" Color="#FFF"
+				Width="13" Height="13" Anchor="50%,50%"/>
+			
+			<WhileTrue Source="reduction">
+				<PointsPlot points="{points1}" color="#AFA"/>
+				<PointsPlot points="{points2}" color="#AAF"/>
+				<PointsPlot points="{points3}" color="#D8D"/>
+				<PointsPlot points="{points4}" color="#888"/>
+			</WhileTrue>
+			
+			<WhileTrue Source="split">
+				<Curve StrokeColor="#8F8" StrokeWidth="5">
+					<CurvePoint At="{points4[0]}" ControlOut="{points3[0]}"/>
+					<CurvePoint At="{points1[0]}" ControlIn="{points2[0]}"/>
+				</Curve>
+				<Curve StrokeColor="#F88" StrokeWidth="5">
+					<CurvePoint At="{points1[0]}" ControlOut="{points2[1]}"/>
+					<CurvePoint At="{points4[3]}" ControlIn="{points3[2]}"/>
+				</Curve>
+			</WhileTrue>
+			
+			<WhileFalse Source="split">
+				<Curve StrokeColor="#444" StrokeWidth="5">
+					<CurvePoint At="{points4[0]}" ControlOut="{points4[1]}"/>
+					<CurvePoint At="{points4[3]}" ControlIn="{points4[2]}"/>
+				</Curve>
+			</WhileFalse>
+		</Panel>
+		
+		<Slider Dock="Bottom" Value="{t}" Minimum="0" Maximum="1" Margin="10"/>
+	</ClientPanel>
+</App>
