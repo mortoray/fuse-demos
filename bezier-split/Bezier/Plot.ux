@@ -39,7 +39,9 @@
 			<Button Text="1.6 Warmup" Clicked="{back3}"/>
 		</StackPanel>
 		
-		<Panel ux:Name="pseudoPlot" BoxSizing="FillAspect">
+		<Switch Dock="Bottom" ux:Name="coaster"/>
+		
+		<Panel ux:Name="pseudoPlot" BoxSizing="FillAspect" Aspect="1.2">
 		
 			<Let ux:Name="backHead" Expression="pathPointAtDistance(backPath, {Property backPath.PathEnd})"/>
 			<Image File="../Assets/plot_arrow.png" Anchor="45%,50%"
@@ -67,8 +69,18 @@
 					<CurvePoint At="{}"/>
 				</Each>
 			</Curve>
-			
-			
+
+			<WhileTrue Source="coaster">
+				<Timeline ux:Name="cart" PlayMode="Wrap">
+					<Nothing Duration="4"/>
+				</Timeline>
+				<Let ux:Name="cartPos" Expression="pathPointAtDistance(plotPath, {Property cart.Progress})"/>
+				<Image Width="80" File="../Assets/cart.png" Anchor="40,55"
+					X="vectorX({cartPos})" Y="vectorY({cartPos})" TransformOrigin="Anchor">
+					<Rotation EulerAngle="0,0,atanVector(pathDirectionAtDistance(plotPath, {Property cart.Progress}))"/>
+				</Image>
+			</WhileTrue>
+				
 			<Each Items="{markers}">
 				<Panel>
 					<Let ux:Name="point" Expression="pathPointAtDistance(plotPath, {when})"/>
