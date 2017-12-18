@@ -25,7 +25,7 @@
 			<Bezier.Growth/>
 			<Bezier.Plot/>
 			<Bezier.Name/>
-<!-- 			<TestPage/> -->
+			<TestPage/>
 		</PageControl>
 	</ClientPanel>
 </App>
