@@ -1,0 +1,18 @@
+<Panel ux:Class="FallingSnow">
+	<Each Items="{snowflakes}" IdentityKey="id">
+		<Image Source="{DataToResource image}" 
+			X="{x} * 100%" Y="{y} * 100%" Anchor="50%,50%" Width="10%"
+			Color="#F0F8FFD0" TransformOrigin="Anchor">
+			<Translation X="0" RelativeTo="Size" ux:Name="wobble"/>
+			<Translation Y="0" RelativeTo="ParentSize" ux:Name="distance"/>
+			<Rotation Degrees="0" ux:Name="spin"/>
+			<WhileFalse Bypass="Never">
+				<Cycle Target="wobble.X" Low="-0.5" High="0.5" Frequency="0.17"/>
+				<Cycle Target="spin.Degrees" Low="0" High="360" Frequency="0.07"
+					Waveform="Sawtooth"/>
+				<Change distance.Y="1" Duration="7.87"/>
+				<Callback Handler="{removeSnowflake}" AtProgress="1"/>
+			</WhileFalse>
+		</Image>
+	</Each>
+</Panel>

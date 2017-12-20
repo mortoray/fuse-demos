@@ -1,0 +1,35 @@
+<StackPanel ux:Class="OrnamentPanel">
+	<PageControl ux:Name="paletteNav" ActiveIndex="{paletteIndex}" Visibility="Collapsed">
+		<BulbPalette ux:Name="bulbPalette" Title="Bulbs"/>
+		<CandlePalette ux:Name="candlePalette" Title="Candles"/>
+	</PageControl>
+	
+	<DockPanel Color="#FFF">
+		<Panel Dock="Left" HitTestMode="LocalBounds" Padding="6">
+			<Text Value="▲" FontSize="26" Alignment="Center"	/>
+			<Clicked>
+				<Set paletteNav.Visibility="Collapsed"/>
+			</Clicked>
+		</Panel>
+		<Panel Dock="Right" HitTestMode="LocalBounds" Padding="6" 
+			Clicked="{clear}">
+			<Text Value="✖ Clear" FontSize="18" Alignment="Center"/>
+		</Panel>
+		
+		<PageIndicator Navigation="paletteNav" Orientation="Horizontal" ItemSpacing="5" Padding="10,5">
+			<Panel ux:Template="Dot" Padding="10,5">
+				<Rectangle Color="#fff0" Layer="Background" CornerRadius="5"
+					ux:Name="dotBack"/>
+				<Text Value="{Page Title}" FontSize="18">
+					<Clicked>
+						<Set paletteNav.Active="{Page Node}"/>
+						<Set paletteNav.Visibility="Visible"/>
+					</Clicked>
+				</Text>
+				<ActivatingAnimation>
+					<Change dotBack.Color="#ccc"/>
+				</ActivatingAnimation>
+			</Panel>
+		</PageIndicator>
+	</DockPanel>
+</StackPanel>

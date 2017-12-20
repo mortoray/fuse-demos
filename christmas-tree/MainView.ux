@@ -1,0 +1,45 @@
+<App Model="State">
+	<ClientPanel>
+		<FallingSnow HitTestMode="None"/>
+		<Image Layer="Background" StretchMode="UniformToFill" File="Assets/background.jpg"
+			ContentAlignment="Bottom"/>
+		<Panel ux:Name="tree" Alignment="BottomCenter" Margin="0,0,0,30">
+			
+			<Image Height="80%" File="Assets/tree.png"  Clicked="{addOrnament}"
+				Placed="{treePlaced}">
+			
+				<Each Items="{ornaments}">
+					<Image Height="{height} * 100%"  Source="{DataToResource image}"
+						X="{x} * 100%" Y="{y} * 100%" Anchor="50%,15%"/>
+				</Each>
+			</Image>
+		</Panel>
+
+		<OrnamentPanel Dock="Top"/>
+		
+		<Panel HitTestMode="LocalBounds" Clicked="{addSnowflake}"
+			Placed="{fullPlaced}"/>
+	</ClientPanel>
+	
+	
+	<FileImageSource File="Assets/bulb_1.png" ux:Key="bulb0"/>
+	<FileImageSource File="Assets/bulb_2.png" ux:Key="bulb1"/>
+	<FileImageSource File="Assets/bulb_3.png" ux:Key="bulb2"/>
+	<FileImageSource File="Assets/bulb_4.png" ux:Key="bulb3"/>
+	
+	<FileImageSource File="Assets/candle_1.png" ux:Key="candle0"/>
+	<FileImageSource File="Assets/candle_2.png" ux:Key="candle1"/>
+	
+	<FileImageSource File="Assets/snowflake_0.png" ux:Key="snowflake0"/>
+	<FileImageSource File="Assets/snowflake_1.png" ux:Key="snowflake1"/>
+	<FileImageSource File="Assets/snowflake_2.png" ux:Key="snowflake2"/>
+	<FileImageSource File="Assets/snowflake_3.png" ux:Key="snowflake3"/>
+	<FileImageSource File="Assets/snowflake_4.png" ux:Key="snowflake4"/>
+	<FileImageSource File="Assets/snowflake_5.png" ux:Key="snowflake5"/>
+	<FileImageSource File="Assets/snowflake_6.png" ux:Key="snowflake6"/>
+
+	<FileImageSource File="Assets/lights_1.png" ux:Key="lights0"/>
+	<FileImageSource File="Assets/lights_2.png" ux:Key="lights1"/>
+	<FileImageSource File="Assets/lights_3.png" ux:Key="lights2"/>
+	<FileImageSource File="Assets/lights_4.png" ux:Key="lights3"/>
+</App>
