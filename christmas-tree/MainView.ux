@@ -3,17 +3,8 @@
 		<FallingSnow HitTestMode="None"/>
 		<Image Layer="Background" StretchMode="UniformToFill" File="Assets/background.jpg"
 			ContentAlignment="Bottom"/>
-		<Panel ux:Name="tree" Alignment="BottomCenter" Margin="0,0,0,30">
-			
-			<Image Height="80%" File="Assets/tree.png"  Clicked="{addOrnament}"
-				Placed="{treePlaced}">
-			
-				<Each Items="{ornaments}">
-					<Image Height="{height} * 100%"  Source="{DataToResource image}"
-						X="{x} * 100%" Y="{y} * 100%" Anchor="50%,15%"/>
-				</Each>
-			</Image>
-		</Panel>
+		<TreePanel/>
+		<SantaPanel/>
 
 		<OrnamentPanel Dock="Top"/>
 		
@@ -42,4 +33,9 @@
 	<FileImageSource File="Assets/lights_2.png" ux:Key="lights1"/>
 	<FileImageSource File="Assets/lights_3.png" ux:Key="lights2"/>
 	<FileImageSource File="Assets/lights_4.png" ux:Key="lights3"/>
+	
+	<FileImageSource File="Assets/gift_1.png" ux:Key="gift0"/>
+	<FileImageSource File="Assets/gift_2.png" ux:Key="gift1"/>
+	<FileImageSource File="Assets/gift_3.png" ux:Key="gift2"/>
+	<FileImageSource File="Assets/gift_4.png" ux:Key="gift3"/>
 </App>

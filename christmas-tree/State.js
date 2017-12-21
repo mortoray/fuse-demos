@@ -17,11 +17,20 @@ class Snowflake {
 	}
 }
 
+class Gift {
+	constructor( x, y, image ) {
+		this.x = x
+		this.y = y
+		this.image = image
+	}
+}
+
 var bulbs = [ "bulb0", "bulb1", "bulb2", "bulb3" ]
 var candles = [ "candle0", "candle1" ]
 var snowflakes = ["snowflake0", "snowflake1","snowflake2","snowflake3","snowflake4",
 	"snowflake5","snowflake6" ]
-	
+var gifts = [ "gift0", "gift1", "gift2", "gift3" ]
+
 export default class State {
 	constructor() {
 		this.clear()
@@ -38,6 +47,7 @@ export default class State {
 	clear() {
 		this.ornaments = [ ]
 		this.snowflakes = [ ]
+		this.gifts = []
 	}
 	
 	addOrnament(args) {
@@ -81,4 +91,27 @@ export default class State {
 		let image = snowflakes[ Math.floor(Math.random() * snowflakes.length )]
 		this.snowflakes.push( new Snowflake( x, y, image ) )
 	}
+	
+	giftsPlaced(args) {
+		this._giftsSize = {
+			x: args.width,
+			y: args.height,
+		}
+	}
+	
+	addGift(args) {
+		let x = args.localX / this._giftsSize.x
+		let y = args.localY / this._giftsSize.y
+		let image = gifts[ Math.floor(Math.random() * gifts.length )]
+		this.gifts.push( new Gift( x, y, image ) )
+	}
+	
+	get frontGifts() {
+		return this.gifts.filter( gift => gift.y > 0.3 )
+	}
+	get backGifts() {
+		return this.gifts.filter( gift => gift.y <= 0.3 )
+	}
+	
+	
 }

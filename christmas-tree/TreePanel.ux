@@ -1,0 +1,26 @@
+<Panel ux:Class="TreePanel" Alignment="Bottom">
+	<Image Height="80%" File="Assets/tree.png"  Clicked="{addOrnament}"
+		Placed="{treePlaced}" Margin="0,0,0,30">
+	
+		<Each Items="{ornaments}">
+			<Image Height="{height} * 100%"  Source="{DataToResource image}"
+				X="{x} * 100%" Y="{y} * 100%" Anchor="50%,15%"/>
+		</Each>
+	</Image>
+	
+	<Panel ZOffset="1" Alignment="Bottom" Height="25%" Clicked="{addGift}"
+		Placed="{giftsPlaced}" HitTestMode="LocalBounds">
+		<Each Items="{frontGifts}">
+			<Image Height="15% + {y} * 35%" Source="{DataToResource image}"
+				X="{x} * 100%" Y="{y} * 100%" Anchor="50%,100%"
+				ZOffset="{y}"/>
+		</Each>
+	</Panel>
+	<Panel ZOffset="-1" Alignment="Bottom" Height="25%">
+		<Each Items="{backGifts}">
+			<Image Height="15% + {y} * 35%" Source="{DataToResource image}"
+				X="{x} * 100%" Y="{y} * 100%" Anchor="50%,100%"
+				ZOffset="{y}"/>
+		</Each>
+	</Panel>
+</Panel>

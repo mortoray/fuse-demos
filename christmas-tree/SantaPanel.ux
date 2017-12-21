@@ -1,0 +1,17 @@
+<Panel ux:Class="SantaPanel">
+	<Image X="110%" Y="20%" File="Assets/santa.png" Height="70">
+		<Timeline ux:Name="santaAnim">
+			<Move RelativeTo="ParentSize" KeyframeInterpolation="Smooth">
+				<Keyframe Y="0" Time="0"/>
+				<Keyframe Y="-0.1" Time="3"/>
+				<Keyframe Y="0.05" Time="6.0"/>
+			</Move>
+			<Move X="-1.8" Duration="6" RelativeTo="ParentSize"/>
+			<Rotate Degrees="-18" Duration="6"/>
+		</Timeline>
+		
+		<Timeline PlayMode="Wrap">
+			<PulseForward Target="santaAnim" Delay="10"/>
+		</Timeline>
+	</Image>
+</Panel>
