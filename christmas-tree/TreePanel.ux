@@ -1,13 +1,17 @@
 <Panel ux:Class="TreePanel" Alignment="Bottom">
 	<Image Height="80%" File="Assets/tree.png" Clicked="{addOrnament}" Placed="{treePlaced}" Margin="0,0,0,30">
-		<Star Points="5" X="50%" Y="-2.5%" Anchor="50%,50%" StrokeColor="#AA0" StrokeWidth="4" Height="17%" BoxSizing="FillAspect" RoundRatio="0.2" Ratio="0.6">
+		<!-- <Star Points="5" X="50%" Y="-2.5%" Anchor="50%,50%" StrokeColor="#AA0" StrokeWidth="4" Height="17%" BoxSizing="FillAspect" RoundRatio="0.2" Ratio="0.6"> -->
+		<Path X="50%" Y="-2.5%" Anchor="50%,50%" 
+			StrokeColor="#AA0" StrokeWidth="{selectedStar.strokeWidth}" Height="17%" 
+			Data="{DataToResource selectedStar.image}">
+			
 			<LinearGradient StartPoint="0,0" EndPoint="0.2,1">
 				<GradientStop Offset="0" Color="#FF0" />
 				<GradientStop Offset="0.2" Color="#FF0" />
 				<GradientStop Offset="0.2" Color="#FFF" />
 				<GradientStop Offset="1" Color="#FF0" />
 			</LinearGradient>
-		</Star>
+		</Path>
 	
 		<Each Items="{ornaments}">
 			<Image Height="{defn.height} * 100%" Source="{DataToResource defn.image}" X="{x} * 100%" Y="{y} * 100%" Anchor="50%,{defn.anchorY}* 100%" />

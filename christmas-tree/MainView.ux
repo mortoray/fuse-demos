@@ -38,4 +38,6 @@
 	<FileImageSource File="Assets/gift_2.png" ux:Key="gift1"/>
 	<FileImageSource File="Assets/gift_3.png" ux:Key="gift2"/>
 	<FileImageSource File="Assets/gift_4.png" ux:Key="gift3"/>
+	
+	<StarPaths/>
 </App>

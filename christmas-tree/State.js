@@ -68,6 +68,25 @@ for (var id in gifts) {
 	giftsVector.push(gift)
 }	
 
+class StarDefn {
+	constructor(strokeWidth) {
+		this.strokeWidth = strokeWidth
+	}
+}
+var stars = {
+	"star0": new StarDefn(1),
+	"star1": new StarDefn(3),
+	"star2": new StarDefn(1),
+	"star3": new StarDefn(5),
+}
+var starsVector = []
+for (var id in stars) {
+	var star = stars[id]
+	star.id = id
+	star.image = id
+	starsVector.push(star)
+}
+
 var snowflakes = ["snowflake0", "snowflake1","snowflake2","snowflake3","snowflake4",
 	"snowflake5","snowflake6" ]
 
@@ -82,12 +101,19 @@ export default class State {
 		this.selectedGiftId = giftsVector[0].id
 		
 		this.paletteIndex = 0
+		
+		this.availableStars = starsVector
+		this.selectedStarId = starsVector[0].id
 	}
 	
 	clear() {
 		this.ornaments = [ ]
 		this.snowflakes = [ ]
 		this.gifts = []
+	}
+	
+	get selectedStar() {
+		return stars[this.selectedStarId]
 	}
 	
 	get selectedOrnament() {
