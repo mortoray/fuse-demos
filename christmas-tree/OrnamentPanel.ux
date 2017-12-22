@@ -1,35 +1,52 @@
 <StackPanel ux:Class="OrnamentPanel">
-	<PageControl ux:Name="paletteNav" ActiveIndex="{paletteIndex}" Visibility="Collapsed">
-		<BulbPalette ux:Name="bulbPalette" Title="Bulbs"/>
-		<CandlePalette ux:Name="candlePalette" Title="Candles"/>
-	</PageControl>
-	
-	<DockPanel Color="#FFF">
-		<Panel Dock="Left" HitTestMode="LocalBounds" Padding="6">
-			<Text Value="▲" FontSize="26" Alignment="Center"	/>
+	<UserEvent ux:Name="ClosePalette"/>
+	<OnUserEvent EventName="ClosePalette">
+		<Set hidePalette.Value="true"/>
+	</OnUserEvent>
+
+	<WhileTrue Value="true" ux:Name="hidePalette">
+		<Move Y="0-height(palette)" Duration="0.3" Easing="CubicInOut"/>
+	</WhileTrue>
+
+	<DockPanel ux:Name="palette" Color="#FFF">		
+		<PageControl ux:Name="paletteNav" ActiveIndex="{paletteIndex}">
+			<BulbPalette ux:Name="bulbPalette" Title="">
+				<ResourceString Key="Icon" Value="{selectedOrnament.image}"/>
+			</BulbPalette>
+			<GiftPalette ux:Name="giftPalette" Title="">
+				<ResourceString Key="Icon" Value="{selectedGift.image}"/>
+			</GiftPalette>
+			
+		</PageControl>
+		
+		<Panel Dock="Left" Padding="6">
+			<Text Value="▲" FontSize="18" Alignment="Top"/>
 			<Clicked>
-				<Set paletteNav.Visibility="Collapsed"/>
+				<RaiseUserEvent EventName="ClosePalette"/>
 			</Clicked>
 		</Panel>
-		<Panel Dock="Right" HitTestMode="LocalBounds" Padding="6" 
-			Clicked="{clear}">
-			<Text Value="✖ Clear" FontSize="18" Alignment="Center"/>
-		</Panel>
-		
-		<PageIndicator Navigation="paletteNav" Orientation="Horizontal" ItemSpacing="5" Padding="10,5">
-			<Panel ux:Template="Dot" Padding="10,5">
-				<Rectangle Color="#fff0" Layer="Background" CornerRadius="5"
-					ux:Name="dotBack"/>
-				<Text Value="{Page Title}" FontSize="18">
-					<Clicked>
-						<Set paletteNav.Active="{Page Node}"/>
-						<Set paletteNav.Visibility="Visible"/>
-					</Clicked>
-				</Text>
-				<ActivatingAnimation>
-					<Change dotBack.Color="#ccc"/>
-				</ActivatingAnimation>
-			</Panel>
-		</PageIndicator>
 	</DockPanel>
+	
+	<Panel ux:Class="PanelTab" Padding="6" Margin="5,0" HitTestMode="LocalBounds">
+		<Rectangle Layer="Background" Color="#FFF" CornerRadius="0,0,5,5"/>
+	</Panel>
+	
+	<DockPanel>
+		
+		<PanelTab Dock="Right" HitTestMode="LocalBounds" Padding="6" 
+			Clicked="{clear}">
+			<Text Value="✖" FontSize="18" Alignment="Center"/>
+		</PanelTab>
+		
+		<PageIndicator Navigation="paletteNav" Orientation="Horizontal">
+			<PanelTab ux:Template="Dot">
+				<Image Height="30" Source="{DataToResource {Page Icon}}"/>
+				<Text Value="{Page Title}" FontSize="18"/>
+				<Clicked>
+					<Set paletteNav.Active="{Page Node}"/>
+					<Set hidePalette.Value="false"/>
+				</Clicked>
+			</PanelTab>
+		</PageIndicator>
+ 	</DockPanel>
 </StackPanel>

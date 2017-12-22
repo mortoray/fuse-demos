@@ -10,7 +10,7 @@
 		</Star>
 	
 		<Each Items="{ornaments}">
-			<Image Height="{height} * 100%" Source="{DataToResource image}" X="{x} * 100%" Y="{y} * 100%" Anchor="50%,15%" />
+			<Image Height="{defn.height} * 100%" Source="{DataToResource defn.image}" X="{x} * 100%" Y="{y} * 100%" Anchor="50%,{defn.anchorY}* 100%" />
 		</Each>
 		
 		<Image File="Assets/lights.png" Color="#0FF" ux:Name="lights">
@@ -29,12 +29,12 @@
 	
 	<Panel ZOffset="1" Alignment="Bottom" Height="25%" Clicked="{addGift}" Placed="{giftsPlaced}" HitTestMode="LocalBounds">
 		<Each Items="{frontGifts}">
-			<Image Height="15% + {y} * 35%" Source="{DataToResource image}" X="{x} * 100%" Y="{y} * 100%" Anchor="50%,100%" ZOffset="{y}" />
+			<Image Height="15% + {y} * 35%" Source="{DataToResource defn.image}" X="{x} * 100%" Y="{y} * 100%" Anchor="50%,100%" ZOffset="{y}" />
 		</Each>
 	</Panel>
 	<Panel ZOffset="-1" Alignment="Bottom" Height="25%">
 		<Each Items="{backGifts}">
-			<Image Height="15% + {y} * 35%" Source="{DataToResource image}" X="{x} * 100%" Y="{y} * 100%" Anchor="50%,100%" ZOffset="{y}" />
+			<Image Height="15% + {y} * 35%" Source="{DataToResource defn.image}" X="{x} * 100%" Y="{y} * 100%" Anchor="50%,100%" ZOffset="{y}" />
 		</Each>
 	</Panel>
 </Panel>

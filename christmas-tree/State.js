@@ -1,9 +1,8 @@
 class Ornament {
-	constructor( x, y, image, height ) {
+	constructor( x, y, defn ) {
 		this.x = x
 		this.y = y
-		this.image = image
-		this.height = height
+		this.defn = defn
 	}
 }
 
@@ -18,28 +17,69 @@ class Snowflake {
 }
 
 class Gift {
-	constructor( x, y, image ) {
+	constructor( x, y, defn ) {
 		this.x = x
 		this.y = y
-		this.image = image
+		this.defn = defn
 	}
 }
 
-var bulbs = [ "bulb0", "bulb1", "bulb2", "bulb3" ]
-var candles = [ "candle0", "candle1" ]
+class OrnamentDefn {
+	constructor( height, anchorY ) {
+		this.height =  height
+		this.anchorY = anchorY
+		// set below in loop
+		// this.id
+		// this.image
+	}
+}
+
+var ornaments = {
+	"bulb0": new OrnamentDefn( 0.07, 0.15 ),
+	"bulb1": new OrnamentDefn( 0.07, 0.15 ),
+	"bulb2": new OrnamentDefn( 0.07, 0.15 ),
+	"bulb3": new OrnamentDefn( 0.07, 0.15 ),
+	"candle0": new OrnamentDefn( 0.12, 0.98 ),
+	"candle1": new OrnamentDefn( 0.12, 0.98 ),
+}
+var ornamentsVector = []
+for (var id in ornaments) {
+	var orn = ornaments[id]
+	orn.id = id
+	orn.image = id
+	ornamentsVector.push(orn)
+}
+
+class GiftDefn {
+	constructor( ) {
+	}
+}
+var gifts = {
+	"gift0": new GiftDefn(),
+	"gift1": new GiftDefn(),
+	"gift2": new GiftDefn(),
+	"gift3": new GiftDefn(),
+}
+var giftsVector = []
+for (var id in gifts) {
+	var gift = gifts[id]
+	gift.id = id
+	gift.image = id
+	giftsVector.push(gift)
+}	
+
 var snowflakes = ["snowflake0", "snowflake1","snowflake2","snowflake3","snowflake4",
 	"snowflake5","snowflake6" ]
-var gifts = [ "gift0", "gift1", "gift2", "gift3" ]
 
 export default class State {
 	constructor() {
 		this.clear()
 		this._treeSize = { }
-		this.bulbs = bulbs
-		this.selectedBulb = bulbs[0]
+		this.availableOrnaments = ornamentsVector
+		this.selectedOrnamentId = ornamentsVector[0].id
 		
-		this.candles = candles
-		this.selectedCandle = candles[0]
+		this.availableGifts = giftsVector
+		this.selectedGiftId = giftsVector[0].id
 		
 		this.paletteIndex = 0
 	}
@@ -50,15 +90,15 @@ export default class State {
 		this.gifts = []
 	}
 	
+	get selectedOrnament() {
+		return ornaments[this.selectedOrnamentId]
+	}
+	
 	addOrnament(args) {
 		let x = args.localX / this._treeSize.x
 		let y = args.localY / this._treeSize.y
 		
-		if (this.paletteIndex == 0) {
-			var ornament = new Ornament(x,y, this.selectedBulb, 0.07)
-		} else if (this.paletteIndex == 1) {
-			var ornament = new Ornament(x,y, this.selectedCandle, 0.12)
-		}
+		var ornament = new Ornament(x,y, this.selectedOrnament)
 		this.ornaments.push( ornament )
 	}
 	
@@ -99,11 +139,15 @@ export default class State {
 		}
 	}
 	
+	get selectedGift() {
+		return gifts[this.selectedGiftId]
+	}
+	
 	addGift(args) {
 		let x = args.localX / this._giftsSize.x
 		let y = args.localY / this._giftsSize.y
-		let image = gifts[ Math.floor(Math.random() * gifts.length )]
-		this.gifts.push( new Gift( x, y, image ) )
+		let defn = this.selectedGift
+		this.gifts.push( new Gift( x, y, defn ) )
 	}
 	
 	get frontGifts() {

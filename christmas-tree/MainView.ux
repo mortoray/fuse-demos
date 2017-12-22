@@ -1,12 +1,12 @@
 <App Model="State">
-	<ClientPanel>
+	<ClientPanel Color="#0f0">
 		<FallingSnow HitTestMode="None"/>
-		<Image Layer="Background" StretchMode="UniformToFill" File="Assets/background.jpg"
+		<Image Layer="Background" StretchMode="UniformToFill" File="Assets/background.png"
 			ContentAlignment="Bottom"/>
 		<TreePanel/>
 		<SantaPanel/>
 
-		<OrnamentPanel Dock="Top"/>
+		<OrnamentPanel Alignment="Top"/>
 		
 		<Panel HitTestMode="LocalBounds" Clicked="{addSnowflake}"
 			Placed="{fullPlaced}"/>

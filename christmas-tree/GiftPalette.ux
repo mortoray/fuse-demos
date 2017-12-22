@@ -1,7 +1,7 @@
-<Page ux:Class="BulbPalette">
+<Page ux:Class="GiftPalette">
 	<WrapPanel Padding="5">
-		<Selection Value="{selectedOrnamentId}" MinCount="1" MaxCount="1"/>
-		<Each Items="{availableOrnaments}">
+		<Selection Value="{selectedGiftId}" MinCount="1" MaxCount="1"/>
+		<Each Items="{availableGifts}">
 			<Panel Margin="10" Padding="10">
 				<Image Height="30" Source="{DataToResource {image}}"/>
 				<Selectable Value="{id}"/>

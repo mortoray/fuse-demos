@@ -8,7 +8,10 @@
 				<Keyframe Y="0.05" Time="6.0"/>
 			</Move>
 			<Move X="-1.8" Duration="6" RelativeTo="ParentSize"/>
-			<Rotate Degrees="-28" Duration="6"/>
+			<Rotate>
+				<Keyframe DegreesZ="15" Time="0"/>
+				<Keyframe DegreesZ="-15" Time="6"/>
+			</Rotate>
 		</Timeline>
 		
 		<Timeline PlayMode="Wrap">

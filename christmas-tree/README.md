@@ -15,3 +15,7 @@ https://pixabay.com/en/presents-wrapped-gifts-christmas-576256/
 https://pixabay.com/en/christmas-tree-christmas-background-41448/
 https://pixabay.com/en/christmas-holiday-ball-tree-1850829/
 https://pixabay.com/en/christmas-holiday-ball-decoration-1850600/
+https://pixabay.com/en/shuriken-throwing-star-ninja-star-153172/
+https://pixabay.com/en/ornament-the-structure-of-the-2002422/
+https://pixabay.com/en/solar-space-star-sun-2029600/
+https://pixabay.com/en/star-moon-sky-night-kids-little-1957919/
