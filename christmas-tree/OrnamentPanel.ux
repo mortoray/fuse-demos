@@ -1,52 +1,51 @@
 <StackPanel ux:Class="OrnamentPanel">
-	<UserEvent ux:Name="ClosePalette"/>
+	<UserEvent ux:Name="ClosePalette" />
 	<OnUserEvent EventName="ClosePalette">
-		<Set hidePalette.Value="true"/>
+		<Set hidePalette.Value="true" />
 	</OnUserEvent>
 
 	<WhileTrue Value="true" ux:Name="hidePalette">
 		<!-- TODO: Y="-height(paletteNav)" -->
-		<Move Y="-1" RelativeTo="Size" RelativeNode="paletteNav" Duration="0.3" Easing="CubicInOut"/>
+		<Move Y="-1" RelativeTo="Size" RelativeNode="paletteNav" Duration="0.3" Easing="CubicInOut" />
 	</WhileTrue>
 
 	<DockPanel ux:Name="palette" Color="#FFF">		
 		<PageControl ux:Name="paletteNav" ActiveIndex="{paletteIndex}">
 			<BulbPalette ux:Name="bulbPalette" Title="">
-				<ResourceString Key="Icon" Value="{selectedOrnament.image}"/>
+				<ResourceString Key="Icon" Value="{selectedOrnament.image}" />
 			</BulbPalette>
 			<GiftPalette ux:Name="giftPalette" Title="">
-				<ResourceString Key="Icon" Value="{selectedGift.image}"/>
+				<ResourceString Key="Icon" Value="{selectedGift.image}" />
 			</GiftPalette>
-			<StarPalette ux:Name="starPalette" Title="★"/>
+			<StarPalette ux:Name="starPalette" Title="★" />
 			
 		</PageControl>
 		
 		<Panel Dock="Left" Padding="6">
-			<Text Value="▲" FontSize="18" Alignment="Top"/>
+			<Text Value="▲" FontSize="18" Alignment="Top" />
 			<Clicked>
-				<RaiseUserEvent EventName="ClosePalette"/>
+				<RaiseUserEvent EventName="ClosePalette" />
 			</Clicked>
 		</Panel>
 	</DockPanel>
 	
 	<Panel ux:Class="PanelTab" Padding="6" Margin="5,0" HitTestMode="LocalBounds">
-		<Rectangle Layer="Background" Color="#FFF" CornerRadius="0,0,5,5"/>
+		<Rectangle Layer="Background" Color="#FFF" CornerRadius="0,0,5,5" />
 	</Panel>
 	
 	<DockPanel>
 		
-		<PanelTab Dock="Right" HitTestMode="LocalBounds" Padding="6" 
-			Clicked="{clear}">
-			<Text Value="✖" FontSize="18" Alignment="Center"/>
+		<PanelTab Dock="Right" HitTestMode="LocalBounds" Padding="6" Clicked="{clear}">
+			<Text Value="✖" FontSize="18" Alignment="Center" />
 		</PanelTab>
 		
 		<PageIndicator Navigation="paletteNav" Orientation="Horizontal">
 			<PanelTab ux:Template="Dot">
-				<Image Height="30" Source="{DataToResource {Page Icon}}"/>
-				<Text Value="{Page Title}" FontSize="18"/>
+				<Image Height="30" Source="{DataToResource {Page Icon}}" />
+				<Text Value="{Page Title}" FontSize="18" />
 				<Clicked>
-					<Set paletteNav.Active="{Page Node}"/>
-					<Set hidePalette.Value="false"/>
+					<Set paletteNav.Active="{Page Node}" />
+					<Set hidePalette.Value="false" />
 				</Clicked>
 			</PanelTab>
 		</PageIndicator>

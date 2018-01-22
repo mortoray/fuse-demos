@@ -1,9 +1,73 @@
 <App>
+	<JavaScript>
+		var Observable = require("FuseJS/Observable")
+		
+		exports.emailCount = Observable(0)
+		exports.addEmail = function() {
+			exports.emailCount.value += 1
+		}
+		exports.clearEmail = function() {
+			exports.emailCount.value = 0
+		}
+		
+		exports.alert = Observable("text")
+		exports.setAlert = function() {
+			exports.alert.value = "Alert"
+		}
+		exports.clearAlert = function() {
+			exports.alert.clear()
+		}
+	</JavaScript>
 	<ClientPanel>
 		<Rectangle Height="2" Color="#888" Alignment="VerticalCenter" Anchor="50%,0%"/>
-		<Rectangle CornerRadius="10" Color="#2494E8" Width="20%" BoxSizing="FillAspect" Alignment="Center" Anchor="50%,100%" TransformOrigin="Anchor"
+		<Panel Width="20%" BoxSizing="FillAspect" Alignment="Center" Anchor="50%,100%" TransformOrigin="Anchor"
 			ux:Name="box">
-			<Text Value="🍆" FontSize="30" Alignment="Center" ux:Name="text"/>
+			<Text Value="📧" FontSize="60" Alignment="Center" ux:Name="text"/>
+			<Rectangle ZOffset="0" CornerRadius="10" Color="#2494E8"/>
+			
+			<Rectangle CornerRadius="50" Color="#F00" Alignment="TopRight"
+				Anchor="70%,30%" Padding="7,2" MinWidth="25"
+				Visibility="Hidden" ux:Name="emailIndicator"
+				ZOffset="1">
+				<Text Value="{emailCount}" FontSize="20" TextColor="#FFF"
+					Alignment="Center"/>
+				
+				<Timeline ux:Name="newEmail">
+					<Change Target="emailIndicator.ZOffset" KeyframeInterpolation="Smooth">
+						<Keyframe Value="1" Time="0"/>
+						<Keyframe Value="0" Time="0.3"/>
+						<Keyframe Value="-1" Time="0.5"/>
+					</Change>
+					<Move RelativeTo="Size" KeyframeInterpolation="Smooth">
+						<Keyframe X="0" Y="0" Time="0"/>
+						<Keyframe X="0.7" Y="-0.7" Time="0.3"/>
+						<Keyframe X="-1" Y="1" Time="0.5"/>
+					</Move>
+					<Scale KeyframeInterpolation="Smooth">
+						<Keyframe Value="1" Time="0"/>
+						<Keyframe Value="1.5" Time="0.15"/>
+						<Keyframe Value="1" Time="0.3"/>
+						<Keyframe Value="0.5" Time="0.5"/>
+					</Scale>
+				</Timeline>
+			</Rectangle>
+			<WhileTrue Value="{emailCount} > 0">
+				<PulseBackward Target="newEmail"/>
+				<Change emailIndicator.Visibility="Visible"/>
+			</WhileTrue>
+			
+			<Rectangle CornerRadius="10" Color="#E82494" Alignment="Bottom"
+				>
+				<Text Alignment="Center" Value="{alert}" FontSize="22" TextColor="#FFF"/>
+			</Rectangle>
+			
+			<!-- TODO: Combiantion with bounce caused disappearing act -->
+			<Rectangle Layer="Background" Color="#A00" CornerRadius="10" ux:Name="redRect" Visibility="Collapsed" Opacity="1"/>
+			<Timeline ux:Name="pulseRed">
+				<Change redRect.Visibility="Visible"/>
+				<Scale Target="redRect" Factor="1.5" Duration="0.3"/>
+				<Change redRect.Opacity="0" Duration="0.3"/>
+			</Timeline>
 			
 			<Timeline ux:Name="pulse">
 				<Scale Factor="1.3" Duration="0.3" Easing="CubicIn"/>
@@ -84,10 +148,27 @@
 				<Scale Y="-1" Target="text" Delay="6.5" Duration="1"/>
 			</Timeline>
 			
-		</Rectangle>
+		</Panel>
 		<Panel Color="#DDD" Dock="Bottom" Height="20%">
 			<ScrollView>
 				<StackPanel>
+					<StackPanel Orientation="Horizontal" Alignment="Center"
+						ItemSpacing="10">
+						<Button Text="Add Email" Clicked="{addEmail}"/>
+						<Button Text="Clear" Clicked="{clearEmail}"/>
+					</StackPanel>
+					
+					<StackPanel Orientation="Horizontal" Alignment="Center"
+						ItemSpacing="10">
+						<Button Text="Add Alert" Clicked="{addAlert}"/>
+						<Button Text="Clear" Clicked="{clearAlert}"/>
+					</StackPanel>
+					
+					<Button Text="Pulse Red">
+						<Clicked>
+							<PulseForward Target="pulseRed"/>
+						</Clicked>
+					</Button>
 					
 					<Button Text="Bounce">
 						<Clicked>
