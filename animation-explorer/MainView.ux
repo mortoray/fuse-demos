@@ -10,20 +10,30 @@
 			exports.emailCount.value = 0
 		}
 		
-		exports.alert = Observable("text")
+		exports.alert = Observable()
 		exports.setAlert = function() {
 			exports.alert.value = "Alert"
 		}
 		exports.clearAlert = function() {
 			exports.alert.clear()
 		}
+		
+		exports.important = Observable(false)
+		exports.setImportant =  function() {
+			exports.important.value = true
+		}
+		exports.clearImportant = function() {
+			exports.important.value = false
+		}
 	</JavaScript>
 	<ClientPanel>
 		<Rectangle Height="2" Color="#888" Alignment="VerticalCenter" Anchor="50%,0%"/>
 		<Panel Width="20%" BoxSizing="FillAspect" Alignment="Center" Anchor="50%,100%" TransformOrigin="Anchor"
 			ux:Name="box">
-			<Text Value="📧" FontSize="60" Alignment="Center" ux:Name="text"/>
-			<Rectangle ZOffset="0" CornerRadius="10" Color="#2494E8"/>
+			<Text Value="📧" FontSize="60" Alignment="Center" ux:Name="text"
+				ZOffset="0.1"/>
+			<Rectangle ZOffset="0" CornerRadius="10" Color="#2494E8"
+				ux:Name="backRect"/>
 			
 			<Rectangle CornerRadius="50" Color="#F00" Alignment="TopRight"
 				Anchor="70%,30%" Padding="7,2" MinWidth="25"
@@ -57,9 +67,34 @@
 			</WhileTrue>
 			
 			<Rectangle CornerRadius="10" Color="#E82494" Alignment="Bottom"
-				>
+				Anchor="50%,0%" ux:Name="theAlert">
 				<Text Alignment="Center" Value="{alert}" FontSize="22" TextColor="#FFF"/>
+				<!-- TODO: <WhileTrue Value="{alert} == ''"> -->
+				<WhileString Value="{Clear alert}" Test="IsEmpty">
+					<Move Y="-1" RelativeTo="Size" Duration="0.3" 
+						EasingBack="BounceIn" Easing="CubicOut"/>
+					<Change theAlert.Visibility="Hidden" Delay="0.3"/>
+				</WhileString>
 			</Rectangle>
+			
+			<WhileTrue Value="{important}">
+				<Scale Target="backRect" Factor="0.5" Duration="0.3"/>
+				<Star Points="19" Color="#FE8" ZOffset="0.05" Ratio="0.8"
+					StrokeWidth="1" StrokeColor="#870"
+					Width="120%" Height="120%">
+					<AddingAnimation>
+						<Scale Factor="0.1" Duration="1" Easing="ElasticIn"/>
+						<Rotate Degrees="45" Delay="0.5" Duration="0.5"/>
+					</AddingAnimation>
+					<RemovingAnimation>
+						<Scale KeyframeInterpolation="Smooth">
+							<Keyframe Value="1" Time="0"/>
+							<Keyframe Value="1.5" Time="0.2"/>
+							<Keyframe Value="0" Time="0.4"/>
+						</Scale>
+					</RemovingAnimation>
+				</Star>
+			</WhileTrue>
 			
 			<!-- TODO: Combiantion with bounce caused disappearing act -->
 			<Rectangle Layer="Background" Color="#A00" CornerRadius="10" ux:Name="redRect" Visibility="Collapsed" Opacity="1"/>
@@ -160,8 +195,15 @@
 					
 					<StackPanel Orientation="Horizontal" Alignment="Center"
 						ItemSpacing="10">
-						<Button Text="Add Alert" Clicked="{addAlert}"/>
+						<!-- TODO: Callling "addAlert" crashed -->
+						<Button Text="Add Alert" Clicked="{setAlert}"/>
 						<Button Text="Clear" Clicked="{clearAlert}"/>
+					</StackPanel>
+					
+					<StackPanel Orientation="Horizontal" Alignment="Center"
+						ItemSpacing="10">
+						<Button Text="Flag Important" Clicked="{setImportant}"/>
+						<Button Text="Clear" Clicked="{clearImportant}"/>
 					</StackPanel>
 					
 					<Button Text="Pulse Red">
