@@ -4,6 +4,7 @@
     "FuseJS"
   ],
   "Includes": [
-    "*"
+    "*",
+    "*.js:FuseJS",
   ]
 }
