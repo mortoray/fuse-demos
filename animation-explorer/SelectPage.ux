@@ -1,0 +1,3 @@
+<Page ux:Class="SelectPage" Title="Selection">
+	<string ux:Key="FontIcon" ux:Value="&#xf046;"/>
+</Page>

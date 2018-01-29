@@ -1,4 +1,14 @@
 <DockPanel ux:Class="BoxPage" Model="BoxPage">
+	<string ux:Key="Title" ux:Value="Icon Animations"/>
+	<string ux:Key="IconTitle" ux:Value="Animations"/>
+	<string ux:Key="FontIcon" ux:Value="&#xf187;"/>
+	<!-- Testing a way to forward objects in-lieu of missing Model feature (the feature is coming soon) -->
+	<JavaScript dep:timelines="{timelines}">
+		timelines.add( "newEmail", newEmail )
+		timelines.add( "pulseRed", pulseRed )
+	</JavaScript>
+
+	<!--<Button Alignment="TopRight" Clicked="{testTimeline}" Text="Press"/>-->
 	<Rectangle Height="2" Color="#888" Alignment="VerticalCenter" Anchor="50%,0%"/>
 	<Panel Width="20%" BoxSizing="FillAspect" Alignment="Center" Anchor="50%,100%" TransformOrigin="Anchor"
 		ux:Name="box">
@@ -54,6 +64,7 @@
 			<Star Points="19" Color="#FE8" ZOffset="0.05" Ratio="0.8"
 				StrokeWidth="1" StrokeColor="#870"
 				Width="120%" Height="120%">
+				<!-- NOTE: Not really recommend here -->
 				<AddingAnimation>
 					<Scale Factor="0.1" Duration="1" Easing="ElasticIn"/>
 					<Rotate Degrees="45" Delay="0.5" Duration="0.5"/>

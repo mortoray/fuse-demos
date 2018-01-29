@@ -2,9 +2,6 @@
 	<JavaScript>
 	</JavaScript>
 	<ClientPanel>
-		<PageControl>
-			<BoxPage ux:Name="box"/>
-			<ListPage ux:Name="list"/>
-		</PageControl>
+		<HomePanel/>
 	</ClientPanel>
 </App>

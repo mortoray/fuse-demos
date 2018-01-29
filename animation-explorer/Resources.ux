@@ -1,0 +1,22 @@
+<ux:Resources>
+	<float4 ux:Global="ColorPrimaryDark" ux:Value="#607D8B"/>
+	<float4 ux:Global="ColorPrimaryXDark" ux:Value="#455A64"/>
+	<float4 ux:Global="ColorPrimary" ux:Value="#CFD8DC"/>
+	<float4 ux:Global="ColorPrimaryLight" ux:Value="#eef8fd"/>
+	<float4 ux:Global="ColorAccent" ux:Value="#9E9E9E"/>
+	<float4 ux:Global="ColorPrimaryDarkText" ux:Value="#000000"/>
+	<float4 ux:Global="ColorPrimaryText" ux:Value="#212121"/>
+	<float4 ux:Global="ColorSecondaryText" ux:Value="#757575"/>
+	<float4 ux:Global="ColorIcons" ux:Value="#FFFFFF"/>
+	<float4 ux:Global="ColorDivider" ux:Value="#BDBDBD"/>
+
+ 	<Font ux:Global="FontAwesome" File="Assets/FontAwesome.otf"/>
+  
+	<Rectangle ux:Class="StdButton" 
+		CornerRadius="5" Color="#fff" Padding="10,3">
+		<string ux:Property="Label"/>
+		<string ux:Property="FontIcon"/>
+		<Text Value="{Property this.Label}" FontSize="16" Alignment="VerticalCenter"/>
+		<Text Value="{Property this.FontIcon}" FontSize="24" Font="FontAwesome"/>	
+	</Rectangle>
+</ux:Resources>

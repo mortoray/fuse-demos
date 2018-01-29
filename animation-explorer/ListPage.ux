@@ -1,4 +1,133 @@
-<Page ux:Class="ListPage">
+<Page ux:Class="ListPage" Model="ListPage" Title="Listing">
+	<string ux:Key="FontIcon" ux:Value="&#xf00b;"/>
+
+	<WhileBusy>
+		<Change anyBusy.Value="true"/>
+	</WhileBusy>
+	<WhileTrue Value="{isLoading}">
+		<Change anyBusy.Value="true"/>
+	</WhileTrue>
+
+	<WhileTrue ux:Name="anyBusy">		
+		<Circle Alignment="BottomRight" Width="50" Height="50"
+			Margin="20" StrokeColor="#A44" 
+			StrokeWidth="{isLoading} ? 20 : 10" 
+			ux:Name="loadIndicator" StartAngleDegrees="0" LengthAngleDegrees="180">
+			<WhileVisible>
+				<!--<Cycle Target="loadIndicator.StrokeWidth" Low="0" High="10" Frequency="1"/>-->
+				<Cycle Target="loadIndicator.StartAngleDegrees" 
+					Low="0" High="360" Frequency="0.5"
+					Waveform="Sawtooth"/>
+			</WhileVisible>
+		</Circle>
+	</WhileTrue>
 	<DockPanel>
+		<Panel Dock="Top" ux:Name="pully" Height="0">
+			<Curve Color="ColorPrimaryLight" ux:Name="loadFeedback">
+				<CurvePoint At="0,0"/>
+				<CurvePoint At="1,0"/>
+				<CurvePoint At="1,0" Tangent="0,1"/>
+				<CurvePoint At="0.5,1" Tangent="-3,0" ux:Name="pointyBit"/>
+				<CurvePoint At="0,0" Tangent="0,-1"/>
+			</Curve>
+		</Panel>
+		<ScrollView SnapMinTransform="False">
+			<ScrollingAnimation Range="SnapMin">
+    				<Change pully.Height="150"/>
+    				<Change pointyBit.Tangent="-0.1,0"/>
+    			</ScrollingAnimation>
+    			
+			<PullToReload IsLoading="{isLoading}" ReloadHandler="{reload}">
+				<State ux:Binding="Pulling">
+				</State>
+				<State ux:Binding="PulledPastThreshold">
+					<Change loadFeedback.Color="ColorPrimaryDark" Duration="0.3"/>
+				</State>
+				<State ux:Binding="Loading"/>
+				<State ux:Binding="Rest"/>
+			</PullToReload>				
+			<StackPanel ItemSpacing="5" Padding="5" ux:Name="itemListing">
+				<Each Items="{items}" MatchKey="type" Reuse="Frame">
+					<ChatItem Clicked="{remove}" ux:Template="chat"/>
+					<AdItem ux:Template="ad"/>
+				</Each>
+				
+				<WhileTrue Value="{isLoading}">
+					<Change itemListing.Opacity="0.3" Duration="0.3"/>
+				</WhileTrue>
+			</StackPanel>
+		</ScrollView>
+		
+		<Panel Color="ColorPrimary" Dock="Bottom" Padding="5">
+			<StackPanel Orientation="Horizontal" ItemSpacing="10">
+				<StdButton Label="Add" Clicked="{add}"/>
+				<StdButton Label="Insert" Clicked="{insert}"/>
+				<StdButton Label="InsertAd" Clicked="{insertAd}"/>
+				<StdButton Label="Clear" Clicked="{clear}"/>
+			</StackPanel>
+		</Panel>
 	</DockPanel>
+	
+	<DockPanel ux:Class="ListItem">
+		<RemovingAnimation>
+			<Move X="-1" RelativeTo="ParentSize" Duration="0.6" Easing="CubicIn"/>
+		</RemovingAnimation>
+		<LayoutAnimation>
+			<Move Vector="1" RelativeTo="PositionChange" Duration="0.6" Easing="SinusoidalIn"/>
+		</LayoutAnimation>
+	</DockPanel>
+	
+	<ListItem ux:Class="ChatItem">
+		<Rectangle Layer="Background" Color="ColorPrimaryLight" CornerRadius="10" Clicked="{remove}"/>
+		<DockPanel Margin="5">
+			<Rectangle Dock="Left" BoxSizing="FillAspect" CornerRadius="10">
+				<ImageFill Url="https://picsum.photos/50/50/?random&amp;image={id}"/>
+			</Rectangle>
+			<StackPanel Margin="10,0,0,0">
+				<Text Value="{id}"/>
+				<Text Value="Some more text on another line just to show something of interest" TextWrapping="Wrap"/>
+			</StackPanel>
+		</DockPanel>
+		<AddingAnimation>
+			<Move X="1" RelativeTo="ParentSize" Duration="0.6" Easing="CubicIn"/>
+			<Scale Y="0" Duration="0.6"/>
+		</AddingAnimation>
+		
+		<Busy IsActive="{loading} ?? true" ux:Name="busy"/>
+<!-- 		<JavaScript>
+			setTimeout( function() {
+				busy.deactivate()
+			}, 5000 )
+		</JavaScript>
+ -->		
+		<WhileBusy>
+			<Panel Layer="Overlay">
+				<Translation X="0" ux:Name="trans" RelativeTo="Size"/>
+				<Rectangle Width="70%" Alignment="Left"
+					ux:Name="fade" Anchor="50%,50%">
+					<LinearGradient StartPoint="0,0" EndPoint="1,0">
+						<GradientStop Color="#FFF0" Offset="0"/>
+						<GradientStop Color="#FFFA" Offset="0.2"/>
+						<GradientStop Color="#FFFF" Offset="0.4"/>
+						<GradientStop Color="#FFFF" Offset="0.6"/>
+						<GradientStop Color="#FFFA" Offset="0.8"/>
+						<GradientStop Color="#FFF0" Offset="1"/>
+					</LinearGradient>
+					<WhileVisible>
+						<Cycle Target="trans.X" Low="0" High="1"
+							Frequency="0.63"/>
+					</WhileVisible>
+				</Rectangle>
+			</Panel>
+		</WhileBusy>
+	</ListItem>
+	
+	<!-- TODO: LimitHeight scenario -->
+	<ListItem ux:Class="AdItem" Margin="6">
+		<Rectangle Layer="Background" StrokeColor="ColorPrimaryDark" StrokeWidth="2"/>
+		<Image Url="https://picsum.photos/300/200/?random&amp;image={id}" StretchMode="UniformToFill" MemoryPolicy="UnloadUnused" MaxHeight="200"/>
+		<AddingAnimation>
+			<Scale Y="0.05" Duration="0.6"/>
+		</AddingAnimation>
+	</ListItem>
 </Page>

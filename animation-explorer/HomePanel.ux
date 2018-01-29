@@ -1,0 +1,57 @@
+<DockPanel ux:Class="HomePanel">
+	<Panel Dock="Top" Color="ColorPrimary" Padding="5"
+		Navigation="nav">
+		<Text Alignment="CenterLeft" Value="&#xf0c9;" Font="FontAwesome"/>
+		<PageIndicator Navigation="nav">
+			<DefaultLayout/>
+			<Panel ux:Template="Dot" Alignment="Center">
+				<Text Alignment="Center" Value="{Page Title}"/>
+				<EnteringAnimation>
+					<Move X="-0.5" RelativeTo="ParentSize"/>
+					<Change Dot.Opacity="0"/>
+				</EnteringAnimation>
+				<ExitingAnimation>
+					<Move X="0.5" RelativeTo="ParentSize"/>
+					<Change Dot.Opacity="0"/>
+				</ExitingAnimation>
+			</Panel>
+		</PageIndicator>
+	</Panel>
+	<PageControl ux:Name="nav" Interaction="None">
+		<ListPage ux:Name="list"/>
+		<BoxPage ux:Name="box"/>
+		<SelectPage ux:Name="select"/>
+	</PageControl>
+	
+	<Panel Dock="Bottom" Color="ColorPrimary">
+		<Rectangle Height="1" Alignment="Top" Color="ColorPrimaryDark"/>
+		<PageIndicator Navigation="nav" Padding="5">
+			<GridLayout ChildOrder="ColumnMajor" RowCount="1"/>
+			<StackPanel ux:Template="Dot" Alignment="Center" Padding="5">
+				<Rectangle CornerRadius="5" Layer="Background" Color="ColorPrimary" ux:Name="back"/>
+				<Text Value="{Page FontIcon}" Font="FontAwesome"
+					FontSize="42" Alignment="Center"
+					Color="ColorPrimaryLight" ux:Name="t1"/>
+				<Text Value="{= {Page IconTitle} ?? {Page Title}}" TextWrapping="Wrap" MaxWidth="75"
+					TextAlignment="Center" FontSize="12"
+					Color="ColorPrimaryDark" ux:Name="t2"/>
+				
+				<ActivatingAnimation>
+					<Change t1.Color="ColorPrimaryXDark"/>
+					<Change t2.Color="ColorPrimaryXDark"/>
+				</ActivatingAnimation>
+				<Clicked>
+					<Set nav.Active="{Page Node}"/>
+				</Clicked>
+				
+				<!-- Silly -->
+				<!--<Activated>
+					<Scale Factor="1.5" Duration="0.3"/>
+				</Activated>-->
+			</StackPanel>
+			
+		</PageIndicator>
+	</Panel>
+</DockPanel>
+
+

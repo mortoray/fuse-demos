@@ -1,8 +1,19 @@
+class Timelines {
+	constructor() {
+		this.triggers = {}
+	}
+	
+	add( name, timeline ) {
+		this.triggers[name] = timeline
+	}
+}
+
 export default class BoxPage {
 	constructor() {
 		this.emailCount = 0
 		this.alert = undefined
 		this.important = false;
+		this.timelines = new Timelines()
 	}
 	
 	addEmail() {
@@ -24,5 +35,9 @@ export default class BoxPage {
 	}
 	clearImportant() {
 		this.important = false
+	}
+	
+	testTimeline() {
+		this.timelines.triggers.pulseRed.pulseForward()
 	}
 }
