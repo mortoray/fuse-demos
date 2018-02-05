@@ -1,0 +1,69 @@
+<App Model="AppState">
+	<float4 ux:Global="ColorLine" ux:Value="#080"/>
+	
+	<ClientPanel>
+		<Text Value="{title}" Alignment="TopCenter" FontSize="20"/>
+		
+		<Panel Clicked="{incr}" Color="#AAA" Width="50" Height="50">
+			<Text Value="{count}" Alignment="Center" FontSize="30"/>
+		</Panel>
+		
+		<AttractorConfig Unit="Normalized" Easing="CubicInOut" ux:Global="aConf"/>
+		<Let ux:Name="relCount" Value="attract({count}/{maxCount},aConf)"/>
+		<Let ux:Name="topPosition" Value="{relCount}"/>
+		<Let ux:Name="bottomPosition" Value="({relCount}*0.6+0.2)"/>
+		
+		<LetBool ux:Name="isReveal" Value="false"/>
+		
+		<Panel Padding="25,0" Color="#EEE" Y="60%" 
+			Height="{isReveal} ? 200 : 30" 
+			ux:Name="thePanel">
+			<Rectangle X="{topPosition} * 100%" Y="0%"
+				Anchor="50%,105%" StrokeWidth="2" StrokeColor="ColorLine"
+				Padding="5,2">
+				<Text FontSize="20" Value="{= {count} }"/>
+			</Rectangle>
+			<Circle Width="50" Height="50" Color="ColorLine"
+				X="{bottomPosition} * 100%" Y="100%"
+				Anchor="50%,0%">
+				<Clicked>
+					<Toggle Target="reveal"/>
+				</Clicked>
+			</Circle>
+			<Curve StrokeWidth="3" StrokeColor="ColorLine" Style="Smooth">
+				<CurvePoint X="{topPosition}" Y="0" Tangent="0,1"/>
+				<CurvePoint X="{bottomPosition}" Y="1" Tangent="0,1"/>
+			</Curve>
+			<LayoutAnimation>
+				<Resize Vector="1" RelativeTo="SizeChange" Duration="0.3"/>
+			</LayoutAnimation>
+
+			<Panel Margin="10">
+				<WhileTrue Value="{isReveal}">			
+					<Image Url="https://picsum.photos/300/200/?image=1{count}" MemoryPolicy="UnloadUnused"/>
+					<Nothing Duration="0.3"/>
+				</WhileTrue>
+				<Rectangle StrokeWidth="4" StrokeColor="#8880" ux:Name="border"/>
+				<WhileLoading>
+					<Change border.StrokeColor="#AAA8" Duration="0.3"/>
+				</WhileLoading>
+			</Panel>
+			
+			<WhileTrue ux:Name="reveal">
+				<Change isReveal.Value="true"/>
+			</WhileTrue>
+		</Panel>
+
+		<Panel X="50%" Y="25%" Anchor="50%,50%" 
+				Padding="20,10" Color="#AAA">
+				
+	 		<LetFloat ux:Name="rot" Value="0"/>
+			<Rotation Degrees="{rot} * 10"/>
+			
+			<Text Value="Rotate" FontSize="20"/>
+			<Clicked>
+				<Set Target="rot.Value" Increment="1"/>
+			</Clicked>
+		</Panel>
+ 	</ClientPanel>
+</App>

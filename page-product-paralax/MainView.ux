@@ -1,0 +1,102 @@
+<App Model="MainState">
+	<Font File="Assets/FontAwesome.otf" ux:Global="FontAwesome"/>
+	<float4 ux:Global="ColorFore" ux:Value="#FFF"/>
+	
+	<ClientPanel>
+		<Image Layer="Background" File="Assets/background.jpg" 
+			StretchMode="UniformToFill" ux:Name="backImage"
+			Color="#FFF"/>
+			
+		<Panel Dock="Top" Padding="7,3">
+			<Text ux:Class="MenuText" Color="ColorFore" FontSize="19"/>
+			<MenuText ux:Class="MenuIcon" FontSize="22" Font="FontAwesome"/>
+			
+			<MenuIcon Alignment="Left" Value="&#xf0c9;"/>
+			<MenuText Alignment="Center" Value="Discover"/>
+			<MenuIcon Alignment="Right" Value="&#xf002;"/>
+		</Panel>
+		<Panel Dock="Bottom">
+			<Text TextAlignment="Center" Value="Just some legal boilerplate for Badger-Outwear® mumbo-jumbo at the bottom." FontSize="14"
+				TextWrapping="Wrap" Margin="10" Color="#DDD"/>
+		</Panel>
+		
+		<DockPanel Dock="Top" Alignment="Top" Height="160">
+			<Image File="Assets/logo-1.png" Margin="25"/>
+			<Text Dock="Bottom" Value="Select Article" Alignment="Center"
+				FontSize="19" Font="Medium" Color="ColorFore"/>
+		</DockPanel>
+
+		<Panel Margin="0,20">
+			<PageControl ux:Name="productNav">
+				<Each Items="{products}">
+					<Page>
+						<Grid ColumnCount="1" Rows="1*,30,60">
+							<Panel>
+								<Image File="{image}" Margin="50"/>
+								<Text Value="{name}" FontSize="70"
+									Alignment="TopCenter" Margin="0,20"
+									Font="Bold" Color="#8886"
+									ux:Name="name"/>
+							</Panel>
+							<Panel/>
+							<Text Value="{text}" FontSize="25"
+								TextWrapping="Wrap" TextAlignment="Center"
+								MaxWidth="200" ux:Name="text"
+								Color="ColorFore"/>
+						</Grid>
+						
+						<EnteringAnimation>
+							<Move Target="text" X="-1" RelativeTo="ParentSize"/>
+							<Move Target="name" X="-1" RelativeTo="ParentSize"
+								Easing="CubicOut"/>
+						</EnteringAnimation>
+						<ExitingAnimation>
+							<Move Target="text" X="1" RelativeTo="ParentSize"/>
+							<Move Target="name" X="1" RelativeTo="ParentSize"
+								Easing="CubicOut"/>
+						</ExitingAnimation>
+						
+						<ActivatingAnimation>
+							<Change backImage.Color="{color}"/>
+						</ActivatingAnimation>
+					</Page>
+				</Each>
+		 	</PageControl>
+		 	
+		 	<StackPanel Layer="Overlay" Alignment="BottomCenter" Margin="0,0,0,80"
+		 		Orientation="Horizontal" Navigation="productNav">
+		 		<Panel Padding="10,5" HitTestMode="LocalBounds">
+		 			<Text Value="&#xf104;" Font="FontAwesome" FontSize="30"
+		 				Color="ColorFore"/>
+		 			<Clicked>
+		 				<GoForward/>
+		 			</Clicked>
+		 		</Panel>
+		 		<Panel Padding="10,0,0,0">
+			 		<PageIndicator Navigation="productNav">
+			 			<Circle ux:Template="Dot" Color="#FFF6" Width="8" Height="8"
+			 				Margin="0,0,10,0" SnapToPixels="false">
+			 				<EnteringAnimation>
+			 					<Change Dot.Color="#FFF"/>
+			 				</EnteringAnimation>
+			 				<ActivatingAnimation>
+			 					<Change Dot.Color="#FFF"/>
+			 				</ActivatingAnimation>
+			 			</Circle>
+			 		</PageIndicator>
+		 			<Rectangle Alignment="CenterLeft"
+		 				Height="2" Color="#FFF" 
+		 				Width="{Property productNav.ActiveIndex} / 5 *100%" 
+		 				Margin="0,0" SnapToPixels="false"/>
+		 		</Panel>
+		 		<Panel Padding="10,5" HitTestMode="LocalBounds">
+		 			<Text Value="&#xf105;" Font="FontAwesome" FontSize="30"
+		 				Color="ColorFore"/>
+		 			<Clicked>
+		 				<GoBack/>
+		 			</Clicked>
+		 		</Panel>
+		 	</StackPanel>
+		</Panel>
+	</ClientPanel>
+</App>
