@@ -15,43 +15,48 @@
 		
 		<PageIndicator Dock="Top" Height="50" Navigation="timeNav">
 			<GridLayout ColumnCount="3"/>
-			<Panel ux:Template="Dot" Padding="0,10,0,15">
+			<Panel ux:Template="Dot" Padding="0,10,0,15" HitTestMode="LocalBounds">
 				<Text Value="{= toUpper({Page Title})}" TextAlignment="Center"
-					FontSize="15"/>
+					FontSize="15" ux:Name="title"/>
 				<WhileActive>
 					<Rectangle Alignment="Bottom" Height="2" Color="#18F"/>
+					<Change title.Font="Bold"/>
 				</WhileActive>
+				<Clicked>
+					<Set timeNav.Active="{Page Node}"/>
+				</Clicked>
 			</Panel>
 		</PageIndicator>
 		
+		<Page ux:Class="CollectionPage">
+			<object ux:Property="Items"/>
+			<ScrollView>
+				<StackPanel>
+					<Each Items="{Property this.Items}">
+						<Grid Columns="2*,1*,1*,1*,1*" Padding="10,0"  
+							HitTestMode="LocalBounds" Clicked="{showItem}"
+							Height="60" Margin="10,15,10,0">
+							<Text Value="{name}" FontSize="14" Alignment="CenterLeft"/>
+							<Each Items="{values}" Limit="4">
+								<Circle
+									Width="({value}/3+0.15)*100%" 
+									Height="({value}/3+0.15)*100%"
+									Alignment="Center">
+									
+									<ux:Include File="Includes/ItemGradient.xml"/>
+								</Circle>
+							</Each>
+						</Grid>
+						<Rectangle Height="1" Color="#e8e8e8D0"/>
+					</Each>
+				</StackPanel>
+			</ScrollView>
+		</Page>
+		
 		<PageControl ux:Name="timeNav">
-			<Page Title="Days">
-				<ScrollView>
-					<StackPanel>
-						<Each Items="{days}">
-							<Grid Columns="2*,1*,1*,1*,1*" Padding="10,0"  
-								HitTestMode="LocalBounds" Clicked="{showItem}"
-								Height="60" Margin="0,10,0,0">
-								<Text Value="{name}" FontSize="14" Alignment="CenterLeft"/>
-								<Each Items="{values}">
-									<Circle
-										Width="({value}/3+0.15)*100%" 
-										Height="({value}/3+0.15)*100%"
-										Alignment="Center">
-										
-										<ux:Include File="Includes/ItemGradient.xml"/>
-									</Circle>
-								</Each>
-							</Grid>
-							<Rectangle Height="1" Color="#e8e8e8D0"/>
-						</Each>
-					</StackPanel>
-				</ScrollView>
-			</Page>
-			<Page Title="Weeks">
-			</Page>
-			<Page Title="Month">
-			</Page>
+			<CollectionPage Title="Days" Items="{days}"/>
+			<CollectionPage Title="Weeks" Items="{weeks}"/>
+			<CollectionPage Title="Month" Items="{months}"/>
 		</PageControl>
 	</DockPanel>
 </Page>

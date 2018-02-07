@@ -4,27 +4,27 @@
 			Color="float({color}) * (0.7,0.7,0.7,1)" FontSize="14"
 			Font="Light"/>
 		<Circle 
-			Width="50 * {value} + 50" 
-			Height="50 * {value} + 50">
+			Width="80 * {value} + 50" 
+			Height="80 * {value} + 50">
 			<ux:Include File="Includes/ItemGradient.xml"/>
-			<Text Value="{= floor({value}*100) }" Alignment="Center" TextColor="#FFF"/>
+			<Text Value="{durationStr}" Alignment="Center" TextColor="#FFF" FontSize="24"/>
 		</Circle>
 	</StackPanel>
 	
 	<Image Clicked="{goBack}" Alignment="TopRight" 
 		File="Assets/arrow_left.png" Color="#888" Height="24"/>
-	<ScrollView>
+	<ScrollView ClipToBounds="false">
 		<StackPanel>
-			<Text Value="Time Split" FontSize="24" Font="Medium"/>
+			<Text Value="Time Split" FontSize="24" Font="Bold"/>
 			
 			<Rectangle Height="20" Color="{item.color}"/>
 			<Text Value="{prodStr} hours more productive than {item.name}"/>
 			<Grid Columns="1*,20,1*">
 				<StackPanel>
-					<Instance Item="{sortedValues[0]}">
+					<Instance Item="{item.sortedValues[0]}">
 						<PDBigDot Alignment="Right"/>
 					</Instance>
-					<Instance Item="{sortedValues[1]}">
+					<Instance Item="{item.sortedValues[1]}">
 						<PDBigDot Alignment="Right"/>
 					</Instance>
 				</StackPanel>
@@ -32,21 +32,30 @@
 				<Panel/>
 				
 				<StackPanel>
-					<Instance Item="{sortedValues[2]}">
+					<Instance Item="{item.sortedValues[2]}">
 						<PDBigDot Alignment="Left"/>
 					</Instance>
-					<Instance Item="{sortedValues[3]}">
+					<Instance Item="{item.sortedValues[3]}">
 						<PDBigDot Alignment="Left"/>
 					</Instance>
 				</StackPanel>
 			</Grid>
-			<Each Items="{sortedValues}">
-				<DockPanel Margin="0,10">
-					<Circle Dock="Left" Width="30" Height="30" Margin="10,0">
+			
+			<Panel Height="30"/>
+			
+			<Each Items="{item.sortedValues}">
+				<WhileTrue Value="{index() > 0}">
+					<Rectangle Width="1" Height="40" X="30" Y="0" Color="#CCC"/>
+				</WhileTrue>
+				<DockPanel>
+					<Circle Dock="Left" Width="40" Height="40" Margin="10,0">
 						<ux:Include File="Includes/ItemGradient.xml"/>
+						<Text Alignment="Center" Value="{icon}" Color="#FFF" FontSize="22"/>
 					</Circle>
-					<Text Dock="Right" Value="{= floor({value}*100)}"/>
-					<Text Dock="Bottom" FontSize="14" Value="{name}" Font="Bold"/>
+					<Text Dock="Right" Value="{durationStr}" FontSize="18" Font="Bold" Color="#AAA"
+						Margin="10,0"/>
+					<Text Dock="Bottom" FontSize="18" Value="{name}" Font="Bold"/>
+					<Text Dock="Top" FontSize="14" Color="#AAA" Value="{startStr} - {endStr}" Font="Bold"/>
 				</DockPanel>
 			</Each>
 		</StackPanel>
