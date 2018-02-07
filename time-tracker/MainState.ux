@@ -1,0 +1,6 @@
+<App Model="MainState">
+	<Navigator Pages="{pages}">
+		<PageOverview ux:Template="PageOverview"/>
+		<PageDetails ux:Template="PageDetails"/>
+	</Navigator>
+</App>

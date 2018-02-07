@@ -1,0 +1,55 @@
+<Page ux:Class="PageOverview" Color="#E8E8E8">
+	<Panel Height="200" Alignment="Top">
+		<Image File="Assets/header.png" Width="50%" Color="#FFF8" Alignment="Top"/>
+		
+		<LinearGradient StartPoint="0,0" EndPoint="0,1">
+			<GradientStop Color="#4CF" Offset="0"/>
+			<GradientStop Color="#18F" Offset="1"/>
+		</LinearGradient>
+	</Panel>
+	
+	<DockPanel Margin="10,120,10,10" ZOffset="1">
+		<Rectangle CornerRadius="5" Color="#FFF" Layer="Background"/>
+		
+		<PageIndicator Dock="Top" Height="50" Navigation="timeNav">
+			<GridLayout ColumnCount="3"/>
+			<Panel ux:Template="Dot" Padding="0,10,0,15">
+				<Text Value="{= toUpper({Page Title})}" TextAlignment="Center"
+					FontSize="15"/>
+				<WhileActive>
+					<Rectangle Alignment="Bottom" Height="2" Color="#18F"/>
+				</WhileActive>
+			</Panel>
+		</PageIndicator>
+		
+		<PageControl ux:Name="timeNav">
+			<Page Title="Days">
+				<ScrollView>
+					<StackPanel>
+						<Each Items="{days}">
+							<Grid Columns="2*,1*,1*,1*,1*" Padding="10,0"  
+								HitTestMode="LocalBounds" Clicked="{showItem}"
+								Height="60" Margin="0,10,0,0">
+								<Text Value="{name}" FontSize="14" Alignment="CenterLeft"/>
+								<Each Items="{values}">
+									<Circle
+										Width="({value}/3+0.15)*100%" 
+										Height="({value}/3+0.15)*100%"
+										Alignment="Center">
+										
+										<ux:Include File="Includes/ItemGradient.xml"/>
+									</Circle>
+								</Each>
+							</Grid>
+							<Rectangle Height="1" Color="#e8e8e8D0"/>
+						</Each>
+					</StackPanel>
+				</ScrollView>
+			</Page>
+			<Page Title="Weeks">
+			</Page>
+			<Page Title="Month">
+			</Page>
+		</PageControl>
+	</DockPanel>
+</Page>
