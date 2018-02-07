@@ -1,3 +1,5 @@
+var moment = require( "lib/moment.js" )
+
 class TimeItem {
 	constructor(name, color, value) {
 		this.name = name
@@ -14,7 +16,7 @@ class PageDetails {
 	}
 	
 	get prodStr() {
-		return this.productivity.toFixed(2)
+		return moment.hours(this.productivity).format("HH:MM")
 	}
 
 	//TODO: crashed without "this."
