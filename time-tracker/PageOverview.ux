@@ -1,11 +1,13 @@
 <Page ux:Class="PageOverview" Color="#E8E8E8">
 	<Panel Height="200" Alignment="Top">
 		<Image File="Assets/header.png" Width="50%" Color="#FFF8" Alignment="Top"/>
-		
-		<LinearGradient StartPoint="0,0" EndPoint="0,1">
-			<GradientStop Color="#4CF" Offset="0"/>
-			<GradientStop Color="#18F" Offset="1"/>
-		</LinearGradient>
+
+		<Rectangle>
+			<LinearGradient StartPoint="0,0" EndPoint="0,1">
+				<GradientStop Color="#4CF" Offset="0"/>
+				<GradientStop Color="#18F" Offset="1"/>
+			</LinearGradient>
+		</Rectangle>
 	</Panel>
 	
 	<DockPanel Margin="10,120,10,10" ZOffset="1">

@@ -10,42 +10,45 @@
 			<Text Value="{= floor({value}*100) }" Alignment="Center" TextColor="#FFF"/>
 		</Circle>
 	</StackPanel>
+	
 	<Image Clicked="{goBack}" Alignment="TopRight" 
 		File="Assets/arrow_left.png" Color="#888" Height="24"/>
-	<StackPanel>
-		<Text Value="Time Split" FontSize="24" Font="Medium"/>
-		
-		<Rectangle Height="20" Color="{item.color}"/>
-		<Text Value="{prodStr} hours more productive than {item.name}"/>
-		<Grid Columns="1*,20,1*">
-			<StackPanel>
-				<Instance Item="{sortedValues[0]}">
-					<PDBigDot Alignment="Right"/>
-				</Instance>
-				<Instance Item="{sortedValues[1]}">
-					<PDBigDot Alignment="Right"/>
-				</Instance>
-			</StackPanel>
+	<ScrollView>
+		<StackPanel>
+			<Text Value="Time Split" FontSize="24" Font="Medium"/>
 			
-			<Panel/>
-			
-			<StackPanel>
-				<Instance Item="{sortedValues[2]}">
-					<PDBigDot Alignment="Left"/>
-				</Instance>
-				<Instance Item="{sortedValues[3]}">
-					<PDBigDot Alignment="Left"/>
-				</Instance>
-			</StackPanel>
-		</Grid>
-		<Each Items="{sortedValues}">
-			<DockPanel Margin="0,10">
-				<Circle Dock="Left" Width="30" Height="30" Margin="10,0">
-					<ux:Include File="Includes/ItemGradient.xml"/>
-				</Circle>
-				<Text Dock="Right" Value="{= floor({value}*100)}"/>
-				<Text Dock="Bottom" FontSize="14" Value="{name}" Font="Bold"/>
-			</DockPanel>
-		</Each>
-	</StackPanel>
+			<Rectangle Height="20" Color="{item.color}"/>
+			<Text Value="{prodStr} hours more productive than {item.name}"/>
+			<Grid Columns="1*,20,1*">
+				<StackPanel>
+					<Instance Item="{sortedValues[0]}">
+						<PDBigDot Alignment="Right"/>
+					</Instance>
+					<Instance Item="{sortedValues[1]}">
+						<PDBigDot Alignment="Right"/>
+					</Instance>
+				</StackPanel>
+				
+				<Panel/>
+				
+				<StackPanel>
+					<Instance Item="{sortedValues[2]}">
+						<PDBigDot Alignment="Left"/>
+					</Instance>
+					<Instance Item="{sortedValues[3]}">
+						<PDBigDot Alignment="Left"/>
+					</Instance>
+				</StackPanel>
+			</Grid>
+			<Each Items="{sortedValues}">
+				<DockPanel Margin="0,10">
+					<Circle Dock="Left" Width="30" Height="30" Margin="10,0">
+						<ux:Include File="Includes/ItemGradient.xml"/>
+					</Circle>
+					<Text Dock="Right" Value="{= floor({value}*100)}"/>
+					<Text Dock="Bottom" FontSize="14" Value="{name}" Font="Bold"/>
+				</DockPanel>
+			</Each>
+		</StackPanel>
+	</ScrollView>
 </Page>

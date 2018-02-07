@@ -11,8 +11,6 @@ class PageDetails {
 	constructor( collection ) {
 		this.item = collection
 		this.productivity = Math.floor(Math.random() * 500) / 60
-		
-		this.sortedValues = this.item.values.sort( (a,b) => b.value - a.value )
 	}
 	
 	get prodStr() {
@@ -20,15 +18,9 @@ class PageDetails {
 	}
 
 	//TODO: crashed without "this."
-	//TODO: not binding to this value
-	/*get sortedValues() {
-		var q = this.item.values.sort( (a,b) => b.value - a.value )
-		console.log( "Value: " + q[0].value )
-		console.log( "Value: " + q[1].value )
-		console.log( "Value: " + q[2].value )
-		console.log( "Value: " + q[3].value )
-		return q
-	}*/
+	get sortedValues() {
+		return this.item.values.slice().sort( (a,b) => b.value - a.value )
+	}
 }
 
 class PageOverview {
