@@ -9,6 +9,6 @@
 	</Circle>
 	<Transition/>
 	<Transition Direction="ToBack">
-		<Scale Factor="5" Duration="0.22"/>
+		<Scale Factor="5" Duration="0.3"/>
 	</Transition>
 </Page>

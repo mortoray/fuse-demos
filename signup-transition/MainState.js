@@ -54,10 +54,23 @@ class PageHome {
 	constructor(mainState) {
 		this.mainState = mainState
 		this.$path = 'home'
-		this.$navigationRequest = {
-			transition: 'Transition',
-			style: 'Push',
-		}
+		
+		this.items = [ {
+			name: "Ricky Bass",
+			status: "Pending", 
+			date: "13 Apr 2017 10:13 AM", 
+			amount: "$2348.85"
+		},{
+			name: "Katie Roy",
+			status: "Denied", 
+			date: "12 Apr 2017 11:13 AM", 
+			amount: "$148.27"
+		},{
+			name: "Tom Tailor",
+			status: "Accepted", 
+			date: "11 Apr 2017 8:13 AM", 
+			amount: "$348.45"
+		}]
 	}
 }
 
@@ -66,42 +79,19 @@ export default class MainState {
 		this.title ="Login Transitions"
 		
 		this.mainPages = [ new PageLogout(this) ] 
-		//this.mainPages = [ new PageLoading(this) ]
 	}
 	
 	gotoLoading() {
-		//TODO: replace with Goto
-		//this.mainPages[0] = new PageLoading(this)
-		this.mainPages.push( new PageLoading(this) )
+		this.mainPages[0] = new PageLoading(this)
 	}
 	
 	gotoHome() {
-		//TODO: something weird here
+		this.mainPages.splice(0, this.mainPages.length, new PageHome(this))
 		//this.mainPages.pop();
 		//this.mainPages[0] = new PageHome(this)
-		//this.mainPages = [ new PageHome(this) ]
-		this.mainPages.push( new PageHome(this) );
 	}
 	
 	logout() {
 		this.mainPages = [ new PageLogout(this) ]
 	}
 }
-
-/**
-File name: FuseJS/Internal/zone.js
-Line number: 196
-Script stack trace: Error: Internal error: Attempted to detach child that is not attached to us
-    at removeAsParentFrom (FuseJS/Internal/Model.js:320:12)
-    at Object.meta.diff (FuseJS/Internal/Model.js:250:7)
-    at update (FuseJS/Internal/Model.js:392:15)
-    at Object.meta.diff (FuseJS/Internal/Model.js:266:6)
-    at update (FuseJS/Internal/Model.js:392:15)
-    at Object.meta.diff (FuseJS/Internal/Model.js:266:6)
-    at FuseJS/Internal/Model.js:212:11
-    at ZoneDelegate.invokeTask (FuseJS/Internal/zone.js:425:31)
-    at Zone.runTask (FuseJS/Internal/zone.js:192:47)
-    at ZoneTask.invokeTask (FuseJS/Internal/zone.js:499:34)
-<---
-
-*/

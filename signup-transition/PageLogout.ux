@@ -79,4 +79,9 @@
 			<TextBox Value="{password2}" IsPassword="true"/>
 		</PLBase>
 	</PageControl>
+	
+	<Transition>
+		<Scale Factor="0.01" Duration="0.3"/>
+		<ReleasePage Delay="0.3"/>
+	</Transition>
 </Page>

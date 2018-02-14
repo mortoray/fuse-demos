@@ -1,18 +1,20 @@
-<Page ux:Class="PageHome" Padding="10,20" Color="#FFF">
+<Page ux:Class="PageHome" Padding="15,20" Color="#FFF">
 	<StackPanel ItemSpacing="0" ux:Name="stack">
-		<StackPanel Padding="20" ItemSpacing="17">
+		<Panel Clicked="{logout}" Padding="10" Layer="Overlay" Alignment="TopRight" HitTestMode="LocalBounds">
+			<Text Value="◀" TextColor="#FFF" FontSize="23"/>
+		</Panel>
+		
+		<StackPanel Padding="20" ItemSpacing="12">
 			<Panel ux:Name="topSpacer" Height="0"/>
 			<Rectangle Layer="Background" CornerRadius="10,10,0,0">
-				<ImageFill File="Assets/background.png" StretchMode="UniformToFill"/>
+				<ImageFill File="Assets/background.png" StretchMode="PointPrecise"/>
 			</Rectangle>
+
 			
-			<DockPanel>
+			<DockPanel Margin="0,0,0,10">
 				<Circle Dock="Left" Height="40" Width="40" Color="#ECBB62" Margin="0,0,10,0">
 					<Text Value="🍔" Alignment="Center" FontSize="25"/>
 				</Circle>
-				<Panel Clicked="{logout}" Padding="10" Dock="Right" HitTestMode="LocalBounds">
-					<Text Value="◀" TextColor="#FFF" FontSize="23"/>
-				</Panel>
 				<Text Value="Mikes Pizza Rest., LLC." Dock="Top" Font="Bold" TextColor="#FFF"/>
 				<Text Value="5837495748394" TextColor="#FFF"/>
 			</DockPanel>
@@ -21,11 +23,13 @@
 				FontSize="14"/>
 			<Text Value="$43,795.00" FontSize="38" TextColor="#FFF"/>
 			
-			<Rectangle CornerRadius="40" Color="#FFF" Margin="20,0"
-					Padding="20,5">
-				<Text Value="Completion Date  04.10.2017" Alignment="Center" FontSize="16"/>
+			<Rectangle CornerRadius="40" Color="#FFF" Margin="15,0"
+					Padding="20,10">
+				<GridLayout Columns="3*,2*"/>
+				<Text Value="{= toUpper('Completion Date')}" Alignment="Center" FontSize="12" TextColor="#888"/>
+				<Text Value="04.10.2017" Alignment="Center" FontSize="13" Font="Bold"/>
 				<Translation Y="30"/>
-				<Shadow/>
+				<Shadow Color="#AAAA" Size="20"/>
 			</Rectangle>
 		</StackPanel>
 		
@@ -41,16 +45,28 @@
 					Alignment="Center"/>
 				<Text Value="{Property this.Label}"
 					TextColor="#FFF" FontSize="12" Alignment="Center"/>
+				<Shadow Color="{Property this.BColor}" Size="7" Distance="3"/>
 			</StackPanel>
 			
 			<KeyItem Label="Amount Funded" BColor="#7AD9CA" Value="$3500"/>
 			<KeyItem Label="Balance" BColor="#C88FFE" Value="$370"/>
 			<KeyItem Label="Payback Amount" BColor="#FCAB94" Value="$4850"/>
 		</Grid>
-		
-		<StackPanel Color="#FFF" ItemSpacing="5" Padding="20" ux:Name="stack2">
-			<Each Count="10">
-				<Text Value="This is #{= index()}"/>
+
+		<Panel Margin="5,20,5,5">
+			<Text Value="{toUpper('Latest History')}" Alignment="Left" FontSize="12"/>
+			<Text Value="{toUpper('Show All')}" Alignment="Right" FontSize="12" TextColor="#488"/>
+		</Panel>
+
+		<StackPanel Color="#FFF" ItemSpacing="5" Padding="10" ux:Name="stack2">
+			<Each Items="{items}">
+				<Grid ColumnCount="2" CellSpacing="8">
+					<Text Value="{name}" FontSize="16" Font="Bold" Alignment="TopLeft"/>
+					<Text Value="{date}" FontSize="13" Color="#AAA" Alignment="TopRight"/>
+					<Text Value="{status}" FontSize="13" Color="#AAA" Alignment="BottomLeft"/>
+					<Text Value="{amount}" Font="Bold" FontSize="14" Alignment="BottomRight"/>
+				</Grid>
+				<Panel Color="#EEE" Height="2" Margin="0,0,0,10"/>
 			</Each>
 		</StackPanel>
 	</StackPanel>
