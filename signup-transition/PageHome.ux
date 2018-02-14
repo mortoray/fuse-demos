@@ -1,2 +1,66 @@
-<Page ux:Class="PageHome">
+<Page ux:Class="PageHome" Padding="10,20" Color="#FFF">
+	<StackPanel ItemSpacing="0" ux:Name="stack">
+		<StackPanel Padding="20" ItemSpacing="17">
+			<Panel ux:Name="topSpacer" Height="0"/>
+			<Rectangle Layer="Background" CornerRadius="10,10,0,0">
+				<ImageFill File="Assets/background.png" StretchMode="UniformToFill"/>
+			</Rectangle>
+			
+			<DockPanel>
+				<Circle Dock="Left" Height="40" Width="40" Color="#ECBB62" Margin="0,0,10,0">
+					<Text Value="🍔" Alignment="Center" FontSize="25"/>
+				</Circle>
+				<Panel Clicked="{logout}" Padding="10" Dock="Right" HitTestMode="LocalBounds">
+					<Text Value="◀" TextColor="#FFF" FontSize="23"/>
+				</Panel>
+				<Text Value="Mikes Pizza Rest., LLC." Dock="Top" Font="Bold" TextColor="#FFF"/>
+				<Text Value="5837495748394" TextColor="#FFF"/>
+			</DockPanel>
+			
+			<Text Value="{= toUpper('Total amount paid to date')}" TextColor="#FFF"
+				FontSize="14"/>
+			<Text Value="$43,795.00" FontSize="38" TextColor="#FFF"/>
+			
+			<Rectangle CornerRadius="40" Color="#FFF" Margin="20,0"
+					Padding="20,5">
+				<Text Value="Completion Date  04.10.2017" Alignment="Center" FontSize="16"/>
+				<Translation Y="30"/>
+				<Shadow/>
+			</Rectangle>
+		</StackPanel>
+		
+		<Panel Color="#FFF" Height="30"/>
+		<Grid Color="#FFF" ColumnCount="3">
+			<StackPanel ux:Class="KeyItem" Margin="10" Padding="5,10" ItemSpacing="10">
+				<string ux:Property="Label"/>
+				<float4 ux:Property="BColor"/>
+				<string ux:Property="Value"/>
+				<Rectangle Layer="Background" CornerRadius="5"
+					Color="{Property this.BColor}"/>
+				<Text Value="{Property this.Value}" FontSize="16" TextColor="#FFF"
+					Alignment="Center"/>
+				<Text Value="{Property this.Label}"
+					TextColor="#FFF" FontSize="12" Alignment="Center"/>
+			</StackPanel>
+			
+			<KeyItem Label="Amount Funded" BColor="#7AD9CA" Value="$3500"/>
+			<KeyItem Label="Balance" BColor="#C88FFE" Value="$370"/>
+			<KeyItem Label="Payback Amount" BColor="#FCAB94" Value="$4850"/>
+		</Grid>
+		
+		<StackPanel Color="#FFF" ItemSpacing="5" Padding="20" ux:Name="stack2">
+			<Each Count="10">
+				<Text Value="This is #{= index()}"/>
+			</Each>
+		</StackPanel>
+	</StackPanel>
+	
+	<Transition>
+		<Change stack.ItemSpacing="100" Duration="0.6"
+			Easing="SinusoidalOut"/>
+		<Change topSpacer.Height="100" Duration="0.6"
+			Easing="SinusoidalOut"/>
+		<Move Y="1" RelativeTo="ParentSize" Duration="0.7"
+			Easing="CubicIn"/>
+	</Transition>
 </Page>

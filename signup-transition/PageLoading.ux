@@ -1,0 +1,14 @@
+<Page ux:Class="PageLoading">
+	<Circle Alignment="Center" Width="50%" Height="50%" MaxWidth="400"
+		Color="#FFF">
+		<Scaling Factor="1" ux:Name="scale"/>
+		<WhileActive>
+			<Cycle Target="scale.Factor" Low="0.5" High="1.5" Frequency="2"
+				Easing="CubicInOut" Waveform="Triangle"/>
+		</WhileActive>
+	</Circle>
+	<Transition/>
+	<Transition Direction="ToBack">
+		<Scale Factor="5" Duration="0.22"/>
+	</Transition>
+</Page>

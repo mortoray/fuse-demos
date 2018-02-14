@@ -1,9 +1,10 @@
 <App Model="MainState">
 	<Router/>
 	<ClientPanel>
-		<Navigator DefaultPath="logout">
+		<Navigator PageHistory="{mainPages}">
 			<PageLogout ux:Template="logout"/>
 			<PageHome ux:Template="home"/>
+			<PageLoading ux:Template="loading"/>
 		</Navigator>
 		
 		<Image Layer="Background" File="Assets/background.png"

@@ -12,7 +12,7 @@
 		
 			<StackPanel ux:Name="inner" Margin="0,30" ItemSpacing="3"/>
 		
-			<Panel Dock="Bottom" Height="30">
+			<Panel Dock="Bottom" Height="30" Clicked="{action}">
 				<Text Value="{= toUpper({Property this.Title}) }" FontSize="24" Font="
 					Bold" Alignment="Center" Dock="Bottom" ux:Name="actionLabel"
 					Opacity="1"/>
