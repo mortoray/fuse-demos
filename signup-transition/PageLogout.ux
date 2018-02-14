@@ -1,0 +1,82 @@
+<Page ux:Class="PageLogout">
+	<Container ux:InnerClass="PLBase" Subtree="inner" ZOffset="0">
+		<string ux:Property="Title"/>
+		
+		<DockPanel ux:Binding="Children" Padding="20">
+			<LetBool ux:Name="forceShow" Value="false"/>
+			
+			<Rectangle Color="#FFF"	CornerRadius="10" Layer="Background"
+				ux:Binding="Children" ux:Name="background"/>
+				
+			<Text Value="{= toUpper({Property this.Title}) }" FontSize="24" Font="Bold" Alignment="Left" Dock="Top" Margin="0,10"/>
+		
+			<StackPanel ux:Name="inner" Margin="0,30" ItemSpacing="3"/>
+		
+			<Panel Dock="Bottom" Height="30">
+				<Text Value="{= toUpper({Property this.Title}) }" FontSize="24" Font="
+					Bold" Alignment="Center" Dock="Bottom" ux:Name="actionLabel"
+					Opacity="1"/>
+				<WhileFalse Value="{inputValid} || {forceShow}">
+					<Change actionLabel.Opacity="0" Duration="0.2"/>
+					<Scale Factor="0.2" Duration="0.2"/>
+				</WhileFalse>
+			</Panel>
+			
+			<Shadow Size="50" Color="#888"/>
+		</DockPanel>
+		
+		<WhileInactive ux:Binding="Children">
+			<Change forceShow.Value="true"/>
+			<Panel Layer="Overlay" HitTestMode="LocalBounds">
+				<Clicked>
+					<!-- TODO: Why didn't {Page Node} work?! -->
+					<Set pageNav.Active="this"/>
+					<BringToFront Target="this"/>
+				</Clicked>
+			</Panel>
+		</WhileInactive>
+		
+		<DeactivatingAnimation ux:Binding="Children">
+			<Scale Factor="0.9"/>
+		</DeactivatingAnimation>
+	</Container>
+	
+	<!-- TODO: NodeGroup doesn't work!!! -->
+	<!--<NodeGroup ux:Class="FormLabel">-->
+	<Panel ux:Class="FormLabel">
+		<string ux:Property="Value"/>
+		<Text TextColor="#444" FontSize="14" Value="{= toUpper({Property this.Value})}"/>
+	</Panel>
+	
+	<PageControl Pages="{loginPages}" Margin="20" Alignment="Center"
+		Width="100%" MaxWidth="400"
+		ClipToBounds="false" InactiveState="Unchanged" Transition="None"
+		Interaction="None" ux:Name="pageNav">
+		 <!-- TODO: Why isn't GotoDuration working -->
+		<NavigationMotion GotoEasing="CubicOut" GotoDuration="0.3"/>
+		
+		<PLBase ux:Template="PageLogin" Title="Sign In" Offset="0,-40">
+			<FormLabel Value="Email"/>
+			<TextBox Value="{email}"/>
+			<Panel Height="20"/>
+			<FormLabel Value="Password"/>
+			<TextBox Value="{password}" IsPassword="true"/>
+			
+			<Panel Alignment="Right" Padding="0,18" Clicked="{forgotPassword}"
+				HitTestMode="LocalBounds">
+				<Text Value="Forgot Password?" TextColor="#28B2F2" FontSize="14"/>
+			</Panel>
+		</PLBase>
+		
+		<PLBase ux:Template="PageRegister" Title="Create New" Offset="0,40">
+			<FormLabel Value="Email"/>
+			<TextBox Value="{email}"/>
+			<Panel Height="20"/>
+			<FormLabel Value="Password"/>
+			<TextBox Value="{password}" IsPassword="true"/>
+			<Panel Height="20"/>
+			<FormLabel Value="Re-enter Password"/>
+			<TextBox Value="{password2}" IsPassword="true"/>
+		</PLBase>
+	</PageControl>
+</Page>

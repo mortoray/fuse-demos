@@ -1,0 +1,12 @@
+<App Model="MainState">
+	<Router/>
+	<ClientPanel>
+		<Navigator DefaultPath="logout">
+			<PageLogout ux:Template="logout"/>
+			<PageHome ux:Template="home"/>
+		</Navigator>
+		
+		<Image Layer="Background" File="Assets/background.png"
+			ContentAlignment="TopLeft" StretchMode="UniformToFill"/>
+	</ClientPanel>
+</App>
