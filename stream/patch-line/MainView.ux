@@ -1,0 +1,94 @@
+<App Model="MainState">
+	<ClientPanel>
+		<LetFloat2 Value="0,0" ux:Name="posLeft"/>
+		<LetFloat2 Value="0,0" ux:Name="posRight"/>
+		<LetBool Value="false" ux:Name="rightSelected"/>
+		<LetBool Value="false" ux:Name="connected"/>
+		<LetFloat Value="0" ux:Name="transferPos"/>
+		
+		<Panel Dock="Top" Color="#EEFEFF">
+			<Text Value="Direct Transfer" Alignment="Center"/>
+		</Panel>
+
+		<Panel ux:Name="full" Dock="Top">
+			<StackPanel Alignment="Left">
+				<Selection MaxCount="1" MinCount="1"/>
+				<Each Items="{accounts}">
+					<Rectangle StrokeWidth="1" StrokeColor="#000" CornerRadius="10" 
+						Padding="10,10" Margin="10" Color="#FFF" ux:Name="item">
+						<Selectable Value="{data()}"/>
+						<Text Value="{data()}" Alignment="Center"/>
+						<WhileSelected>
+							<Change item.Color="#EEE"/>
+							<Change posLeft.Value="
+								(x(item)+width(item)) / width(full), 
+								(y(item)+height(item)/2) / height(full)"/>
+							</WhileSelected>
+						<Tapped>
+							<ToggleSelection/>
+						</Tapped>
+					</Rectangle>
+				</Each>
+			</StackPanel>
+			
+			<StackPanel Alignment="Right" ux:Name="right">
+				<Selection MaxCount="1" MinCount="0"/>
+				<Each Items="{recipients}">
+					<Rectangle StrokeWidth="1" StrokeColor="#000" CornerRadius="10" 
+						Padding="10,10" Margin="10" Color="#FFF" ux:Name="item">
+						<Selectable Value="{data()}"/>
+						<Text Value="{data()}" Alignment="Center"/>
+						<WhileSelected>
+							<Change item.Color="#EEE"/>
+							<Change rightSelected.Value="true"/>
+						</WhileSelected>
+						<Selected>
+							<Set posRight.Value="
+								(x(item) + x(right)) / width(full), 
+								(y(item)+y(right)+height(item)/2)/ height(full)"/>
+						</Selected>
+						<Tapped>
+							<ToggleSelection/>
+						</Tapped>
+					</Rectangle>
+				</Each>
+			</StackPanel>
+			
+			<Circle Color="#FF0" Width="30" Height="30" Anchor="50%,50%"
+				StrokeColor="#880" StrokeWidth="2"
+				X="x(pathPointAtDistance(link, {transferPos}))"
+				Y="y(pathPointAtDistance(link, {transferPos}))"
+				ux:Name="transferDot" Visibility="Hidden"
+				>
+				<Text Value="⇛" FontSize="30" TextColor="#000" Alignment="Center"
+					Margin="0,-11,0,0"/>
+				<Rotation EulerAngle="0,0,pathTangentAngleAtDistance(link, {transferPos})"/>
+			</Circle>
+			<Curve StrokeWidth="2" StrokeColor="{connected} ? #000 : #AAA" 
+				PathLength="0" ux:Name="link">
+				<CurvePoint At="{posLeft}" Tangent="1,0"/>
+				<CurvePoint At="{posRight}" Tangent="1,0"/>
+			</Curve>
+			
+			<WhileTrue Value="{rightSelected}">
+				<Change link.PathLength="1" Duration="1"/>
+				<Change connected.Value="true" Delay="1"/>
+			</WhileTrue>
+			<!-- Debug to show locations of elements -->
+			<!-- <Text Value="{posLeft} {posRight}" Alignment="BottomCenter"/> -->
+			
+		</Panel>
+		
+		<Rectangle StrokeWidth="1" StrokeColor="{connected} ? #000 : #AAA" 
+			CornerRadius="10" 
+			Color="{connected} ? #EEF : #FFF"
+			Padding="10" Margin="10" Alignment="TopCenter">
+			<Text Alignment="Center" Value="Transfer"/>
+			
+			<Clicked>
+				<Change transferDot.Visibility="Visible"/>
+				<Change transferPos.Value="1" Duration="1" DurationBack="0"/>
+			</Clicked>
+		</Rectangle>
+</ClientPanel>
+</App>
