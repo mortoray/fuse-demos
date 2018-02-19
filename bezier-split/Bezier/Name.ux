@@ -3,7 +3,7 @@
 		<Switch Dock="Top" ux:Name="on"/>
 		<Let ux:Name="endPos" Expression="pathPointAtDistance(sig, {Property sig.PathStart})"/>
 		<Image Width="80" File="../Assets/pencil.png"
-			X="vectorX({endPos})" Y="vectorY({endPos})" Anchor="0%,100%" ux:Name="pencil"/>
+			X="x({endPos})" Y="y({endPos})" Anchor="0%,100%" ux:Name="pencil"/>
 			
 		<PathSig StrokeColor="#FFF" StrokeWidth="2" PathStart="1" PathEnd="1" ux:Name="sig"
 			Color="#AFF0"/>

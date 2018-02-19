@@ -6,19 +6,19 @@
 		
 		<Let ux:Name="altDistance" Expression="{endDistance}"/>
 		<Let ux:Name="altPoint" Expression="pathPointAtDistance(path, {altDistance})"/>
-		<Let ux:Name="altVec" Expression="pathDirectionAtDistance(path, {altDistance})"/>
+		<Let ux:Name="altAngle" Expression="pathTangentAngleAtDistance(path, {altDistance})"/>
 		
-		<Circle X="vectorX({startPoint})" Y="vectorY({startPoint})" Width="20" Height="20"
+		<Circle X="x({startPoint})" Y="y({startPoint})" Width="20" Height="20"
 			StrokeColor="#80F" StrokeWidth="2" Color="#80F8" Anchor="50%,50%"/>
-		<Image X="vectorX({endPoint})" Y="vectorY({endPoint})" Width="30" Height="30"
+		<Image X="x({endPoint})" Y="y({endPoint})" Width="30" Height="30"
 			File="Assets/arrow.png" Anchor="50%,50%">
 			<!-- TODO: -pathDirection... isn't working -->
-			<Rotation EulerAngle="0,0,atanVector(pathDirectionAtDistance(path, {endDistance}))"/>
+			<Rotation EulerAngle="0,0,pathTangentAngleAtDistance(path, {endDistance})"/>
 		</Image>
 		
 		<Circle Width="20" Height="20"  Color="#888"
-			X="vectorX({altPoint}) + 30 * vectorY({altVec})" 
-			Y="vectorY({altPoint}) - 30 * vectorX({altVec})"
+			X="x({altPoint}) + 30 * sin({altAngle})" 
+			Y="y({altPoint}) - 30 * cos({altAngle})"
 			Anchor="50%,50%"/>
 		
 		<Path StrokeColor="#0F0" StrokeWidth="8" 

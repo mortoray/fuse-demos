@@ -5,7 +5,7 @@
 	<Panel Margin="0,10,0,0">
 		<PathFlower StrokeColor="#A25" StrokeWidth="5" PathStart="0" PathLength="0"
 			Height="25%" Anchor="50%,100%"
-			X="vectorX({headPos})" Y="vectorY({headPos}) + y(stem)" ux:Name="head"/>
+			X="x({headPos})" Y="y({headPos}) + y(stem)" ux:Name="head"/>
 
 		<Timeline ux:Name="offset">
 			<Nothing Duration="1"/>
@@ -24,9 +24,9 @@
 		<Let ux:Name="headPos" Expression="pathPointAtDistance(stem, 0.99)"/>
 		
 		<PathLeafLeft StrokeColor="#b1ff18" StrokeWidth="2.5" PathStart="0" PathLength="0" ux:Name="t1"
-			X="vectorX({leafPos1})" Y="vectorY({leafPos1}) + y(stem)" Width="33%"/>
+			X="x({leafPos1})" Y="y({leafPos1}) + y(stem)" Width="33%"/>
 		<PathLeafRight StrokeColor="#b1ff18" StrokeWidth="2.5" PathStart="0" PathLength="0" ux:Name="t2"
-			X="vectorX({leafPos2})" Y="vectorY({leafPos2}) + y(stem)" Width="33%"/>
+			X="x({leafPos2})" Y="y({leafPos2}) + y(stem)" Width="33%"/>
 			
 
 		<WhileTrue Source="on">

@@ -45,28 +45,28 @@
 		
 			<Let ux:Name="backHead" Expression="pathPointAtDistance(backPath, {Property backPath.PathEnd})"/>
 			<Image File="../Assets/plot_arrow.png" Anchor="45%,50%"
-				X="vectorX({backHead})" Y="vectorY({backHead})" Height="30" Color="#2EF"
+				X="x({backHead})" Y="y({backHead})" Height="30" Color="#2EF"
 				TransformOrigin="Anchor">
-				<Rotation EulerAngle="0,0,atanVector(pathDirectionAtDistance(backPath, {Property backPath.PathEnd}))"/>
+				<Rotation EulerAngle="0,0,pathTangentAngleAtDistance(backPath, {Property backPath.PathEnd})"/>
 			</Image>
 				
 			<AttractorConfig Unit="Normalized" Easing="SinusoidalInOut" Duration="1.5" ux:Global="asNorm"/>
 			<Curve StrokeWidth="10" StrokeColor="#2EF" ux:Name="backPath"
 				PathStart="attract({backStart}, asNorm)" PathEnd="attract({backEnd}, asNorm)">
 				<Each Items="{data}">
-					<CurvePoint At="{}"/>
+					<CurvePoint At="data()"/>
 				</Each>
 			</Curve>
 		
 
 			<Each Items="{data}">
-				<Circle X="vectorX({}) * 100%" Y="vectorY({}) * 100%" StrokeColor="#FFF" 
+				<Circle X="x(data()) * 100%" Y="y(data()) * 100%" StrokeColor="#FFF" 
 					Color="#000" StrokeWidth="2" Anchor="50%,50%" Width="10" Height="10"/>
 			</Each>
 			
 			<Curve StrokeWidth="2" StrokeColor="#FFF" ux:Name="plotPath">
 				<Each Items="{data}">
-					<CurvePoint At="{}"/>
+					<CurvePoint At="data()"/>
 				</Each>
 			</Curve>
 
@@ -76,8 +76,8 @@
 				</Timeline>
 				<Let ux:Name="cartPos" Expression="pathPointAtDistance(plotPath, {Property cart.Progress})"/>
 				<Image Width="80" File="../Assets/cart.png" Anchor="40,55"
-					X="vectorX({cartPos})" Y="vectorY({cartPos})" TransformOrigin="Anchor">
-					<Rotation EulerAngle="0,0,atanVector(pathDirectionAtDistance(plotPath, {Property cart.Progress}))"/>
+					X="x({cartPos})" Y="y({cartPos})" TransformOrigin="Anchor">
+					<Rotation EulerAngle="0,0,pathTangentAngleAtDistance(plotPath, {Property cart.Progress})"/>
 				</Image>
 			</WhileTrue>
 				
@@ -87,9 +87,9 @@
 					<Let ux:Name="relPoint" Expression="{point} / (width(pseudoPlot), height(pseudoPlot))"/>
 					<Curve StrokeColor="#088">
 						<CurvePoint At="{relPoint}"/>
-						<CurvePoint X="vectorX({relPoint})" Y="1"/>
+						<CurvePoint X="x({relPoint})" Y="1"/>
 					</Curve>
-					<Rectangle X="vectorX({point})" Y="100%" Anchor="50%,0%"
+					<Rectangle X="x({point})" Y="100%" Anchor="50%,0%"
 						StrokeColor="#088" Color="#ADD8" Padding="10,5">
 						<Text Value="{text}" TextWrapping="Wrap" TextColor="#FFF" FontSize="22"
 							MaxWidth="100" TextAlignment="Center"/>
