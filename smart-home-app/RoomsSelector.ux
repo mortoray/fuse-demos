@@ -1,0 +1,47 @@
+<DockPanel ux:Class="RoomsSelector">
+	<WhileScrollable ScrollDirections="Right" ScrollView="roomsScroll">
+		<Rectangle Alignment="Right" Width="50">
+			<LinearGradient StartPoint="0,0" EndPoint="1,0">
+				<GradientStop Color="#1d1e2a00" Offset="0"/>
+				<GradientStop Color="#1d1e2aFF" Offset="1"/>
+			</LinearGradient>
+		</Rectangle>
+	</WhileScrollable>
+	<WhileScrollable ScrollDirections="Left" ScrollView="roomsScroll">
+		<Rectangle Alignment="Left" Width="50">
+			<LinearGradient StartPoint="0,0" EndPoint="1,0">
+				<GradientStop Color="#1d1e2aFF" Offset="0"/>
+				<GradientStop Color="#1d1e2a00" Offset="1"/>
+			</LinearGradient>
+		</Rectangle>
+	</WhileScrollable>
+	
+	<WhileWindowLandscape>
+		<Change roomsScroll.AllowedScrollDirections="Vertical"/>
+		<Change roomsStack.Orientation="Vertical"/>
+	</WhileWindowLandscape>
+	
+	<ScrollView AllowedScrollDirections="Horizontal" Margin="5" ux:Name="roomsScroll">
+		<StackPanel Orientation="Horizontal" ItemSpacing="5" ux:Name="roomsStack">
+			<Each Items="{rooms}">
+				<StackPanel Padding="5" Width="200" Tapped="{selectRoom}">
+					<Rectangle Layer="Background" Color="ColorSecondary" CornerRadius="8"/>
+					<DockPanel>
+						<Rectangle Dock="Left" Margin="5" Padding="10" Color="{color}" CornerRadius="8">
+							<Text Value="{icon}" FontSize="32" Alignment="Center"/>
+						</Rectangle>
+						<Text Alignment="CenterLeft" Value="{name}" Color="#FFF"/>
+					</DockPanel>
+					
+					<StackPanel Orientation="Horizontal" ItemSpacing="3" Margin="3">
+						<Each Count="5">
+							<Circle Color="#888" Width="20" Height="20"/>
+						</Each>
+					</StackPanel>
+					
+					<Text Value="{totalEnergy} kW/h" Color="#CCC"/>
+				</StackPanel>
+			</Each>
+		</StackPanel>
+	</ScrollView>
+</DockPanel>

@@ -1,0 +1,16 @@
+<App Background="#1d1e2a" Model="MainState">
+	<float4 ux:Value="#353640" ux:Global="ColorSecondary"/>
+	
+	<ClientPanel>
+		<DockPanel Margin="10">
+			<RoomsSelector Dock="Top" ux:Name="rooms"/>
+			<With Data="{selectedRoom}">
+				<ItemSelector/>
+			</With>
+			
+			<WhileWindowLandscape>
+				<Change rooms.Dock="Left"/>
+			</WhileWindowLandscape>
+		</DockPanel>
+	</ClientPanel>
+</App>
