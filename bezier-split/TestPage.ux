@@ -12,7 +12,6 @@
 			StrokeColor="#80F" StrokeWidth="2" Color="#80F8" Anchor="50%,50%"/>
 		<Image X="x({endPoint})" Y="y({endPoint})" Width="30" Height="30"
 			File="Assets/arrow.png" Anchor="50%,50%">
-			<!-- TODO: -pathDirection... isn't working -->
 			<Rotation EulerAngle="0,0,pathTangentAngleAtDistance(path, {endDistance})"/>
 		</Image>
 		

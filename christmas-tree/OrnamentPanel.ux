@@ -5,8 +5,7 @@
 	</OnUserEvent>
 
 	<WhileTrue Value="true" ux:Name="hidePalette">
-		<!-- TODO: Y="-height(paletteNav)" -->
-		<Move Y="-1" RelativeTo="Size" RelativeNode="paletteNav" Duration="0.3" Easing="CubicInOut" />
+		<Move Y="0-height(paletteNav)" Duration="0.3" Easing="CubicInOut" />
 	</WhileTrue>
 
 	<DockPanel ux:Name="palette" Color="#FFF">		

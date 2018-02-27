@@ -29,7 +29,6 @@
 			<Change forceShow.Value="true"/>
 			<Panel Layer="Overlay" HitTestMode="LocalBounds">
 				<Clicked>
-					<!-- TODO: Why didn't {Page Node} work?! -->
 					<Set pageNav.Active="this"/>
 					<BringToFront Target="this"/>
 				</Clicked>
@@ -41,7 +40,7 @@
 		</DeactivatingAnimation>
 	</Container>
 	
-	<!-- TODO: NodeGroup doesn't work!!! -->
+	<!-- FUSE: https://github.com/fusetools/fuselibs-public/issues/1055 -->
 	<!--<NodeGroup ux:Class="FormLabel">-->
 	<Panel ux:Class="FormLabel">
 		<string ux:Property="Value"/>
@@ -52,7 +51,6 @@
 		Width="100%" MaxWidth="400"
 		ClipToBounds="false" InactiveState="Unchanged" Transition="None"
 		Interaction="None" ux:Name="pageNav">
-		 <!-- TODO: Why isn't GotoDuration working -->
 		<NavigationMotion GotoEasing="CubicOut" GotoDuration="0.3"/>
 		
 		<PLBase ux:Template="PageLogin" Title="Sign In" Offset="0,-40">
