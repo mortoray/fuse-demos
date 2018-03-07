@@ -1,0 +1,53 @@
+<DockPanel ux:Class="ItemPage" Alignment="Center" MaxWidth="80%" MaxHeight="80%"
+	MinWidth="300" MinHeight="200">
+	
+	<Rectangle Layer="Background" CornerRadius="20" Color="ColorSecondary"/>
+	
+	<DockPanel Dock="Top" Padding="10">
+		<Text Dock="Left" Value="{item.icon}" FontSize="50" Alignment="Center" Margin="0,0,5,0"/>
+		<Text Alignment="BottomLeft" FontSize="30" Value="{item.name}" Color="ColorTextPrimary"/>
+	</DockPanel>
+	
+	<Panel Height="2" Dock="Top" Color="ColorBackground"/>
+	
+	<Panel Padding="10">
+		<Slider ux:Class="LevelItem" Minimum="0" Maximum="1" Value="{item.level}"/>
+
+		<Rectangle ux:Class="OnOffItem" StrokeWidth="1" StrokeColor="ColorBackground" Width="100" Height="50"
+			CornerRadius="10" Alignment="Center" Margin="0,10"
+			Tapped="{toggleStatus}" HitTestMode="LocalBounds">
+			<Text Value="{= {item.status} ? 'On' : 'Off' }" Alignment="Center" Color="ColorTextPrimary"/>
+		</Rectangle>
+		
+		
+		<Instance Item="{item}" MatchKey="type">
+			<StackPanel ux:Template="light">
+				<LevelItem/>
+				<OnOffItem/>
+			</StackPanel>
+			
+			<StackPanel ux:Template="stereo" ItemSpacing="5">
+				<Text Value="{statusString}"/>
+				<LevelItem/>
+				
+				<Rectangle ux:Class="ControlButton" CornerRadius="10"
+					StrokeWidth="1" StrokeColor="ColorBackground" MinHeight="50">
+					<string ux:Property="Label"/>
+					<Text Value="{Property this.Label}" Alignment="Center" Color="ColorTextPrimary"/>
+				</Rectangle>
+				
+				<Grid RowCount="1" ChildOrder="ColumnMajor" CellSpacing="10">
+					<ControlButton Label="&lt;&lt;" Clicked="{controlBack}"/>
+					<ControlButton Label="||" Clicked="{controlPause}"/>
+					<ControlButton Label=">>" Clicked="{controlNext}"/>
+				</Grid>
+				
+				<OnOffItem/>
+			</StackPanel>
+			
+			<Panel ux:DefaultTemplate="true">
+				<Text Value="Everything else"/>
+			</Panel>
+		</Instance>
+	</Panel>
+</DockPanel>

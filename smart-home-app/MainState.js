@@ -1,32 +1,43 @@
 class Item {
-	constructor( name, color, icon, energy ) {
+	constructor( type, name, color, icon, energy ) {
+		this.type = type
 		this.name = name
 		this.color = color
 		this.energy = energy
 		this.icon = icon
+		
+		this.status = true
+		this.level = 0.7
+		this.statusString = "Playing Good Song..."
+	}
+	
+	toggleStatus() {
+		this.status = !this.status
+	}
+	
+	controlBack() {
+		//device.sendControl( "BACK" )
+	}
+	controlPause() {
+	}
+	controlNext() {
 	}
 }
 
+class ItemPage {
+	constructor( item ) {
+		this.$path = "item"
+		this.item = item
+	}
+}
+	
+
 class Room {
-	constructor(name, color, icon, cnt) {
+	constructor(name, color, icon, items) {
 		this.name = name
 		this.color = color 
 		this.icon = icon
-		
-		this.items = [
-			new Item( "Light", "#ffc42e", "💡", 25 ),
-			new Item( "Fan", "#c4ff2e", "🌬", 15 ),
-			new Item( "Air Conditioner", "#2769ff", "❄️", 37 ),
-			new Item( "Television", "#aa88ff", "📺", 15 ),
-			new Item( "Computer", "#ffc42e", "🖥", 25 ),
-			new Item( "Water Heater", "#c4ff2e", "☀️", 15 ),
-			new Item( "Fridge", "#2769ff", "💧", 37 ),
-			new Item( "Washing Machine", "#aa88ff", "🎰", 15 ),
-			new Item( "Microwave", "#ffc42e", "😞", 25 ),
-			new Item( "Stereo", "#c4ff2e", "🎵", 15 ),
-			new Item( "Playstation", "#2769ff", "🎮", 37 ),
-		]
-		this.items.splice( 0, this.items.length - cnt )
+		this.items = items
 	}
 	
 	get totalEnergy() {
@@ -34,15 +45,43 @@ class Room {
 	}
 	
 	addItem() {
-		this.items.push( new Item( "Playstation", "#2769ff", "🎮", 37 ) )
+		this.items.push( new Item( "generic", "Switch", "#2769ff", "👾", 5 ) )
 	}
 }
 	
-export default class MainState {
-	constructor() {
-		this.rooms = [ new Room( "Bedroom", "#215eF9", "🛏", 3 ),
-			new Room( "Dining Room", "#29e27f", "🍲", 5 ),
-			new Room( "Appliances", "#7f29e2", "🔌", 11 ),
+class Selector {
+	constructor(mainState) {
+		this.$path = "selector"
+		this.mainState = mainState
+		
+		this.rooms = [ 
+			new Room( "Bedroom", "#215eF9", "🛏", [
+				new Item( "light","Light", "#ffc42e", "💡", 25 ),
+				new Item( "generic","Fan", "#c4ff2e", "🌬", 15 ),
+				new Item( "generic","Air Conditioner", "#2769ff", "❄️", 37 ),
+				new Item( "generic","Television", "#aa88ff", "📺", 15 ),
+				new Item( "generic","Computer", "#ffc42e", "🖥", 25 ),
+				new Item( "generic","Playstation", "#2769ff", "🎮", 37 ),
+			] ),
+			new Room( "Dining Room", "#29e27f", "🍲", [
+				new Item( "light","Light", "#ffc42e", "💡", 25 ),
+				new Item( "generic","Air Conditioner", "#2769ff", "❄️", 37 ),
+				new Item( "generic","Television", "#aa88ff", "📺", 15 ),
+				new Item( "stereo","Stereo", "#c4ff2e", "🎵", 15 ),
+			] ),
+			new Room( "Kitchen", "#7f29e2", "🔌", [
+				new Item( "light","Light", "#ffc42e", "💡", 25 ),
+				new Item( "generic","Fan", "#c4ff2e", "🌬", 15 ),
+				new Item( "generic","Water Heater", "#c4ff2e", "☀️", 15 ),
+				new Item( "generic","Fridge", "#2769ff", "💧", 37 ),
+				new Item( "generic","Washing Machine", "#aa88ff", "🎰", 15 ),
+				new Item( "generic","Microwave", "#ffc42e", "😞", 25 ),
+			] ),
+			new Room( "Storage", "#7f7f7f","📦", [
+				new Item( "light","Light", "#ffc42e", "💡", 25 ),
+				new Item( "generic","Heater", "#c4ff2e", "☀", 0 ),
+				new Item( "generic","Distiller", "#FEBF2A", "🥃", 0 ),
+			] ),
 		]
 		
 		this.selectedRoom = this.rooms[0]
@@ -50,5 +89,32 @@ export default class MainState {
 	
 	selectRoom(args) {
 		this.selectedRoom = args.data
+	}
+	
+	goItem(args) {
+		this.mainState.push( new ItemPage(args.data) )
+	}
+}
+
+class Welcome {
+	constructor() {
+		
+	}
+}
+
+export default class MainState {
+	constructor() {
+		this.selector = new Selector(this)
+		this.welcome = new Welcome()
+		
+		this.pages = [ this.welcome ]
+	}
+	
+	goSelector() {
+		this.pages = [ this.selector ]
+	}
+	
+	push( page ) {
+		this.pages.push( page )
 	}
 }

@@ -35,7 +35,7 @@
 								<Image File="{image}" Margin="50"/>
 								<Text Value="{name}" FontSize="70"
 									Alignment="TopCenter" Margin="0,20"
-									Font="Bold" Color="#8886"
+									Font="Bold" Color="#CCC6"
 									ux:Name="name"/>
 							</Panel>
 							<Panel/>

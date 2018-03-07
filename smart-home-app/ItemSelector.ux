@@ -5,7 +5,8 @@
 			<ColumnLayout ColumnSize="120" ColumnSpacing="10"
 				ItemSpacing="10" Sizing="Fill"/>
 			<Each Items="{items}">
-				<Grid Padding="5" BoxSizing="FillAspect" Aspect="1" Rows="1*,auto,auto">
+				<Grid Padding="5" BoxSizing="FillAspect" Aspect="1" Rows="1*,auto,auto"
+					Tapped="{goItem}">
 					<Rectangle Layer="Background" Color="ColorSecondary" CornerRadius="8"/>
 					<!--<Circle Color="{color}" Margin="15"/>-->
 					<Panel ux:Name="icon" Margin="15">

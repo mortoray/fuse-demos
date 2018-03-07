@@ -1,16 +1,48 @@
-<App Background="#1d1e2a" Model="MainState">
+<App Background="ColorBackground" Model="MainState">
+	<float4 ux:Value="#1d1e2a" ux:Global="ColorBackground"/>
 	<float4 ux:Value="#353640" ux:Global="ColorSecondary"/>
+	<float4 ux:Value="#FFFFFF" ux:Global="ColorTextPrimary"/>
+	<Router/>
 	
 	<ClientPanel>
-		<DockPanel Margin="10">
-			<RoomsSelector Dock="Top" ux:Name="rooms"/>
-			<With Data="{selectedRoom}">
-				<ItemSelector/>
-			</With>
+		<Navigator Transition="None" Pages="{pages}">
+			<Panel ux:Template="selector">
+				<Panel Color="#0000" Visibility="Collapsed" ux:Name="overlay" Clicked="{goSelector}"/>
+				
+				<DockPanel Margin="10">
+					<RoomsSelector Dock="Top" ux:Name="rooms"/>
+					<With Data="{selectedRoom}">
+						<ItemSelector/>
+					</With>
+					
+					<WhileWindowLandscape>
+						<Change rooms.Dock="Left"/>
+					</WhileWindowLandscape>
+				</DockPanel>
+				
+				<WhileInactive>
+					<Change selector.ZOffset="-1"/>
+					<Change overlay.Color="#0008" Duration="0.3"/>
+					<Change overlay.Visibility="Visible"/>
+				</WhileInactive>
+			</Panel>
 			
-			<WhileWindowLandscape>
-				<Change rooms.Dock="Left"/>
-			</WhileWindowLandscape>
-		</DockPanel>
+			<Page ux:Template="Welcome" HitTestMode="LocalBounds" Clicked="{goSelector}">
+				<Text Value="Home Controller" FontSize="32" Color="#FFF" Alignment="Center"/>
+			</Page>
+			
+			<Page ux:Template="item">
+				<ItemPage/>
+					
+				<Transition>
+					<Change item.Visibility="Collapsed" Delay="0.3"/>
+					<Scale Factor="0.1" Duration="0.3" Easing="CubicIn"/>
+				</Transition>
+				<!-- TODO: something wrong -->
+				<RemovingAnimation>
+					<Scale Factor="0" Duration="0.2" Easing="CubicOut"/>
+				</RemovingAnimation>
+			</Page>
+		</Navigator>
 	</ClientPanel>
 </App>
