@@ -2,9 +2,9 @@
 
 This app is a product catalog that uses a parallax style effect for the scrolling of items.
 
-![Screenshot](https://i.imgur.com/DObjtfy.png?1)
-
 Programmed live on [my Twitch stream](https://www.twitch.tv/mortoray) using [Fuse](https://fusetools.com/).
+
+![Screenshot](https://i.imgur.com/DObjtfy.png?1)
 
 Key points:
 
