@@ -1,0 +1,37 @@
+<DockPanel ux:Class="CardPage">
+	<Viewport Perspective="200">
+		<With Data="{card}">
+			<CardView X="50%" Y="75%" ux:Name="card" Margin="20"
+				Width="100%"
+				TransformOrigin="Anchor" Anchor="50%,100%">
+				<Rotation DegreesX="0" ux:Name="rotX"/>
+			</CardView>
+		</With>
+	</Viewport>
+	
+	<Activated>
+		<TransitionLayout From="{Resource from}" Target="card"/>
+	</Activated>
+	<WhileActive>
+		<Change rotX.DegreesX="-15" Duration="0.5" Delay="0.1"/>
+	</WhileActive>
+	
+	<StackPanel Dock="Bottom" Padding="15,25" ItemSpacing="15"
+		Margin="10">
+		<Rectangle CornerRadius="10" Layer="Background" Color="#262C37"/>
+		<Rectangle CornerRadius="5" ux:Class="CardButton" Color="#313641"
+			Padding="0,16">
+			<string ux:Property="Label"/>
+			<Text Alignment="Center" Value="{= toUpper({Property this.Label})}" FontSize="16"
+				Color="#FFF"/>
+		</Rectangle>
+		
+		<CardButton Label="Remove Card"/>
+		<CardButton Label="Edit Card"/>
+		<CardButton Label="Cancel" Clicked="{goBack}"/>
+		
+		<DeactivatingAnimation>
+			<Move Y="1.1" RelativeTo="Size" Duration="0.6"/>
+		</DeactivatingAnimation>
+	</StackPanel>
+</DockPanel>

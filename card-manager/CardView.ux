@@ -1,0 +1,25 @@
+<Panel ux:Class="CardView" BoxSizing="FillAspect" Aspect="1.65">
+	<Rectangle Layer="Background" Color="#8A4DE3" CornerRadius="20"/>
+	<Grid Columns="1*" DefaultRow="1*" Margin="20">
+		<Text Value="{name}" FontSize="32" Color="#FFF"/>
+		<Text Value="{number}" FontSize="26" Color="#FFF"/>
+		
+		<Grid Columns="2*,1*" Rows="auto,auto">
+			<Text Value="CARD HOLDER" FontSize="16" Color="#FFF"/>
+			<Text Value="EXPIRES" FontSize="16" Color="#FFF"/>
+			
+			<Text Value="{cardholder}" FontSize="22" Color="#FFF"/>
+			<Text Value="{expires}" FontSize="22" Color="#FFF"/>
+		</Grid>
+	</Grid>
+	
+	<LayoutAnimation>
+		<Move RelativeTo="WorldPositionChange" Vector="1" Duration="0.5"/>
+		<Resize RelativeTo="SizeChange" Vector="1" Duration="0.5"/>
+	</LayoutAnimation>
+	
+	<Rectangle Alignment="TopRight" Layer="Overlay" CornerRadius="2,20,2,5"
+		Color="#FFF8" MinWidth="40" MinHeight="40">
+		<Text Value="?" Color="#000" FontSize="24" Alignment="Center"/>
+	</Rectangle>
+</Panel>

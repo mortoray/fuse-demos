@@ -1,0 +1,44 @@
+<App Model="State">
+	<Router/>
+	<ResourceObject Key="from" ux:Name="fromObject"/>
+	<float ux:Key="cardMargin" ux:Value="20"/>
+	
+	<ClientPanel>
+		<Rectangle Layer="Background">
+			<LinearGradient StartPoint="0,0" EndPoint="1,0.5">
+				<GradientStop Color="#040609" Offset="0"/>
+				<GradientStop Color="#151F29" Offset="1"/>
+			</LinearGradient>
+		</Rectangle>
+		<Navigator Pages="{pages}" Transition="None">
+			<Page ux:Template="listing" Opacity="1">
+				<ScrollView>
+					<!-- TODO: {Resource cardMargin} -->
+					<StackPanel ItemSpacing="20" Margin="20">
+						<Each Items="{cards}">
+							<CardView ux:Template="card">
+								<Clicked Handler="{gotoCard}">
+									<Set fromObject.Value="card"/>
+								</Clicked>
+							</CardView>
+						</Each>
+					</StackPanel>
+				</ScrollView>
+				<Blur ux:Name="blur" 	Radius="0"/>
+				
+				<WhileInactive>
+					<Change listing.HitTestMode="None"/>
+					<Change listing.Opacity="0" Duration="0.5"/>
+					<Change blur.Radius="20" Duration="0.5"/>
+				</WhileInactive>
+			</Page>
+
+			<Page ux:Template="cardView" ZOffset="1">
+				<CardPage/>
+				<WhileInactive>
+					<Change cardView.Visibility="Collapsed"/>
+				</WhileInactive>
+			</Page>			
+		</Navigator>
+	</ClientPanel>
+</App>

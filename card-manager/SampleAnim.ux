@@ -1,0 +1,33 @@
+<Panel ux:Class="SampleAnim">
+	<UserEvent ux:Name="appear"/>
+	<ResourceObject Key="from" ux:Name="fromObject"/>
+	<ClientPanel>
+		<ScrollView AllowedScrollDirections="Horizontal" Dock="Top">
+			<StackPanel Orientation="Horizontal" ItemSpacing="10">
+				<Panel Width="100" Height="50" Color="#FAA" ux:Name="a">
+					<Clicked>
+						<Set fromObject.Value="a"/>
+						<RaiseUserEvent EventName="appear"/>
+					</Clicked>
+				</Panel>
+				
+				<Panel Width="100" Height="50" Color="#AFA" ux:Name="b">
+					<Clicked>
+						<Set fromObject.Value="b"/>
+						<RaiseUserEvent EventName="appear"/>
+					</Clicked>
+				</Panel>
+			</StackPanel>
+		</ScrollView>
+		
+		<Panel Color="#AAA" Width="50%" BoxSizing="FillAspect" ZOffset="1">
+			<OnUserEvent EventName="appear">
+				<TransitionLayout From="{Resource from}"/>
+			</OnUserEvent>
+			<LayoutAnimation>
+				<Move RelativeTo="PositionChange" Vector="1" Duration="0.5"/>
+				<Resize RelativeTo="SizeChange" Vector="1" Duration="0.5"/>
+			</LayoutAnimation>
+		</Panel>
+	</ClientPanel>
+</Panel>

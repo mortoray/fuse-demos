@@ -19,7 +19,7 @@
 			<Text Value="{= {item.status} ? 'On' : 'Off' }" Alignment="Center" Color="ColorTextPrimary"/>
 		</Rectangle>
 		
-		
+		<Viewport Perspective="200">
 		<Instance Item="{item}" MatchKey="type">
 			<StackPanel ux:Template="light">
 				<LevelItem/>
@@ -34,6 +34,10 @@
 					StrokeWidth="1" StrokeColor="ColorBackground" MinHeight="50">
 					<string ux:Property="Label"/>
 					<Text Value="{Property this.Label}" Alignment="Center" Color="ColorTextPrimary"/>
+					<Clicked>
+						<Change this.StrokeColor="#FFF" Duration="1"/>
+						<Rotate DegreesY="90" Duration="1"/>
+					</Clicked>
 				</Rectangle>
 				
 				<Grid RowCount="1" ChildOrder="ColumnMajor" CellSpacing="10">
@@ -49,5 +53,6 @@
 				<Text Value="Everything else"/>
 			</Panel>
 		</Instance>
+	</Viewport>
 	</Panel>
 </DockPanel>

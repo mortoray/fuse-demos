@@ -1,26 +1,22 @@
 <DockPanel ux:Class="ItemSelector">
-	<Text Value="{name}" Dock="Top" Margin="0,15" FontSize="20" Color="#FFF"/>
+	<Text Value="{name}" Dock="Top" Margin="0,15" FontSize="20" Color="#0F7F00" />
 	<ScrollView Margin="5">
 		<Panel>
-			<ColumnLayout ColumnSize="120" ColumnSpacing="10"
-				ItemSpacing="10" Sizing="Fill"/>
+			<ColumnLayout ColumnSize="120" ColumnSpacing="10" ItemSpacing="10" Sizing="Fill" />
 			<Each Items="{items}">
-				<Grid Padding="5" BoxSizing="FillAspect" Aspect="1" Rows="1*,auto,auto"
-					Tapped="{goItem}">
-					<Rectangle Layer="Background" Color="ColorSecondary" CornerRadius="8"/>
+				<Grid Padding="5" BoxSizing="FillAspect" Aspect="1" Rows="1*,auto,auto" Tapped="{goItem}">
+					<Rectangle Layer="Background" Color="ColorSecondary" CornerRadius="8" />
 					<!--<Circle Color="{color}" Margin="15"/>-->
 					<Panel ux:Name="icon" Margin="15">
-						<Text Alignment="Center" Value="{icon}"
-							FontSize="height(icon) * 0.8" Color="{color}"/>
+						<Text Alignment="Center" Value="{icon}" FontSize="height(icon) * 0.8" Color="{color}" />
 					</Panel>
-					<Text Alignment="Center" Value="{= toUpper({name}) }" Color="#FFF" FontSize="16"/>
-					<Text Alignment="Center" Value="{energy} kW/h used" Color="#AAA" FontSize="14"/>
+					<Text Alignment="Center" Value="{= toUpper({name}) }" Color="#FFF" FontSize="16" />
+					<Text Alignment="Center" Value="{energy} kW/h used" Color="#AAA" FontSize="14" />
 				</Grid>
 			</Each>
 			
-			<Rectangle StrokeWidth="1" StrokeColor="ColorSecondary" BoxSizing="FillAspect" Aspect="1"
-				CornerRadius="8" Margin="1" Clicked="{addItem}" HitTestMode="LocalBounds">
-				<Text Dock="Bottom" Value="➕" Alignment="Center" Color="#FFF" FontSize="25"/>
+			<Rectangle StrokeWidth="1" StrokeColor="ColorSecondary" BoxSizing="FillAspect" Aspect="1" CornerRadius="8" Margin="1" Clicked="{addItem}" HitTestMode="LocalBounds">
+				<Text Dock="Bottom" Value="➕" Alignment="Center" Color="#FFF" FontSize="25" />
 			</Rectangle>
 			
 		</Panel>
