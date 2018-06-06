@@ -1,0 +1,26 @@
+<App Model="State"  xmlns:c="Fuse.Charting">
+	<Panel Padding="10,2" Color="#cad" Alignment="TopRight" Clicked="{randomize}">
+			<Text Value="*"/>
+	</Panel>
+	<AttractorConfig Unit="Normalized" Type="Elastic" ux:Global="barAnim"/>
+	
+	<c:Plot Margin="40">
+		<c:DataSeries Data="{data}"/>
+		
+		<GridLayout Columns="50,10,1*" Rows="1*"/>
+		<c:PlotAxis Axis="Y">
+			<Text ux:Template="Label" Value="{Plot axis.value}" Alignment="CenterRight" Margin="5"/>
+		</c:PlotAxis>
+		<c:PlotTicks Axis="Y" AxisLine="1" StrokeWidth="1" StrokeColor="#000"/>
+
+		<Panel>
+			<c:PlotData>
+				<c:PlotBar Attractor="barAnim">
+					<Rectangle StrokeColor="#888" StrokeWidth="1" Color="#caf" Width="80%" Alignment="HorizontalCenter"/>
+					<!--<Text Alignment="Top" Anchor="50%,105%" Value="{Plot data.source.y}"
+							TextAlignment="Center"/>-->
+				</c:PlotBar>
+			</c:PlotData>
+		</Panel>
+	</c:Plot>
+</App>

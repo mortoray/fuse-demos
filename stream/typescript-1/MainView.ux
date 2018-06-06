@@ -1,0 +1,40 @@
+<App Model="State" Background="#DDD">
+	<ClientPanel>
+		<Panel Dock="Top" Color="#FFF" Padding="5,4">
+			<StackPanel Alignment="Right" Orientation="Horizontal">
+				<Selection Values="{showCurrency}" MinCount="0" MaxCount="1"
+					SelectionChanged="{currencyChanged}"/>
+				<Each Items="{currencies}">
+					<Rectangle StrokeColor="#AAA" StrokeWidth="1" ux:Name="currency" Padding="5,2">
+						<Selectable Value="{data()}"/>
+						<Text Value="{data()}"/>
+						<WhileSelected>
+							<Change currency.Color="#CCC"/>
+						</WhileSelected>
+						<Tapped>
+							<ToggleSelection/>
+						</Tapped>
+					</Rectangle>
+				</Each>
+			</StackPanel>
+		</Panel>
+		<StackPanel ItemSpacing="10" Margin="10">
+			<Each Items="{items}">
+				<DockPanel Padding="8">
+					<Rectangle Color="#EDF8F8" CornerRadius="15,5,15,15" Layer="Background"/>
+					<Image Dock="Left" File="{image}" Height="50" Width="50"
+						Margin="0,0,12,0"/>
+					<Text Value="{name}" Font="Bold"/>
+					<Rectangle CornerRadius="5" Alignment="TopRight" Padding="5,2" Color="#FFF" StrokeWidth="1" StrokeColor="#AAA" Margin="-3">
+						<Text Value="{formattedCurrent}"/>
+					</Rectangle>
+					<WrapPanel Dock="Bottom">
+						<Each Items="{tags}">
+							<Text Font="Italic" Value="{data()}" Margin="5,0"/>
+						</Each>
+					</WrapPanel>
+				</DockPanel>
+			</Each>
+		</StackPanel>
+	</ClientPanel>
+</App>
