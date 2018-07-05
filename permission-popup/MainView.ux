@@ -1,0 +1,100 @@
+<App>
+	<Rectangle ux:Class="Button" CornerRadius="15" Color="#6643cd" Padding="30,10">
+		<string ux:Property="Label"/>
+		<Text Alignment="Center" Value="{Property this.Label}" Color="#FFF"/>
+	</Rectangle>
+	<Panel Alignment="Bottom" Margin="5,5,5,0" Padding="10">
+		<Rectangle Color="#FFF" CornerRadius="10,10,0,0" Layer="Background"/>
+		<PageControl ux:Name="nav" InactiveState="Disabled">
+			
+			<Page ux:Name="pageOne">
+				<StackPanel ItemSpacing="10">
+					<Panel Height="200" BoxSizing="FillAspect" Aspect="1" 
+						Alignment="HorizontalCenter" ux:Name="animBack"
+						HitTestMode="LocalBounds">
+						<Image File="Assets/bell.png" Width="60%"
+							X="50%" Y="30%" Anchor="50%,40%" ux:Name="layerBell"/>
+							
+						
+						<Panel Margin="5" ux:Name="layerStars">
+							<Rectangle StrokeColor="#A00" Width="3%" Height="3%" StrokeWidth="2"
+								X="10%" Y="2%">
+								<Rotation Degrees="45"/>
+							</Rectangle>
+							<Rectangle StrokeColor="#A00" Width="3%" Height="3%" StrokeWidth="2"
+								X="80%" Y="82%">
+								<Rotation Degrees="45"/>
+							</Rectangle>
+							<Rectangle StrokeColor="#808" Width="2.5%" Height="2.5%" StrokeWidth="2"
+								X="92%" Y="0%">
+								<Rotation Degrees="45"/>
+							</Rectangle>
+							<Rectangle StrokeColor="#384" Width="2.2%" Height="2.2%" StrokeWidth="2"
+								X="22%" Y="90%">
+								<Rotation Degrees="45"/>
+							</Rectangle>
+						</Panel>
+						
+						<Image File="Assets/pattern.png" StretchMode="Fill" Color="#DDE5"
+							ux:Name="layerImage" Margin="20"/>
+						
+						<Clicked>
+							<PulseBackward Target="pageAnim"/>
+						</Clicked>
+					</Panel>
+					<Timeline ux:Name="pageAnim">
+						<Scale Target="layerImage" Factor="0.5" Duration="1" Delay="0.8"/>
+						<Scale Target="layerStars" Factor="0" Duration="1" Delay="0.8" Easing="SinusoidalInOut"/>
+						
+						<Rotate Target="layerBell" KeyframeInterpolation="Smooth">
+							<Keyframe DegreesZ="0" Time="0"/>
+							<Keyframe DegreesZ="45" Time="0.3"/>
+							<Keyframe DegreesZ="-45" Time="1"/>
+							<Keyframe DegreesZ="0" Time="1.5"/>
+							<Keyframe DegreesZ="0" Time="1.8"/>
+						</Rotate>
+					</Timeline>
+					
+					<Panel Height="10"/>
+					<Text Value="Share Location" Color="#000" Alignment="HorizontalCenter"
+						ux:Name="text1A"/>
+					<Text Value="Are you happy with Google knowing every place you visit anytime, anywhere, even in your own apartment." Color="#555" TextAlignment="Center"
+						TextWrapping="Wrap" FontSize="12"
+						ux:Name="text1B"/>
+						
+					<Panel Height="10"/>
+					<Button Label="Confirm" Alignment="HorizontalCenter">
+						<Clicked>
+							<Set nav.Active="pageTwo"/>
+						</Clicked>
+					</Button>
+				</StackPanel>
+				
+				<Activated>
+					<PulseBackward Target="pageAnim"/>
+				</Activated>
+				<EnteringAnimation>
+					<Move Target="text1A" RelativeTo="ParentSize">
+						<Keyframe X="0" Time="0"/>
+						<Keyframe X="-0.5" Time="0.8"/>
+						<Keyframe X="-0.5" Time="1"/>
+					</Move>
+					<Move Target="text1B" RelativeTo="ParentSize" X="-0.25" Duration="1"/>
+				</EnteringAnimation>
+			</Page>
+			
+			<Page ux:Name="pageTwo">
+				<StackPanel>
+					<Text Value="Animation Two" Color="#000"/>
+					<Button Label="Confirm" Alignment="HorizontalCenter">
+						<Clicked>
+							<Set nav.Active="pageOne"/>
+						</Clicked>
+					</Button>
+				</StackPanel>
+			</Page>
+		</PageControl>
+	</Panel>
+
+	<Panel Color="#489"/>
+</App>

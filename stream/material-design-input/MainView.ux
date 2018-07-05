@@ -1,0 +1,48 @@
+<App>
+	<Panel ux:Class="MaterialInput" Margin="10" Padding="5,35,5,5">
+		<string ux:Property="Label"/>
+		<string ux:Property="Value"/>
+		<bool ux:Property="Invalid"/>
+		<Fuse.Controls.TextInputHint ux:Property="InputHint"/>
+		
+		<Text Value="{Property this.Label}" FontSize="18" HitTestMode="None" ux:Name="label" Color="#757575" Alignment="Bottom"/>
+		<WhileTrue ux:Name="nameOff">
+			<Move Target="label" Y="-30" Duration="0.2" Easing="CubicOut"/>
+			<Change label.FontSize="14" Duration="0.2"/>
+			<Change label.Color="#5264AE" Duration="0.2"/>
+		</WhileTrue>
+		<TextInput FontSize="18" ux:Name="input" Alignment="Bottom" Value="{Property this.Value}" InputHint="{Property this.InputHint}">
+			<WhileFocused>
+				<Change nameOff.Value="true"/>
+			</WhileFocused>
+			<WhileFocused>
+				<Change bar.Width="100" Duration="0.2"/>
+			</WhileFocused>
+			<WhileString Value="{Property input.Value}" Test="IsNotEmpty">
+				<Change nameOff.Value="true"/>
+			</WhileString>
+			
+			<WhileTrue Value="{Property this.Invalid}">
+				<Rectangle Layer="Background" StrokeColor="#FF2222" StrokeWidth="2"  Margin="-7"/>
+			</WhileTrue>
+		</TextInput>
+		<Rectangle Layer="Background" Color="#5264AE" Height="2" Alignment="Bottom"
+			ux:Name="bar" Width="0%"/>
+		<Rectangle Layer="Background" Color="#757575" Height="1" Alignment="Bottom"/>
+	</Panel>
+	
+	<LetString ux:Name="name"/>
+	<StackPanel Alignment="VerticalCenter">
+		<MaterialInput Label="Name" Value="{name}" ux:Name="textName"/>
+		<MaterialInput Label="Email" InputHint="Email"/>
+	</StackPanel>
+	
+	<StackPanel Alignment="Bottom">
+		<Switch>
+			<WhileTrue>
+				<Change textName.Invalid="true"/>
+			</WhileTrue>
+		</Switch>
+		<Text Alignment="Bottom" Value="Name: {name}"/>
+	</StackPanel>
+</App>
