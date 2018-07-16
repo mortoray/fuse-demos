@@ -1,0 +1,38 @@
+<App>
+	<string ux:Global="pathData" ux:Value="m 32.559187,152.71424 c -6.543768,-11.373 -13.087537,-22.746 -19.631305,-34.119 50.144841,0 100.289678,0 150.434528,0 11.54014,19.90674 23.08028,39.81349 34.62042,59.72023 -50.14484,0 -100.28968,0 -150.434521,0 -3.7542,-6.17361 -7.508395,-12.34721 -11.262594,-18.52083"/>
+	
+	<Path ux:Class="OutsidePath" Data="{= pathData}" StrokeColor="#000" StrokeWidth="2"/>
+	
+	<Panel Margin="20" Height="30%" ux:Name="wrapper">
+		<OutsidePath PathLength="0" PathStart="0" ux:Name="outside1"
+				StretchMode="Fill"/>
+		<OutsidePath PathLength="0" PathStart="0" ux:Name="outside2"
+				StretchMode="Fill"/>
+		<OutsidePath PathLength="0" PathStart="0" ux:Name="outside3"
+				StretchMode="Fill"/>
+		<Panel Alignment="HorizontalCenter" Width="100%" Height="30%"
+			BoxSizing="Limit" LimitWidth="0%" LimitHeight="100%"
+			ClipToBounds="true" ux:Name="insideBox" Margin="5">
+			<Panel Width="width(wrapper)" Height="height(wrapper) " Padding="10">
+				<Text Value="John Smith" TextColor="#000" FontSize="48" 
+						Alignment="Center"/>
+				<Path Data="{= pathData}" Color="#CAA" StretchMode="Fill"/>
+			</Panel>
+		</Panel>
+	</Panel>
+		
+	<Switch Alignment="Top">
+		<WhileTrue>
+			<Change outside1.PathLength="0.42" Duration="1"/>
+			<Change outside1.PathStart="0.54" Duration="1"/>
+			
+			<Change outside2.PathLength="0.2" Duration="1"/>
+			<Change outside2.PathStart="0.27" Duration="1"/>
+			
+			<Change outside3.PathLength="0.1" Duration="1"/>
+			<Change outside3.PathStart="0.07" Duration="1"/>
+			
+			<Change insideBox.LimitWidth="100" Duration="1"/>
+		</WhileTrue>
+	</Switch>
+</App>
